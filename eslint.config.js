@@ -22,8 +22,7 @@ export default tseslint.config(
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
-      ],
-      'semi': ["error", "always"]
+      ]
     },
   },
 )

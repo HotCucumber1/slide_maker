@@ -1,0 +1,85 @@
+import { Presentation } from "./objects";
+import {
+    addSlide,
+    addImageToSlide,
+    addTextToSlide,
+    setPresentationTitle,
+    setPresentationBackground,
+    setSlideBackground,
+    setSlidePosition,
+    setText,
+    setImagePosition,
+    setTextPosition,
+    setTextSize,
+    setImageSize,
+    setFontSize,
+    setFontFamily,
+    setFontStyle,
+    deleteSlideObjects,
+    deleteSlides
+} from "./functions";
+
+
+const presentation: Presentation = {
+    title: "Laboratory work №2",
+    slides: [],
+    selectedSlides: [],
+};
+console.log("Стартовая версия: ", presentation, "\n");
+
+const oneSlidePresentation = addSlide(presentation);
+console.log("Презентация с одним слайдом: ", oneSlidePresentation, "\n");
+
+
+const imageSlide = addImageToSlide(
+    oneSlidePresentation.slides[0],
+    { x: 100, y: 100},
+    { width: 500, height: 500 },
+    "./static/img6.jpg",
+    "Some photo",
+    );
+console.log("Слайд с картинкой: ", imageSlide, "\n");
+
+
+const textSlide = addTextToSlide(
+    oneSlidePresentation.slides[0],
+    "Some text",
+    { x: 100, y: 100},
+    { width: 500, height: 500},
+    12,
+    "Arial",
+    null,
+    {
+        value: "white",
+        type: "color",
+    });
+console.log("Слайд с тестом: ", textSlide, "\n");
+
+console.log("Новый title: ", setPresentationTitle(presentation, "New title"), "\n");
+
+console.log("Новый background презентации: ", setPresentationBackground(presentation, { value: "blue", type: "color"}), "\n");
+
+console.log("Новый background одного слайда: ", setSlideBackground(presentation.slides[0], { value: "blue", type: "color"}),"\n");
+
+const twoSlidesPres2 = setSlidePosition(presentation, presentation.slides[0], 1);
+console.log("2 : ", twoSlidesPres2, "\n");
+
+console.log("Слайд с новым текстом: ", setText(oneSlidePresentation.slides[0].content[0], "Hello text new"), "\n");
+
+console.log("Новая позиция картинки: ", setImagePosition(oneSlidePresentation.slides[0].content[0], { x: 200, y: 200}));
+
+console.log("Новый размер картинки: ", setImageSize(oneSlidePresentation.slides[0].content[0], { width: 1, height: 1}));
+
+console.log("Новая позиция текста: ", setTextPosition(oneSlidePresentation.slides[0].content[0], { x: 200, y: 200}));
+
+console.log("Новый размер текста: ", setTextSize(oneSlidePresentation.slides[0].content[0], { width: 1, height: 1}));
+
+console.log("Новый размер шрифта: ", setFontSize(oneSlidePresentation.slides[0].content[0], 36));
+
+console.log("Новый шрифт: ", setFontFamily(oneSlidePresentation.slides[0].content[0], "Times New Roman"));
+
+console.log("Новый стиль шрифта: ", setFontStyle(oneSlidePresentation.slides[0].content[0], "italic"));
+
+console.log("Слайд с удаленным текстом (без выделения): ", deleteSlideObjects(textSlide));
+
+console.log("Презентация с удаленным слайдом (без выделения): ", deleteSlides(oneSlidePresentation));

@@ -9,7 +9,8 @@ export default function FileNameArea(props: FileNameProps)
 {
     return (
         <div className={styles.fileNameArea}>
-            <span>{props.fileName}</span>
+            <img className={styles.icon} src="../../../../public/image/icon.png" alt="icon"></img>
+            <input className={styles.fileName} defaultValue={props.fileName} />
         </div>
     )
 }

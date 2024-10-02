@@ -1,43 +1,45 @@
 export type Presentation = {
     title: string;
     slides: Slide[];
-    selectedSlides: string[]; // вынести
 }
+
+export type SelectedSlides = string[];
 
 export type Slide = {
     id: string;
     background: Color|Gradient|Image;
-    content: Array<TextObject|ImageObject|FigureObject>;
-    selectedObjects: string[]; // вынести
+    content: Array<SlideObject>;
 }
 
-type SlideObject = {
+export type SelectedObjects = string[];
+
+type BaseObject = {
     id: string;
     pos: Point;
     size: Size;
-    // delete SlideId;
 }
 
-export type ImageObject = SlideObject & Image & {
-    alt: string; // убрать
-}
+export type ImageObject = BaseObject & Image;
 
-export type TextObject = SlideObject & {
+export type TextObject = BaseObject & {
     text: string;
     fontSize: number;
     fontFamily: string;
-    fontStyle: "italic"|"bold"|"underline"|null; // можно массив
+    fontStyles: FontStyle;
     color: Color;
     type: "text";
 }
 
-export type FigureObject = SlideObject & {
+export type FontStyle = Array<"italic"|"bold"|"underline">;
+
+export type FigureObject = BaseObject & {
     fillStyle: Color|Gradient;
     strokeStyle: Color;
     strokeWidth: number;
     type: "figure";
 }
 
+export type SlideObject = TextObject|ImageObject|FigureObject;
 
 export type Gradient = {
     colors: Color[];

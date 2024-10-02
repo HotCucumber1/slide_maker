@@ -1,7 +1,6 @@
 import {v4 as uuidv4} from "uuid";
 import {
     Color,
-    FigureObject,
     Gradient,
     Image,
     ImageObject,
@@ -9,7 +8,11 @@ import {
     Presentation,
     Size,
     Slide,
-    TextObject
+    TextObject,
+    SelectedObjects,
+    SelectedSlides,
+    SlideObject,
+    FontStyle,
 } from "./objects";
 
 export function setPresentationTitle(presentation: Presentation, newTitle: string): Presentation
@@ -29,7 +32,6 @@ export function addSlide(presentation: Presentation): Presentation
             type: "color",
         },
         content: [],
-        selectedObjects: [],
     };
     return {
         ...presentation,
@@ -37,20 +39,18 @@ export function addSlide(presentation: Presentation): Presentation
     };
 }
 
-export function deleteSlides(presentation: Presentation): Presentation // передавать selection
+export function deleteSlides(presentation: Presentation, selection: SelectedSlides): Presentation // передавать selection
 {
-    const newSlides = presentation.slides.filter(slide => presentation.selectedSlides.indexOf(slide.id) === -1);
+    const newSlides = presentation.slides.filter(slide => selection.indexOf(slide.id) === -1);
     return  {
         ...presentation,
-        selectedSlides: [],
         slides: newSlides,
     };
 }
 
 export function setSlidePosition(presentation: Presentation, slide: Slide, newPosition: number): Presentation
 {
-    // подумать
-    if (typeof slide === "undefined" || newPosition < 0 || newPosition > presentation.slides.length)
+    if (newPosition < 0 || newPosition > presentation.slides.length)
     {
         return presentation;
     }
@@ -67,24 +67,28 @@ export function setSlidePosition(presentation: Presentation, slide: Slide, newPo
 }
 
 export function addTextToSlide(slide: Slide,
-                               text: string,
                                position: Point,
-                               size: Size,
                                fontSize: number,
                                fontFamily: string,
-                               fontStyle: "italic"|"bold"|"underline"|null,
-                               color: Color): Slide
+                               fontStyles: FontStyle,
+                               size?: Size,
+                               color?: Color): Slide // в объект
 {
     // добавить дефолтные параметры
+    const defaultColor: Color = { value: "black", type: "color" };
+    const defaultTextPadding: number = 5;
+    const defaultSize: Size = { height: fontSize + 2 * defaultTextPadding, width: 500};
+    const defaultText: string = "";
+
     const textObject: TextObject = {
         id: uuidv4(),
         pos: position,
-        size: size,
-        text: text,
+        text: defaultText,
+        size: typeof size === "undefined" ? defaultSize : size,
         fontSize: fontSize,
         fontFamily: fontFamily,
-        fontStyle: fontStyle,
-        color: color,
+        fontStyles: fontStyles,
+        color: typeof color === "undefined" ? defaultColor : color,
         type: "text",
     };
     return {
@@ -96,15 +100,13 @@ export function addTextToSlide(slide: Slide,
 export function addImageToSlide(slide: Slide,
                                 position: Point,
                                 size: Size,
-                                src: string,
-                                alt: string): Slide
+                                src: string): Slide
 {
     const imageObject: ImageObject = {
         id: uuidv4(),
         pos: position,
         size: size,
         src: src,
-        alt: alt,
         type: "image"
     };
     return {
@@ -113,130 +115,118 @@ export function addImageToSlide(slide: Slide,
     };
 }
 
-export function deleteSlideObjects(slide: Slide): Slide
+export function deleteSlideObjects(slide: Slide, selection: SelectedObjects): Slide
 {
-    const newContent = slide.content.filter(object => slide.selectedObjects.indexOf(object.id) === -1);
+    const newContent = slide.content.filter(object => selection.indexOf(object.id) === -1);
     return {
         ...slide,
-        selectedObjects: [],
         content: newContent,
     };
 }
 
-export function setTextPosition(object: ImageObject|TextObject|FigureObject,
-                                newPosition: Point): ImageObject|TextObject|FigureObject
+export function setTextPosition(object: SlideObject, newPosition: Point): SlideObject
 {
-    if (typeof object !== "undefined" && object.type === "text")
+    if (object.type !== "text")
     {
-        return {
-            ...object,
-            pos: newPosition,
-        };
+        return object;
     }
-    return object;
+    return {
+        ...object,
+        pos: newPosition,
+    };
 }
 
-export function setTextSize(object: ImageObject|TextObject|FigureObject, // в отдельный тип
-                            newSize: Size): ImageObject|TextObject|FigureObject
+export function setTextSize(object: SlideObject, newSize: Size): SlideObject
 {
-    if (typeof object !== "undefined" && object.type === "text")
+    if (object.type !== "text")
     {
-        return {
-            ...object,
-            size: newSize,
-        };
+        return object;
     }
-    return object;
+    return {
+        ...object,
+        size: newSize,
+    };
 }
 
-export function setImagePosition(object: ImageObject|TextObject|FigureObject,
-                                 newPosition: Point): ImageObject|TextObject|FigureObject
+export function setImagePosition(object: SlideObject, newPosition: Point): SlideObject
 {
-    if (typeof object !== "undefined" && object.type === "image")
+    if (object.type !== "image")
     {
-        return {
-            ...object,
-            pos: newPosition,
-        };
+        return object;
     }
-    return object;
+    return {
+        ...object,
+        pos: newPosition,
+    };
 }
 
-export function setImageSize(object: ImageObject|TextObject|FigureObject,
-                             newSize: Size):ImageObject|TextObject|FigureObject
+export function setImageSize(object: SlideObject, newSize: Size): SlideObject
 {
-    if (typeof object !== "undefined" && object.type === "image")
+    if (object.type !== "image")
     {
-        return {
-            ...object,
-            size: newSize,
-        };
+        return object;
     }
-    return object;
+    return {
+        ...object,
+        size: newSize,
+    };
 }
 
-export function setText(content: TextObject|ImageObject|FigureObject,
-                        newText: string): TextObject|ImageObject|FigureObject
+export function setText(content: SlideObject, newText: string): SlideObject
 {
-    if (typeof content !== "undefined" && content.type === "text")
+    if (content.type !== "text")
     {
-        return {
-            ...content,
-            text: newText,
-        };
+        return content;
     }
-    return content;
+    return {
+        ...content,
+        text: newText,
+    };
 }
 
-export function setFontSize(content: TextObject|ImageObject|FigureObject,
-                            newFontSize: number): TextObject|ImageObject|FigureObject
+export function setFontSize(content: SlideObject, newFontSize: number): SlideObject
 {
-    if (typeof content !== "undefined" && content.type === "text")
+    if (content.type !== "text")
     {
-        return {
-            ...content,
-            fontSize: newFontSize,
-        };
+        return content;
     }
-    return content;
+    return {
+        ...content,
+        fontSize: newFontSize,
+    };
+
 }
 
-export function setFontFamily(content: TextObject|ImageObject|FigureObject,
-                              newFontFamily: string): TextObject|ImageObject|FigureObject
+export function setFontFamily(content: SlideObject, newFontFamily: string): SlideObject
 {
-    if (typeof content !== "undefined" && content.type === "text")
+    if (content.type !== "text")
     {
-        return {
-            ...content,
-            fontFamily: newFontFamily,
-        };
+        return content;
     }
-    return content;
+    return {
+        ...content,
+        fontFamily: newFontFamily,
+    };
 }
 
-export function setFontStyle(content: TextObject|ImageObject|FigureObject,
-                             newFontStyle: "italic"|"bold"|"underline"): TextObject|ImageObject|FigureObject
+export function setFontStyle(content: SlideObject, newFontStyles: FontStyle): SlideObject
 {
-    if (typeof content !== "undefined" && content.type === "text")
+    if (content.type !== "text")
     {
-        return {
-            ...content,
-            fontStyle: newFontStyle,
-        };
+        return content;
     }
-    return content;
+    return {
+        ...content,
+        fontStyles: newFontStyles,
+    };
 }
 
 export function setSlideBackground(slide: Slide, newBackground: Color|Image|Gradient): Slide
 {
-    if (typeof slide !== "undefined")
-    {
-        return {
-            ...slide,
-            background: newBackground,
-        };
-    }
-    return slide;
+    return {
+        ...slide,
+        background: newBackground,
+    };
 }
 
 export function setPresentationBackground(presentation: Presentation, newBackground: Color|Image|Gradient): Presentation

@@ -5,6 +5,7 @@ import styles from "./App.module.css";
 
 import {v4 as uuidv4} from "uuid";
 import WorkArea from "./view/workArea/WorkArea.tsx";
+import {addImageToSlide, addTextToSlide} from "./store/functions.ts";
 
 
 
@@ -12,15 +13,37 @@ export default function App() {
     const slides: Slide[] = [];
     for (let i = 0; i < 20; i++)
     {
-        slides.push(
-            {
+        const slide: Slide = {
             id: uuidv4(),
             background: {
                 value: "white",
                 type: "color",
             },
             content: [],
-        });
+        };
+        if (i % 2 == 1)
+        {
+            slides.push(
+                addTextToSlide(
+                    slide,
+                    {x: 100, y: 100},
+                    20,
+                    "Arial",
+                    ["italic"]
+                )
+            );
+        }
+        else
+        {
+            slides.push(
+                addImageToSlide(
+                    slide,
+                    {x: 100, y: 100},
+                    {width: 500, height: 500},
+                    "../public/image/earth.gif",
+                )
+            );
+        }
     }
 
     const newPresentation: Presentation = {

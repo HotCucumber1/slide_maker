@@ -1,4 +1,5 @@
 import {Color, Gradient, Image, SlideObject} from "../../store/objects.ts";
+import SlideObjectView from "./slideObject/SlideObjectView.tsx";
 import styles from "./SlideView.module.css";
 import joinStyles from "../../service/joinStyles.ts";
 
@@ -22,23 +23,21 @@ export default function SlideView(props: SlideProps)
             slideStyle["backgroundImage"] = "url(" + props.background.src + ")";
             break;
         case "gradient":
-            // TODO: дописать
+            slideStyle["background"] =
+                "linear-gradient(" + props.background.angle + "deg, " + props.background.colors.join(", ") + ")";
+            // TODO: протестировать
             break;
     }
 
-    // const slideObjects = props.content.map(object => {
-    //     const objectsStyle = {
-    //         top: object.pos.y,
-    //         left: object.pos.x,
-    //         width: object.size.width,
-    //         height: object.size.height,
-    //     }
-    //     switch (object.type)
-    //     {
-    //         case "text":
-    //             <input style={objectsStyle} className={styles.inputField} value={object.text}/>
-    //     }
-    // });
+    const slideObjects = props.content.map(object => {
+        return (
+            <SlideObjectView
+                object={object}
+                key={object.id}
+            >
+            </SlideObjectView>
+        )
+    });
 
 
     return (
@@ -49,6 +48,7 @@ export default function SlideView(props: SlideProps)
                 styles.slide
             ])}
         >
+            {slideObjects}
         </div>
     )
 }

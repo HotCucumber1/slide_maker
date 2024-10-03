@@ -6,6 +6,7 @@
     aspect-ratio: 16/9;
     box-shadow: 0 5px 5px var(--light-gray-color);
     border: 1px solid var(--light-gray-color);
+    position: relative;
 }
 
 .inListSlide {
@@ -19,8 +20,4 @@
     min-width: 800px;
     margin-inline: auto;
     border-radius: 20px;
-}
-
-.inputField {
-
 }

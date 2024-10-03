@@ -1,13 +1,15 @@
 import {Color, Gradient, Image, SlideObject} from "../../store/objects.ts";
-import styles from "./Slide.module.css";
+import styles from "./SlideView.module.css";
+
 
 type SlideProps = {
+    type: "listElement"|"active",
     background: Color|Gradient|Image,
     content: Array<SlideObject>,
 };
 
 
-export default function Slide(props: SlideProps)
+export default function SlideView(props: SlideProps)
 {
     const slideStyle = {};
     switch (props.background.type)
@@ -39,7 +41,10 @@ export default function Slide(props: SlideProps)
 
 
     return (
-        <div style={slideStyle}>
+        <div
+            style={slideStyle}
+            className={props.type === "listElement" ? styles.inListSlide : styles.activeSlide}
+        >
         </div>
     )
 }

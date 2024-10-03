@@ -1,0 +1,25 @@
+.slideObject {
+    position: absolute;
+}
+
+.inListSlide {
+    width: 160px;
+    height: 90px;
+    border-radius: 10px;
+    box-shadow: 0 5px 5px var(--light-gray-color);
+    border: 1px solid var(--light-gray-color);
+    margin-bottom: 20px;
+}
+
+.activeSlide {
+    width: 160px;
+    height: 90px;
+    border-radius: 10px;
+    box-shadow: 0 5px 5px var(--light-gray-color);
+    border: 1px solid var(--light-gray-color);
+    margin-bottom: 20px;
+}
+
+.inputField {
+
+}

@@ -15,13 +15,3 @@
     background-color: var(--light-gray-color);
     border-radius: 4px;
 }
-
-.slideList__slide {
-    width: 160px;
-    height: 90px;
-    border-radius: 10px;
-    box-shadow: 0 5px 5px var(--light-gray-color);
-    background-color: white;
-    border: 1px solid var(--light-gray-color);
-    margin-bottom: 20px;
-}

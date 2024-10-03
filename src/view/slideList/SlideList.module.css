@@ -1,6 +1,7 @@
 .slideList {
-    width: fit-content;
+    min-width: fit-content;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 15px;
     margin-left: 20px;
     margin-bottom: 20px;

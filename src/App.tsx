@@ -4,6 +4,7 @@ import {Presentation, Slide} from "./store/objects.ts";
 import styles from "./App.module.css";
 
 import {v4 as uuidv4} from "uuid";
+import WorkArea from "./view/workArea/WorkArea.tsx";
 
 
 
@@ -32,6 +33,7 @@ export default function App() {
             <ToolBar fileName={newPresentation.title}></ToolBar>
             <div className={styles.slideArea}>
                 <SlideList slides={newPresentation.slides}></SlideList>
+                <WorkArea activeSlide={slides[0]}></WorkArea>
             </div>
         </>
     )

@@ -1,5 +1,6 @@
 import {Color, Gradient, Image, SlideObject} from "../../store/objects.ts";
 import styles from "./SlideView.module.css";
+import joinStyles from "../../service/joinStyles.ts";
 
 
 type SlideProps = {
@@ -43,7 +44,10 @@ export default function SlideView(props: SlideProps)
     return (
         <div
             style={slideStyle}
-            className={props.type === "listElement" ? styles.inListSlide : styles.activeSlide}
+            className={joinStyles([
+                props.type === "listElement" ? styles.inListSlide : styles.activeSlide,
+                styles.slide
+            ])}
         >
         </div>
     )

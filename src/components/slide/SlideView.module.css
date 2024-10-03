@@ -2,22 +2,23 @@
     position: absolute;
 }
 
-.inListSlide {
-    width: 160px;
-    height: 90px;
-    border-radius: 10px;
+.slide {
+    aspect-ratio: 16/9;
     box-shadow: 0 5px 5px var(--light-gray-color);
     border: 1px solid var(--light-gray-color);
+}
+
+.inListSlide {
+    width: 160px;
+    border-radius: 10px;
     margin-bottom: 20px;
 }
 
 .activeSlide {
-    width: 160px;
-    height: 90px;
-    border-radius: 10px;
-    box-shadow: 0 5px 5px var(--light-gray-color);
-    border: 1px solid var(--light-gray-color);
-    margin-bottom: 20px;
+    max-width: 75%;
+    min-width: 800px;
+    margin-inline: auto;
+    border-radius: 20px;
 }
 
 .inputField {

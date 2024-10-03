@@ -1,0 +1,38 @@
+.toolBar {
+    margin: 0 15px 15px;
+    box-shadow: 0 5px 5px var(--light-gray-color);
+    border-radius: var(--block-border-radius);
+}
+
+.fileNameArea {
+    height: var(--block-height);
+    display: flex;
+}
+
+.icon {
+    margin-left: 10px;
+    margin-block: 5px;
+}
+
+.fileName {
+    display: inline-block;
+    margin-left: 15px;
+    outline: none;
+    border: none;
+    background-color: inherit;
+    font-family: sans-serif;
+    font-size: 20px;
+    color: dimgray;
+}
+
+.toolArea {
+    background-color: #F7F7F7;
+    height: 40px;
+    border-bottom-right-radius: var(--block-border-radius);
+    border-bottom-left-radius: var(--block-border-radius);
+}
+
+:root {
+    --block-border-radius: 15px;
+    --block-height: 40px;
+}

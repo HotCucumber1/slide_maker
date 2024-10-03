@@ -1,4 +1,4 @@
-import {Presentation, SelectedObjects, SelectedSlides} from "./objects";
+import {Presentation, SelectedObjects, SelectedSlides} from "./objects.ts";
 import {
     addSlide,
     addImageToSlide,
@@ -17,7 +17,7 @@ import {
     setFontStyle,
     deleteSlideObjects,
     deleteSlides
-} from "./functions";
+} from "./functions.ts";
 
 
 const presentation: Presentation = {

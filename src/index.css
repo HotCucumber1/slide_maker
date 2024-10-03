@@ -1,8 +1,18 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
     background-color: #FAFAFA;
+}
+
+#root {
+    height: 100vh;
+    padding-top: 15px;
+}
+
+:root {
+    --light-gray-color: #EAEAEA;
 }

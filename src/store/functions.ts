@@ -13,7 +13,7 @@ import {
     SelectedSlides,
     SlideObject,
     FontStyle,
-} from "./objects";
+} from "./objects.ts";
 
 export function setPresentationTitle(presentation: Presentation, newTitle: string): Presentation
 {
@@ -39,7 +39,7 @@ export function addSlide(presentation: Presentation): Presentation
     };
 }
 
-export function deleteSlides(presentation: Presentation, selection: SelectedSlides): Presentation // передавать selection
+export function deleteSlides(presentation: Presentation, selection: SelectedSlides): Presentation
 {
     const newSlides = presentation.slides.filter(slide => selection.indexOf(slide.id) === -1);
     return  {
@@ -72,9 +72,8 @@ export function addTextToSlide(slide: Slide,
                                fontFamily: string,
                                fontStyles: FontStyle,
                                size?: Size,
-                               color?: Color): Slide // в объект
+                               color?: Color): Slide
 {
-    // добавить дефолтные параметры
     const defaultColor: Color = { value: "black", type: "color" };
     const defaultTextPadding: number = 5;
     const defaultSize: Size = { height: fontSize + 2 * defaultTextPadding, width: 500};

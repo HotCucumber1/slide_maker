@@ -1,9 +1,0 @@
-.toolBar {
-    margin: 15px;
-    box-shadow: 0 5px 5px #EAEAEA;
-    border-radius: var(--block-border-radius);
-}
-
-:root {
-    --block-border-radius: 15px;
-}

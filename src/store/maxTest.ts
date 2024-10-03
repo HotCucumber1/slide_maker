@@ -1,4 +1,4 @@
-import { Presentation } from "./objects";
+import { Presentation } from "./objects.ts";
 import {
     addSlide,
     addImageToSlide,
@@ -17,13 +17,12 @@ import {
     setFontStyle,
     deleteSlideObjects,
     deleteSlides
-} from "./functions";
+} from "./functions.ts";
 
 
 const presentation: Presentation = {
     title: "Laboratory work №2",
     slides: [],
-    selectedSlides: [],
 };
 console.log("Стартовая версия: ", presentation, "\n");
 

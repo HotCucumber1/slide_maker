@@ -11,18 +11,20 @@ export default function SlideList(props: SlideListProps)
 {
     const slides = props.slides.map(slide => {
         return (
-            <SlideView
-                type={"listElement"}
-                background={slide.background}
-                content={slide.content}
-                key={slide.id}
-            >
-            </SlideView>
+            <li key={slide.id}>
+                <SlideView
+                    type={"listElement"}
+                    background={slide.background}
+                    content={slide.content}
+                    key={slide.id}
+                >
+                </SlideView>
+            </li>
         )
     });
     return (
-        <div className={styles.slideList}>
+        <ol className={styles.slideList}>
             {slides}
-        </div>
+        </ol>
     )
 }

@@ -53,7 +53,6 @@ export default function App() {
             src: "../public/image/earth.gif",
             type: "image",
         },
-
         content: []
     });
 

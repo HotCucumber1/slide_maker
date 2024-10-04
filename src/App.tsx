@@ -47,6 +47,16 @@ export default function App() {
         }]
     });
 
+    slides.push({
+        id: uuidv4(),
+        background: {
+            src: "../public/image/earth.gif",
+            type: "image",
+        },
+
+        content: []
+    });
+
     for (let i = 0; i < 8; i++)
     {
         const slide: Slide = {

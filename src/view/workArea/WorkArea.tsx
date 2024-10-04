@@ -9,13 +9,16 @@ type WorkAreaProps = {
 
 export default function WorkArea(props: WorkAreaProps)
 {
-    return (
-        <div className={styles.workArea}>
-            <SlideView
-                type={"active"}
-                background={props.activeSlide.background}
-                content={props.activeSlide.content}>
-            </SlideView>
-        </div>
-    )
+    if (props.activeSlide !== undefined)
+    {
+        return (
+            <div className={styles.workArea}>
+                <SlideView
+                    type={"active"}
+                    background={props.activeSlide.background}
+                    content={props.activeSlide.content}>
+                </SlideView>
+            </div>
+        )
+    }
 }

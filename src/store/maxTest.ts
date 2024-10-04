@@ -1,4 +1,4 @@
-import { Presentation } from "./objects.ts";
+import {Presentation, SelectedObjects, SelectedSlides} from "./objects";
 import {
     addSlide,
     addImageToSlide,
@@ -17,8 +17,11 @@ import {
     setFontStyle,
     deleteSlideObjects,
     deleteSlides
-} from "./functions.ts";
+} from "./functions";
 
+
+const selectedSlides: SelectedSlides = [];
+const selectedObjects: SelectedObjects = [];
 
 const presentation: Presentation = {
     title: "Laboratory work №2",
@@ -36,38 +39,34 @@ const imageSlide = addImageToSlide(
     { x: 100, y: 100},
     {width: 500, height: 500},
     "./static/img6.jpg",
-    "Some photo",
 );
 const image2Slide = addImageToSlide(
     imageSlide,
     { x: 100, y: 100},
     {width: 500, height: 500},
     "./static/img6.jpg",
-    "Some photo",
 );
 console.log("Слайд с 2-мя картинкой: ", image2Slide, "\n");
 
 
 const textSlide = addTextToSlide(
     twoSlidesPres.slides[0],
-    "Some text",
     { x: 100, y: 100},
-    { width: 500, height: 500},
     12,
     "Arial",
-    null,
+    ["italic", "bold"],
+    { width: 500, height: 500},
     {
         value: "white",
         type: "color",
     });
 const text2Slide = addTextToSlide(
     textSlide,
-    "Some text",
     { x: 100, y: 100},
-    { width: 500, height: 500},
     12,
     "Arial",
-    null,
+    ["bold", "underline"],
+    { width: 500, height: 500},
     {
         value: "white",
         type: "color",
@@ -96,29 +95,12 @@ console.log("Новый размер текста: ", setTextSize(text2Slide.con
 console.log('Новый размер шрифта: ', setFontSize(textSlide.content[0], 36), "\n");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 console.log("Новый шрифт: ", setFontFamily(text2Slide.content[0], "Times New Roman"), "\n");
 
-console.log("Новый стиль шрифта: ", setFontStyle(text2Slide.content[0], "italic"), "\n");
+console.log("Новый стиль шрифта: ", setFontStyle(text2Slide.content[0], ["italic"]), "\n");
 
-text2Slide.selectedObjects.push(text2Slide.content[0].id);
-console.log("Слайд с удаленным текстом: ", deleteSlideObjects(text2Slide), "\n");
+selectedObjects.push(text2Slide.content[0].id);
+console.log("Слайд с удаленным текстом: ", deleteSlideObjects(text2Slide, selectedObjects), "\n");
 
-twoSlidesPres.selectedSlides.push(twoSlidesPres.slides[0].id);
-console.log("Презентация с удаленным слайдом: ", deleteSlides(twoSlidesPres), "\n");
+selectedSlides.push(twoSlidesPres.slides[0].id);
+console.log("Презентация с удаленным слайдом: ", deleteSlides(twoSlidesPres, selectedSlides), "\n");

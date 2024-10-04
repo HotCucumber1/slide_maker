@@ -13,7 +13,7 @@ import {
     SelectedSlides,
     SlideObject,
     FontStyle, FigureObject,
-} from "./objects.ts";
+} from "./objects";
 
 export function setPresentationTitle(presentation: Presentation, newTitle: string): Presentation
 {

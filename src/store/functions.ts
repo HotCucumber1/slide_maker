@@ -12,7 +12,7 @@ import {
     SelectedObjects,
     SelectedSlides,
     SlideObject,
-    FontStyle,
+    FontStyle, FigureObject,
 } from "./objects.ts";
 
 export function setPresentationTitle(presentation: Presentation, newTitle: string): Presentation
@@ -112,6 +112,38 @@ export function addImageToSlide(slide: Slide,
         ...slide,
         content: [...slide.content, imageObject],
     };
+}
+
+export function addFigureToSlide(slide: Slide,
+                                 position: Point,
+                                 size: Size,
+                                 fillStyle?: Color|Gradient,
+                                 strokeWidth?: number,
+                                 strokeStyle?: Color): Slide
+{
+    const baseFillStyle: Color = {
+        value: "white",
+        type: "color",
+    };
+    const baseStrokeWidth = 1;
+    const baseStrokeStyle: Color = {
+        value: "black",
+        type: "color",
+    };
+    const figureObject: FigureObject = {
+        id: uuidv4(),
+        pos: position,
+        size: size,
+        fillStyle: typeof fillStyle === "undefined" ? baseFillStyle : fillStyle,
+        strokeWidth: typeof strokeWidth === "undefined" ? baseStrokeWidth : strokeWidth,
+        strokeStyle:  typeof strokeStyle === "undefined" ? baseStrokeStyle : strokeStyle,
+        type: "figure",
+    }
+
+    return {
+        ...slide,
+        content: [...slide.content, figureObject],
+    }
 }
 
 export function deleteSlideObjects(slide: Slide, selection: SelectedObjects): Slide

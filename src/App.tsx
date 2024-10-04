@@ -11,23 +11,32 @@ import {v4 as uuidv4} from "uuid";
 
 export default function App() {
     const slides: Slide[] = [];
-    for (let i = 0; i < 20; i++)
+    slides.push();
+
+    for (let i = 0; i < 8; i++)
     {
         const slide: Slide = {
             id: uuidv4(),
             background: {
-                value: "white",
-                type: "color",
+                colors: [
+                    {value: "white", type: "color"},
+                    {value: "green", type: "color"},
+                ],
+                angle: 45,
+                type: "gradient",
             },
             content: [],
         };
-        if (i % 2 == 1)
+        if (i % 2 == 0)
         {
             slides.push(
                 addTextToSlide(
                     slide,
-                    {x: 100, y: 100},
-                    20,
+                    {
+                        x: 100,
+                        y: 100
+                    },
+                    40,
                     "Arial",
                     ["italic"]
                 )

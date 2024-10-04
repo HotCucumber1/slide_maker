@@ -1,6 +1,8 @@
 import {Size, SlideObject} from "../../store/objects.ts";
 import {CSSProperties} from "react";
 
+import styles from "./SlideObject.module.css";
+
 
 type SlideObjectProps = {
     object: SlideObject,
@@ -37,6 +39,7 @@ export default function SlideObjectView(props: SlideObjectProps)
             }
             return (
                 <input
+                    className={styles.textObject}
                     style={objectStyle}
                     defaultValue={props.object.text}
                 />
@@ -58,8 +61,9 @@ export default function SlideObjectView(props: SlideObjectProps)
                     break;
                 case "gradient":
                     objectStyle["background"] =
-                        "linear-gradient(" + props.object.fillStyle.angle + "deg, " + props.object.fillStyle.colors.join(", ") + ")";
-                    // TODO: протестировать
+                        "linear-gradient(" + props.object.fillStyle.angle + "deg, " + props.object.fillStyle.colors
+                                                                                                                .map(color => color.value)
+                                                                                                                .join(", ") + ")";
                     break;
             }
             return (

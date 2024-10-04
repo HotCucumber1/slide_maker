@@ -31,8 +31,9 @@ export default function SlideView(props: SlideProps)
             break;
         case "gradient":
             slideStyle["background"] =
-                "linear-gradient(" + props.background.angle + "deg, " + props.background.colors.join(", ") + ")";
-            // TODO: протестировать
+                "linear-gradient(" + props.background.angle + "deg, " + props.background.colors
+                                                                                            .map(color => color.value)
+                                                                                            .join(", ") + ")";
             break;
     }
 
@@ -41,7 +42,7 @@ export default function SlideView(props: SlideProps)
             <SlideObjectView
                 slideSize={{
                     width: slideWidth,
-                    height: slideHeight
+                    height: slideHeight,
                 }}
                 object={object}
                 key={object.id}
@@ -49,7 +50,6 @@ export default function SlideView(props: SlideProps)
             </SlideObjectView>
         )
     });
-
 
     return (
         <div

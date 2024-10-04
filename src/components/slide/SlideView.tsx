@@ -1,5 +1,5 @@
 import {Color, Gradient, Image, SlideObject} from "../../store/objects.ts";
-import SlideObjectView from "./slideObject/SlideObjectView.tsx";
+import SlideObjectView from "../slideObject/SlideObjectView.tsx";
 import styles from "./SlideView.module.css";
 import joinStyles from "../../service/joinStyles.ts";
 import {CSSProperties} from "react";

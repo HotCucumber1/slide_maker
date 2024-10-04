@@ -1,4 +1,4 @@
-import {Size, SlideObject} from "../../../store/objects.ts";
+import {Size, SlideObject} from "../../store/objects.ts";
 import {CSSProperties} from "react";
 
 

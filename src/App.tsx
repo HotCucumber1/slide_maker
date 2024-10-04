@@ -3,9 +3,9 @@ import SlideList from "./view/slideList/SlideList.tsx";
 import {Presentation, Slide} from "./store/objects.ts";
 import styles from "./App.module.css";
 
-import {v4 as uuidv4} from "uuid";
 import WorkArea from "./view/workArea/WorkArea.tsx";
 import {addImageToSlide, addTextToSlide} from "./store/functions.ts";
+import {v4 as uuidv4} from "uuid";
 
 
 

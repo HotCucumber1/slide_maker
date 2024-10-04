@@ -39,8 +39,10 @@ export default function SlideView(props: SlideProps)
     const slideObjects = props.content.map(object => {
         return (
             <SlideObjectView
-                slideWidth={slideWidth}
-                slideHeight={slideHeight}
+                slideSize={{
+                    width: slideWidth,
+                    height: slideHeight
+                }}
                 object={object}
                 key={object.id}
             >

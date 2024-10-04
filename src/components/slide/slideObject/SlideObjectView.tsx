@@ -1,11 +1,10 @@
-import {SlideObject} from "../../../store/objects.ts";
+import {Size, SlideObject} from "../../../store/objects.ts";
 import {CSSProperties} from "react";
 
 
 type SlideObjectProps = {
     object: SlideObject,
-    slideWidth: number,
-    slideHeight: number,
+    slideSize: Size,
 };
 
 
@@ -13,10 +12,10 @@ export default function SlideObjectView(props: SlideObjectProps)
 {
     const objectStyle: CSSProperties = {
         position: "absolute",
-        top: props.object.pos.y / props.slideHeight * 100 + '%',
-        left: props.object.pos.x / props.slideWidth * 100 + "%",
-        width: props.object.size.width / props.slideWidth * 100 + "%",
-        height: props.object.size.height / props.slideHeight * 100 + "%",
+        top: props.object.pos.y / props.slideSize.height * 100 + '%',
+        left: props.object.pos.x / props.slideSize.width * 100 + "%",
+        width: props.object.size.width / props.slideSize.width * 100 + "%",
+        height: props.object.size.height / props.slideSize.height * 100 + "%",
     };
     switch (props.object.type)
     {

@@ -2,6 +2,7 @@ import {Color, Gradient, Image, SlideObject} from "../../store/objects.ts";
 import SlideObjectView from "./slideObject/SlideObjectView.tsx";
 import styles from "./SlideView.module.css";
 import joinStyles from "../../service/joinStyles.ts";
+import {CSSProperties} from "react";
 
 
 type SlideProps = {
@@ -13,7 +14,13 @@ type SlideProps = {
 
 export default function SlideView(props: SlideProps)
 {
-    const slideStyle = {};
+    const slideWidth= 1200;
+    const slideHeight= 675;
+
+    const slideStyle: CSSProperties = {
+        "width": props.type === "active" ? slideWidth + "px" : "",
+        "height": props.type === "active" ? slideHeight + "px" : ""
+    };
     switch (props.background.type)
     {
         case "color":
@@ -32,6 +39,8 @@ export default function SlideView(props: SlideProps)
     const slideObjects = props.content.map(object => {
         return (
             <SlideObjectView
+                slideWidth={slideWidth}
+                slideHeight={slideHeight}
                 object={object}
                 key={object.id}
             >

@@ -1,26 +1,29 @@
 import {SlideObject} from "../../../store/objects.ts";
+import {CSSProperties} from "react";
 
 
 type SlideObjectProps = {
     object: SlideObject,
+    slideWidth: number,
+    slideHeight: number,
 };
 
 
 export default function SlideObjectView(props: SlideObjectProps)
 {
-    const objectStyle = {
+    const objectStyle: CSSProperties = {
         position: "absolute",
-        top: props.object.pos.y + "px",
-        left: props.object.pos.x + "px",
-        width: props.object.size.width + "px",
-        height: props.object.size.height + "px",
+        top: props.object.pos.y / props.slideHeight * 100 + '%',
+        left: props.object.pos.x / props.slideWidth * 100 + "%",
+        width: props.object.size.width / props.slideWidth * 100 + "%",
+        height: props.object.size.height / props.slideHeight * 100 + "%",
     };
     switch (props.object.type)
     {
         case "text":
             objectStyle["fontSize"] = props.object.fontSize + "px";
             objectStyle["fontFamily"] = props.object.fontFamily;
-            objectStyle["color"] = props.object.color;
+            objectStyle["color"] = props.object.color.value;
             if (props.object.fontStyles.indexOf("underline"))
             {
                 objectStyle["textDecoration"] = "underline";
@@ -40,7 +43,6 @@ export default function SlideObjectView(props: SlideObjectProps)
                 />
             )
         case "image":
-            console.log(props.object.src.split("/"))
             return (
                 <img
                     style={objectStyle}

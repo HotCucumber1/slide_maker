@@ -1,6 +1,7 @@
 import SlideView from "../../components/slide/SlideView.tsx";
-import {Slide} from "../../store/objects.ts";
 import styles from "./WorkArea.module.css";
+
+import {Slide} from "../../store/objects.ts";
 
 type WorkAreaProps = {
     activeSlide?: Slide,

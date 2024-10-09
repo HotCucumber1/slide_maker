@@ -38,17 +38,15 @@ export default function SlideView({scale, background, content, style}: SlideProp
             break;
     }
 
-    const slideObjects = content.map(object => {
-        return (
-            // TODO: с помощью switch case определять тип объекта и вынести их в отдельные компоненты
-            <SlideObjectView
-                scale={scale}
-                object={object}
-                key={object.id}
-            >
-            </SlideObjectView>
-        )
-    });
+    const slideObjects = content.map(object => (
+        // TODO: с помощью switch case определять тип объекта и вынести их в отдельные компоненты
+        <SlideObjectView
+            scale={scale}
+            object={object}
+            key={object.id}
+        >
+        </SlideObjectView>
+    ));
 
     return (
         <div

@@ -22,22 +22,24 @@ export default function SlideList({slides}: SlideListProps)
 
     // TODO: добавить фигуры
     // TODO: добавить получение презентации в каждую фукнкцию
-    const slidesList = slides.map(slide => {
-        return (
-            <li key={slide.id}>
-                <div className={styles.slidePreviewWrapper}>
-                    <SlideView
-                        scale={SLIDE_SCALE}
-                        background={slide.background}
-                        content={slide.content}
-                        key={slide.id}
-                        style={{borderRadius: 'var(--slide-preview-border-radius)'}}
-                    >
-                    </SlideView>
-                </div>
-            </li>
-        )
-    });
+    const slidesList = slides.map(slide => (
+        <li key={slide.id}>
+            <div className={styles.slidePreviewWrapper}>
+                <SlideView
+                    scale={SLIDE_SCALE}
+                    background={slide.background}
+                    content={slide.content}
+                    key={slide.id}
+                    style={{
+                        borderRadius: 'var(--slide-preview-border-radius)',
+                        pointerEvents: "none"
+                    }}
+                >
+                </SlideView>
+            </div>
+        </li>
+    ));
+
     return (
         <ol className={styles.slideList}>
             {slidesList}

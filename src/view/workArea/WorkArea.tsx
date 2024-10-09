@@ -3,22 +3,24 @@ import {Slide} from "../../store/objects.ts";
 import styles from "./WorkArea.module.css";
 
 type WorkAreaProps = {
-    activeSlide: Slide,
+    activeSlide?: Slide,
 }
 
 
 export default function WorkArea(props: WorkAreaProps)
 {
-    if (props.activeSlide !== undefined)
+    const SCALE: number = 1;
+    if (props.activeSlide === undefined)
     {
-        return (
-            <div className={styles.workArea}>
-                <SlideView
-                    type={"active"}
-                    background={props.activeSlide.background}
-                    content={props.activeSlide.content}>
-                </SlideView>
-            </div>
-        )
+        return;
     }
+    return (
+        <div className={styles.workArea}>
+            <SlideView
+                scale={SCALE}
+                background={props.activeSlide.background}
+                content={props.activeSlide.content}>
+            </SlideView>
+        </div>
+    )
 }

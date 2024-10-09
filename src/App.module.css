@@ -1,5 +1,5 @@
 .slideArea {
-    height: 85%;
+    height: calc(100vh - 2 * (var(--tool-bar-block-height) + var(--tool-bar-margin)));
     display: flex;
     gap: 0 20px;
 }

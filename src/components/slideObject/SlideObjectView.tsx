@@ -21,6 +21,7 @@ export default function SlideObjectView(props: SlideObjectProps)
     };
     switch (props.object.type)
     {
+        // TODO: вынести это и разделить по объектам
         case "text":
             objectStyle["fontSize"] = props.object.fontSize + "px";
             objectStyle["fontFamily"] = props.object.fontFamily;

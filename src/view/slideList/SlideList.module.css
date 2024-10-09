@@ -1,18 +1,28 @@
 .slideList {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
     min-width: fit-content;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 15px;
+    padding: 10px 15px 0;
     margin-left: 20px;
     margin-bottom: 20px;
-    height: 100%;
 }
 
 .slideList::-webkit-scrollbar {
     width: 8px;
 }
 
+li::marker {
+    z-index: 100;
+}
+
 .slideList::-webkit-scrollbar-thumb {
     background-color: var(--light-gray-color);
     border-radius: 4px;
+}
+
+.slidePreviewWrapper {
+    overflow: hidden;
 }

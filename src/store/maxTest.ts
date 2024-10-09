@@ -34,6 +34,7 @@ const twoSlidesPres = addSlide(oneSlidePresentation);
 console.log("Презентация с двумя слайдом: ", twoSlidesPres, "\n");
 
 
+// передавать presentation
 const imageSlide = addImageToSlide(
     twoSlidesPres.slides[0],
     { x: 100, y: 100},

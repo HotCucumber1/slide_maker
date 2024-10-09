@@ -1,11 +1,11 @@
 .toolBar {
-    margin: 0 15px 15px;
+    margin: 0 var(--tool-bar-margin) var(--tool-bar-margin);
     box-shadow: 0 5px 5px var(--light-gray-color);
-    border-radius: var(--block-border-radius);
+    border-radius: var(--tool-bar-border-radius);
 }
 
 .fileNameArea {
-    height: var(--block-height);
+    height: var(--tool-bar-block-height);
     display: flex;
 }
 
@@ -19,20 +19,15 @@
     margin-left: 15px;
     outline: none;
     border: none;
-    background-color: inherit;
-    font-family: sans-serif;
+    background-color: transparent;
+    font-family: var(--font-family);
     font-size: 20px;
     color: dimgray;
 }
 
 .toolArea {
-    background-color: #F7F7F7;
-    height: 40px;
-    border-bottom-right-radius: var(--block-border-radius);
-    border-bottom-left-radius: var(--block-border-radius);
-}
-
-:root {
-    --block-border-radius: 15px;
-    --block-height: 40px;
+    background-color: #EDF2FA;
+    height: var(--tool-bar-block-height);
+    border-bottom-right-radius: var(--tool-bar-border-radius);
+    border-bottom-left-radius: var(--tool-bar-border-radius);
 }

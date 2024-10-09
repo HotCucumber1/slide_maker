@@ -1,48 +1,50 @@
 import {Color, Gradient, Image, SlideObject} from "../../store/objects.ts";
 import SlideObjectView from "../slideObject/SlideObjectView.tsx";
 import styles from "./SlideView.module.css";
-import joinStyles from "../../service/joinStyles.ts";
 import {CSSProperties} from "react";
 
 
 type SlideProps = {
-    type: "listElement"|"active",
+    scale: number,
     background: Color|Gradient|Image,
     content: Array<SlideObject>,
+    style?: CSSProperties,
 };
 
 
-export default function SlideView(props: SlideProps)
+export default function SlideView({scale, background, content, style}: SlideProps)
 {
-    const slideWidth= 1200;
-    const slideHeight= 675;
+    const SLIDE_WIDTH= 1200;
+    const SLIDE_HEIGHT= 675;
 
     const slideStyle: CSSProperties = {
-        "width": props.type === "active" ? slideWidth + "px" : "",
-        "height": props.type === "active" ? slideHeight + "px" : ""
+        ...style,
+        width: SLIDE_WIDTH * scale + "px",
+        height: SLIDE_HEIGHT * scale + "px",
     };
-    switch (props.background.type)
+    switch (background.type)
     {
         case "color":
-            slideStyle["backgroundColor"] = props.background.value;
+            slideStyle["backgroundColor"] = background.value;
             break;
         case "image":
-            slideStyle["backgroundImage"] = "url(" + props.background.src + ")";
+            slideStyle["backgroundImage"] = "url(" + background.src + ")";
             break;
         case "gradient":
             slideStyle["background"] =
-                "linear-gradient(" + props.background.angle + "deg, " + props.background.colors
-                                                                                            .map(color => color.value)
-                                                                                            .join(", ") + ")";
+                "linear-gradient(" + background.angle + "deg, " + background.colors
+                                                                               .map(color => color.value)
+                                                                               .join(", ") + ")";
             break;
     }
 
-    const slideObjects = props.content.map(object => {
+    const slideObjects = content.map(object => {
         return (
+            // TODO: с помощью switch case определять тип объекта и вынести их в отдельные компоненты
             <SlideObjectView
                 slideSize={{
-                    width: slideWidth,
-                    height: slideHeight,
+                    width: SLIDE_WIDTH,
+                    height: SLIDE_HEIGHT,
                 }}
                 object={object}
                 key={object.id}
@@ -54,10 +56,7 @@ export default function SlideView(props: SlideProps)
     return (
         <div
             style={slideStyle}
-            className={joinStyles([
-                props.type === "listElement" ? styles.inListSlide : styles.activeSlide,
-                styles.slide
-            ])}
+            className={styles.slide}
         >
             {slideObjects}
         </div>

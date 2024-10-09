@@ -10,7 +10,7 @@ type SlideListProps = {
 
 export default function SlideList({slides}: SlideListProps)
 {
-    const SCALE: number = 0.13;
+    const SLIDE_SCALE: number = 0.13;
 
     if (slides === undefined)
     {
@@ -27,7 +27,7 @@ export default function SlideList({slides}: SlideListProps)
             <li key={slide.id}>
                 <div className={styles.slidePreviewWrapper}>
                     <SlideView
-                        scale={SCALE}
+                        scale={SLIDE_SCALE}
                         background={slide.background}
                         content={slide.content}
                         key={slide.id}

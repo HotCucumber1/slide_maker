@@ -17,8 +17,6 @@ export default function SlideList({slides}: SlideListProps)
         return;
     }
 
-    // TODO: SCALE-каждого объекта пересчитывать в самом объекте с помощью этой переменной
-
     // TODO: засунуть pointer-events: none; в отдельный className, который дополнительно добавить к SlideView
     // TODO: сам слайд обернуть в div, на который уже и надо вешать onClick
 

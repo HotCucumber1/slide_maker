@@ -42,10 +42,7 @@ export default function SlideView({scale, background, content, style}: SlideProp
         return (
             // TODO: с помощью switch case определять тип объекта и вынести их в отдельные компоненты
             <SlideObjectView
-                slideSize={{
-                    width: SLIDE_WIDTH,
-                    height: SLIDE_HEIGHT,
-                }}
+                scale={scale}
                 object={object}
                 key={object.id}
             >

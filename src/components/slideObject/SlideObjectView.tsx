@@ -1,4 +1,4 @@
-import {Size, SlideObject} from "../../store/objects.ts";
+import {SlideObject} from "../../store/objects.ts";
 import {CSSProperties} from "react";
 
 import styles from "./SlideObject.module.css";
@@ -6,35 +6,35 @@ import styles from "./SlideObject.module.css";
 
 type SlideObjectProps = {
     object: SlideObject,
-    slideSize: Size,
+    scale: number,
 };
 
 
-export default function SlideObjectView(props: SlideObjectProps)
+export default function SlideObjectView({object, scale}: SlideObjectProps)
 {
     const objectStyle: CSSProperties = {
         position: "absolute",
-        top: props.object.pos.y / props.slideSize.height * 100 + '%',
-        left: props.object.pos.x / props.slideSize.width * 100 + "%",
-        width: props.object.size.width / props.slideSize.width * 100 + "%",
-        height: props.object.size.height / props.slideSize.height * 100 + "%",
+        top: object.pos.y * scale,
+        left: object.pos.x * scale,
+        width: object.size.width * scale,
+        height: object.size.height * scale,
     };
-    switch (props.object.type)
+    switch (object.type)
     {
         // TODO: вынести это и разделить по объектам
         case "text":
-            objectStyle["fontSize"] = props.object.fontSize + "px";
-            objectStyle["fontFamily"] = props.object.fontFamily;
-            objectStyle["color"] = props.object.color.value;
-            if (props.object.fontStyles.indexOf("underline"))
+            objectStyle["fontSize"] = object.fontSize + "px";
+            objectStyle["fontFamily"] = object.fontFamily;
+            objectStyle["color"] = object.color.value;
+            if (object.fontStyles.indexOf("underline"))
             {
                 objectStyle["textDecoration"] = "underline";
             }
-            if (props.object.fontStyles.indexOf("italic"))
+            if (object.fontStyles.indexOf("italic"))
             {
                 objectStyle["fontStyle"] = "underline";
             }
-            if (props.object.fontStyles.indexOf("bold"))
+            if (object.fontStyles.indexOf("bold"))
             {
                 objectStyle["fontWeight"] = "bold";
             }
@@ -42,29 +42,29 @@ export default function SlideObjectView(props: SlideObjectProps)
                 <input
                     className={styles.textObject}
                     style={objectStyle}
-                    defaultValue={props.object.text}
+                    defaultValue={object.text}
                 />
             )
         case "image":
             return (
                 <img
                     style={objectStyle}
-                    src={props.object.src}
-                    alt={props.object.src.split("/").pop()}
+                    src={object.src}
+                    alt={object.src.split("/").pop()}
                 />
             )
         case "figure":
-            objectStyle["border"] = props.object.strokeWidth + "px solid " + props.object.strokeStyle.value;
-            switch (props.object.fillStyle.type)
+            objectStyle["border"] = object.strokeWidth + "px solid " + object.strokeStyle.value;
+            switch (object.fillStyle.type)
             {
                 case "color":
-                    objectStyle["backgroundColor"] = props.object.fillStyle.value;
+                    objectStyle["backgroundColor"] = object.fillStyle.value;
                     break;
                 case "gradient":
                     objectStyle["background"] =
-                        "linear-gradient(" + props.object.fillStyle.angle + "deg, " + props.object.fillStyle.colors
-                                                                                                                .map(color => color.value)
-                                                                                                                .join(", ") + ")";
+                        "linear-gradient(" + object.fillStyle.angle + "deg, " + object.fillStyle.colors
+                                                                                                    .map(color => color.value)
+                                                                                                    .join(", ") + ")";
                     break;
             }
             return (

@@ -1,4 +1,1 @@
-export default function joinStyles(styles: string[]): string
-{
-    return styles.join(" ");
-}
+export const joinStyles = (...styles: (string|undefined)[]): string => styles.join(' ')

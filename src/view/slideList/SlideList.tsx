@@ -30,9 +30,9 @@ export default function SlideList({slides}: SlideListProps)
                     background={slide.background}
                     content={slide.content}
                     key={slide.id}
-                    style={{
+                    extraStyles={{
                         borderRadius: 'var(--slide-preview-border-radius)',
-                        pointerEvents: "none"
+                        pointerEvents: "none",
                     }}
                 >
                 </SlideView>

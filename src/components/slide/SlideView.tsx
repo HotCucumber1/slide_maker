@@ -8,17 +8,17 @@ type SlideProps = {
     scale: number,
     background: Color|Gradient|Image,
     content: Array<SlideObject>,
-    style?: CSSProperties,
+    extraStyles?: CSSProperties,
 };
 
 
-export default function SlideView({scale, background, content, style}: SlideProps)
+export default function SlideView({scale, background, content, extraStyles}: SlideProps)
 {
     const SLIDE_WIDTH= 1200;
     const SLIDE_HEIGHT= 675;
 
     const slideStyle: CSSProperties = {
-        ...style,
+        ...extraStyles,
         width: SLIDE_WIDTH * scale + "px",
         height: SLIDE_HEIGHT * scale + "px",
     };

@@ -7,10 +7,10 @@ type WorkAreaProps = {
 }
 
 
-export default function WorkArea(props: WorkAreaProps)
+export default function WorkArea({activeSlide}: WorkAreaProps)
 {
     const SCALE: number = 1;
-    if (props.activeSlide === undefined)
+    if (activeSlide === undefined)
     {
         return;
     }
@@ -18,8 +18,8 @@ export default function WorkArea(props: WorkAreaProps)
         <div className={styles.workArea}>
             <SlideView
                 scale={SCALE}
-                background={props.activeSlide.background}
-                content={props.activeSlide.content}>
+                background={activeSlide.background}
+                content={activeSlide.content}>
             </SlideView>
         </div>
     )

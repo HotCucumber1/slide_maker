@@ -4,7 +4,7 @@ type ToolBarProps = {
     fileName: string,
 }
 
-export default function ToolBar(props: ToolBarProps)
+export default function ToolBar({fileName}: ToolBarProps)
 {
     return (
         <div className={styles.toolBar}>
@@ -15,7 +15,7 @@ export default function ToolBar(props: ToolBarProps)
                 />
                 <input
                     className={styles.fileName}
-                    defaultValue={props.fileName}
+                    defaultValue={fileName}
                 />
             </div>
             <div className={styles.toolArea}></div>

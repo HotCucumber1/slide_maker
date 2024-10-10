@@ -1,5 +1,5 @@
 import {Slide} from "./objects.ts";
-import {addImageToSlide, addTextToSlide} from "./functions.ts";
+import {addImage, addText} from "./functions.ts";
 import {v4 as uuidv4} from "uuid";
 
 
@@ -65,7 +65,7 @@ for (let i = 0; i < 8; i++)
     if (i % 2 === 0)
     {
         maxSlides.push(
-            addTextToSlide(
+            addText(
                 slide,
                 {
                     x: 100,
@@ -80,7 +80,7 @@ for (let i = 0; i < 8; i++)
     else
     {
         maxSlides.push(
-            addImageToSlide(
+            addImage(
                 slide,
                 {x: 100, y: 100},
                 {width: 500, height: 500},

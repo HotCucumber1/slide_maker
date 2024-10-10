@@ -7,7 +7,9 @@ type ToolBarProps = {
 export default function ToolBar({fileName}: ToolBarProps)
 {
     return (
-        <div className={styles.toolBar}>
+        <div
+            className={styles.toolBar}
+        >
             <div className={styles.fileNameArea}>
                 <img
                     className={styles.icon}

@@ -6,8 +6,16 @@ import {Presentation} from "./store/objects.ts";
 import styles from "./App.module.css";
 import {maxSlides, minSlides} from "./store/testData.ts";
 
+import {Editor, dispatch} from "./store/editor.ts";
+import {setText} from "./store/functions.ts";
 
-export default function App() {
+
+type AppProps = {
+    editor: Editor,
+}
+
+
+export default function App({editor}: AppProps) {
     const newPresentation: Presentation = {
         title: "Cамая новая презентация",
         slides: maxSlides,
@@ -17,7 +25,9 @@ export default function App() {
 
     return (
         <>
-            <ToolBar fileName={newPresentation.title}></ToolBar>
+            <ToolBar
+                fileName={newPresentation.title}
+            ></ToolBar>
             <div className={styles.slideArea}>
                 <SlideList
                     slides={newPresentation.slides}

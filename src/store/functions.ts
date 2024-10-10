@@ -5,25 +5,26 @@ import {
     Image,
     ImageObject,
     Point,
-    Presentation,
     Size,
     Slide,
     TextObject,
-    SelectedObjects,
-    SelectedSlides,
-    SlideObject,
-    FontStyle, FigureObject,
+    FontStyle, FigureObject, EllipseFigure,
 } from "./objects";
+import {Editor} from "./editor.ts";
 
-export function setPresentationTitle(presentation: Presentation, newTitle: string): Presentation
+
+function setPresentationTitle(editor: Editor, newTitle: string): Editor
 {
     return {
-        ...presentation,
-        title: newTitle
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            title: newTitle,
+        }
     };
 }
 
-export function addSlide(presentation: Presentation): Presentation
+function addSlide(editor: Editor): Editor
 {
     const newSlide: Slide = {
         id: uuidv4(),
@@ -34,72 +35,109 @@ export function addSlide(presentation: Presentation): Presentation
         content: [],
     };
     return {
-        ...presentation,
-        slides: [...presentation.slides, newSlide],
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: [...editor.presentation.slides, newSlide],
+        },
     };
 }
 
-export function deleteSlides(presentation: Presentation, selection: SelectedSlides): Presentation
+function deleteSlides(editor: Editor): Editor
 {
-    const newSlides = presentation.slides.filter(slide => selection.indexOf(slide.id) === -1);
+    const newSlides = editor.presentation.slides.filter(
+        slide => editor.selectedSlides.indexOf(slide.id) === -1
+    );
+    editor.selectedSlides = [];
+
     return  {
-        ...presentation,
-        slides: newSlides,
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: newSlides,
+        }
     };
 }
 
-export function setSlidePosition(presentation: Presentation, slide: Slide, newPosition: number): Presentation
+function setSlidePosition(editor: Editor, newPosition: number): Editor
 {
-    if (newPosition < 0 || newPosition > presentation.slides.length)
+    if (newPosition < 0 || newPosition > editor.presentation.slides.length)
     {
-        return presentation;
+        return editor;
     }
 
-    const oldSlidePosition = presentation.slides.indexOf(slide);
-    const newSlides= presentation.slides.slice();
+    const oldSlidePosition = editor.presentation.slides.indexOf(
+        editor.presentation.slides
+                                .filter(slide => slide.id === editor.selectedSlides[0])[0]
+    );
+    const newSlides = editor.presentation.slides.slice();
     const oneSlide = newSlides.splice(oldSlidePosition, 1)[0];
 
     newSlides.splice(newPosition, 0, oneSlide);
     return {
-        ...presentation,
-        slides: newSlides,
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: newSlides,
+        }
     };
 }
 
-export function addTextToSlide(slide: Slide,
-                               position: Point,
-                               fontSize: number,
-                               fontFamily: string,
-                               fontStyles: FontStyle,
-                               size?: Size,
-                               color?: Color): Slide
+type AddTextProps = {
+    position: Point,
+    fontSize: number,
+    fontFamily: string,
+    fontStyles: FontStyle,
+    size?: Size,
+    color?: Color,
+}
+
+function addText(editor: Editor, props: AddTextProps): Editor
 {
-    const defaultColor: Color = { value: "black", type: "color" };
+    const defaultColor: Color = {
+        value: "black",
+        type: "color"
+    };
     const defaultTextPadding: number = 5;
-    const defaultSize: Size = { height: fontSize + 2 * defaultTextPadding, width: 500};
+    const defaultSize: Size = {
+        height: props.fontSize + 2 * defaultTextPadding,
+        width: 400
+    };
     const defaultText: string = "";
 
     const textObject: TextObject = {
         id: uuidv4(),
-        pos: position,
+        pos: props.position,
         text: defaultText,
-        size: typeof size === "undefined" ? defaultSize : size,
-        fontSize: fontSize,
-        fontFamily: fontFamily,
-        fontStyles: fontStyles,
-        color: typeof color === "undefined" ? defaultColor : color,
+        size: typeof props.size === "undefined" ? defaultSize : props.size,
+        fontSize: props.fontSize,
+        fontFamily: props.fontFamily,
+        fontStyles: props.fontStyles,
+        color: typeof props.color === "undefined" ? defaultColor : props.color,
         type: "text",
     };
+
+    const currentSlide = editor.presentation.slides.filter(
+        slide => slide.id === editor.currentSlideId
+    )[0];
+    currentSlide.content.push(textObject);
+
     return {
-        ...slide,
-        content: [...slide.content, textObject],
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: [...editor.presentation.slides, currentSlide]
+        }
     };
 }
 
-export function addImageToSlide(slide: Slide,
-                                position: Point,
-                                size: Size,
-                                src: string): Slide
+type AddImageProps = {
+    position: Point,
+    size: Size,
+    src: string,
+}
+
+function addImage(editor: Editor, {position, size, src}: AddImageProps): Editor
 {
     const imageObject: ImageObject = {
         id: uuidv4(),
@@ -108,21 +146,32 @@ export function addImageToSlide(slide: Slide,
         src: src,
         type: "image"
     };
+    const currentSlide = editor.presentation.slides.filter(
+        slide => slide.id === editor.currentSlideId
+    )[0];
+    currentSlide.content.push(imageObject);
+
     return {
-        ...slide,
-        content: [...slide.content, imageObject],
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: [...editor.presentation.slides, currentSlide]
+        }
     };
 }
 
-export function addFigureToSlide(slide: Slide,
-                                 position: Point,
-                                 size: Size,
-                                 fillStyle?: Color|Gradient,
-                                 strokeWidth?: number,
-                                 strokeStyle?: Color): Slide
+type AddFigureProps = {
+    position: Point,
+    size: Size,
+    fillStyle?: Color|Gradient,
+    strokeWidth?: number,
+    strokeStyle?: Color,
+}
+
+function addFigure(editor: Editor, props: AddFigureProps): Editor
 {
     const baseFillStyle: Color = {
-        value: "white",
+        value: "gray",
         type: "color",
     };
     const baseStrokeWidth = 1;
@@ -132,138 +181,325 @@ export function addFigureToSlide(slide: Slide,
     };
     const figureObject: FigureObject = {
         id: uuidv4(),
-        pos: position,
-        size: size,
-        fillStyle: typeof fillStyle === "undefined" ? baseFillStyle : fillStyle,
-        strokeWidth: typeof strokeWidth === "undefined" ? baseStrokeWidth : strokeWidth,
-        strokeStyle:  typeof strokeStyle === "undefined" ? baseStrokeStyle : strokeStyle,
+        pos: props.position,
+        size: props.size,
+        fillStyle: typeof props.fillStyle === "undefined" ? baseFillStyle : props.fillStyle,
+        strokeWidth: typeof props.strokeWidth === "undefined" ? baseStrokeWidth : props.strokeWidth,
+        strokeStyle:  typeof props.strokeStyle === "undefined" ? baseStrokeStyle : props.strokeStyle,
         type: "figure",
-    }
+    };
+
+    const currentSlide = editor.presentation.slides.filter(
+        slide => slide.id === editor.currentSlideId
+    )[0];
+    currentSlide.content.push(figureObject);
 
     return {
-        ...slide,
-        content: [...slide.content, figureObject],
-    }
-}
-
-export function deleteSlideObjects(slide: Slide, selection: SelectedObjects): Slide
-{
-    const newContent = slide.content.filter(object => selection.indexOf(object.id) === -1);
-    return {
-        ...slide,
-        content: newContent,
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: [...editor.presentation.slides, currentSlide]
+        }
     };
 }
 
-export function setTextPosition(object: SlideObject, newPosition: Point): SlideObject
+function addEllipse(editor: Editor, props: AddFigureProps): Editor
 {
-    if (object.type !== "text")
+    const baseFillStyle: Color = {
+        value: "gray",
+        type: "color",
+    };
+    const baseStrokeWidth = 1;
+    const baseStrokeStyle: Color = {
+        value: "black",
+        type: "color",
+    };
+
+    const radiusX: number = props.size.width / 2;
+    const radiusY: number = props.size.height / 2;
+
+    const newEllipse: EllipseFigure = {
+        id: uuidv4(),
+        pos: props.position,
+        size: props.size,
+        fillStyle: typeof props.fillStyle === "undefined" ? baseFillStyle : props.fillStyle,
+        strokeWidth: typeof props.strokeWidth === "undefined" ? baseStrokeWidth : props.strokeWidth,
+        strokeStyle:  typeof props.strokeStyle === "undefined" ? baseStrokeStyle : props.strokeStyle,
+        radiusX: radiusX,
+        radiusY: radiusY,
+        type: "figure",
+    };
+
+    const currentSlide = editor.presentation.slides.filter(
+        slide => slide.id === editor.currentSlideId
+    )[0];
+    currentSlide.content.push(newEllipse);
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: [...editor.presentation.slides, currentSlide]
+        }
+    };
+}
+
+function deleteSlideObjects(editor: Editor): Editor
+{
+    const currentSlide = editor.presentation.slides.filter(
+        slide => slide.id === editor.currentSlideId
+    )[0];
+
+    currentSlide.content = currentSlide.content.filter(
+        object => editor.selectedObjects.indexOf(object.id) === -1
+    );
+    editor.selectedObjects = [];
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: [
+                ...editor.presentation.slides,
+                currentSlide
+            ]
+        }
+    };
+}
+
+function setObjectPosition(editor: Editor, newPosition: Point): Editor
+{
+    const currentSlide = editor.presentation.slides.filter(
+        slide => slide.id === editor.currentSlideId
+    )[0];
+    const updatedContent = currentSlide.content.filter(
+        object => editor.selectedObjects.indexOf(object.id) === -1
+    )[0];
+
+    updatedContent.pos = newPosition;
+    currentSlide.content = [
+        ...currentSlide.content,
+        updatedContent,
+    ];
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: [
+                ...editor.presentation.slides,
+                currentSlide,
+            ]
+        }
+    };
+}
+
+function setObjectSize(editor: Editor, newSize: Size): Editor
+{
+    const currentSlide = editor.presentation.slides.filter(
+        slide => slide.id === editor.currentSlideId
+    )[0];
+    const updatedContent = currentSlide.content.filter(
+        object => editor.selectedObjects.indexOf(object.id) === -1
+    )[0];
+
+    updatedContent.size = newSize;
+    currentSlide.content = [
+        ...currentSlide.content,
+        updatedContent,
+    ];
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: [
+                ...editor.presentation.slides,
+                currentSlide,
+            ]
+        }
+    };
+}
+
+function setText(editor: Editor, newText: string): Editor
+{
+    const currentSlide = editor.presentation.slides.filter(
+        slide => slide.id === editor.currentSlideId
+    )[0];
+    const updatedContent = currentSlide.content.filter(
+        object => editor.selectedObjects.indexOf(object.id) === -1
+    )[0];
+
+    if (updatedContent.type !== "text")
     {
-        return object;
+        return editor;
     }
+
+    updatedContent.text = newText;
+    currentSlide.content = [
+        ...currentSlide.content,
+        updatedContent,
+    ];
+
     return {
-        ...object,
-        pos: newPosition,
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: [
+                ...editor.presentation.slides,
+                currentSlide,
+            ]
+        }
     };
 }
 
-export function setTextSize(object: SlideObject, newSize: Size): SlideObject
+function setFontSize(editor: Editor, newFontSize: number): Editor
 {
-    if (object.type !== "text")
+    const currentSlide = editor.presentation.slides.filter(
+        slide => slide.id === editor.currentSlideId
+    )[0];
+    const updatedContent = currentSlide.content.filter(
+        object => editor.selectedObjects.indexOf(object.id) === -1
+    )[0];
+
+    if (updatedContent.type !== "text")
     {
-        return object;
+        return editor;
     }
+
+    updatedContent.fontSize = newFontSize;
+    currentSlide.content = [
+        ...currentSlide.content,
+        updatedContent,
+    ];
+
     return {
-        ...object,
-        size: newSize,
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: [
+                ...editor.presentation.slides,
+                currentSlide,
+            ]
+        }
     };
 }
 
-export function setImagePosition(object: SlideObject, newPosition: Point): SlideObject
+function setFontFamily(editor: Editor, newFontFamily: string): Editor
 {
-    if (object.type !== "image")
+    const currentSlide = editor.presentation.slides.filter(
+        slide => slide.id === editor.currentSlideId
+    )[0];
+    const updatedContent = currentSlide.content.filter(
+        object => editor.selectedObjects.indexOf(object.id) === -1
+    )[0];
+
+    if (updatedContent.type !== "text")
     {
-        return object;
+        return editor;
     }
+
+    updatedContent.fontFamily = newFontFamily;
+    currentSlide.content = [
+        ...currentSlide.content,
+        updatedContent,
+    ];
+
     return {
-        ...object,
-        pos: newPosition,
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: [
+                ...editor.presentation.slides,
+                currentSlide,
+            ]
+        }
     };
 }
 
-export function setImageSize(object: SlideObject, newSize: Size): SlideObject
+function setFontStyle(editor: Editor, newFontStyles: FontStyle): Editor
 {
-    if (object.type !== "image")
+    const currentSlide = editor.presentation.slides.filter(
+        slide => slide.id === editor.currentSlideId
+    )[0];
+    const updatedContent = currentSlide.content.filter(
+        object => editor.selectedObjects.indexOf(object.id) === -1
+    )[0];
+
+    if (updatedContent.type !== "text")
     {
-        return object;
+        return editor;
     }
+
+    updatedContent.fontStyles = newFontStyles;
+    currentSlide.content = [
+        ...currentSlide.content,
+        updatedContent,
+    ];
+
     return {
-        ...object,
-        size: newSize,
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: [
+                ...editor.presentation.slides,
+                currentSlide,
+            ]
+        }
     };
 }
 
-export function setText(content: SlideObject, newText: string): SlideObject
+function setSlideBackground(editor: Editor, newBackground: Color|Image|Gradient): Editor
 {
-    if (content.type !== "text")
-    {
-        return content;
-    }
+    const currentSlide = editor.presentation.slides.filter(
+        slide => slide.id === editor.currentSlideId
+    )[0];
+    currentSlide.background = newBackground;
+
     return {
-        ...content,
-        text: newText,
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: [
+                ...editor.presentation.slides,
+                currentSlide,
+            ]
+        }
     };
 }
 
-export function setFontSize(content: SlideObject, newFontSize: number): SlideObject
+function setPresentationBackground(editor: Editor, newBackground: Color|Image|Gradient): Editor
 {
-    if (content.type !== "text")
-    {
-        return content;
-    }
-    return {
-        ...content,
-        fontSize: newFontSize,
-    };
+    const updatedSlides = editor.presentation.slides.slice();
+    updatedSlides.forEach(
+        slide => slide.background = newBackground
+    );
 
-}
-
-export function setFontFamily(content: SlideObject, newFontFamily: string): SlideObject
-{
-    if (content.type !== "text")
-    {
-        return content;
-    }
     return {
-        ...content,
-        fontFamily: newFontFamily,
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: updatedSlides,
+        }
     };
 }
 
-export function setFontStyle(content: SlideObject, newFontStyles: FontStyle): SlideObject
-{
-    if (content.type !== "text")
-    {
-        return content;
-    }
-    return {
-        ...content,
-        fontStyles: newFontStyles,
-    };
-}
-
-export function setSlideBackground(slide: Slide, newBackground: Color|Image|Gradient): Slide
-{
-    return {
-        ...slide,
-        background: newBackground,
-    };
-}
-
-export function setPresentationBackground(presentation: Presentation, newBackground: Color|Image|Gradient): Presentation
-{
-    return {
-        ...presentation,
-        slides: presentation.slides.map(slide => setSlideBackground(slide, newBackground)),
-    };
+export {
+    setText,
+    setFontFamily,
+    setFontSize,
+    setSlideBackground,
+    setFontStyle,
+    setPresentationBackground,
+    setPresentationTitle,
+    setSlidePosition,
+    setObjectPosition,
+    setObjectSize,
+    addEllipse,
+    addFigure,
+    addText,
+    addImage,
+    addSlide,
+    deleteSlides,
+    deleteSlideObjects,
 }

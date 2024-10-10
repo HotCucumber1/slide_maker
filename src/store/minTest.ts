@@ -1,16 +1,16 @@
 import {Presentation, SelectedObjects, SelectedSlides} from "./objects.ts";
 import {
     addSlide,
-    addImageToSlide,
-    addTextToSlide,
+    addImage,
+    addText,
     setPresentationTitle,
     setPresentationBackground,
     setSlideBackground,
     setSlidePosition,
     setText,
     setImagePosition,
-    setTextPosition,
-    setTextSize,
+    setObjectPosition,
+    setObjectSize,
     setImageSize,
     setFontSize,
     setFontFamily,
@@ -33,7 +33,7 @@ const oneSlidePresentation = addSlide(presentation);
 console.log("Презентация с одним слайдом: ", oneSlidePresentation, "\n");
 
 
-const imageSlide = addImageToSlide(
+const imageSlide = addImage(
     oneSlidePresentation.slides[0],
     { x: 100, y: 100},
     { width: 500, height: 500 },
@@ -42,7 +42,7 @@ const imageSlide = addImageToSlide(
 console.log("Слайд с картинкой: ", imageSlide, "\n");
 
 
-const textSlide = addTextToSlide(
+const textSlide = addText(
     oneSlidePresentation.slides[0],
     { x: 100, y: 100},
     12,
@@ -65,9 +65,9 @@ console.log("Новая позиция картинки: ", setImagePosition(ima
 
 console.log("Новый размер картинки: ", setImageSize(imageSlide.content[0], { width: 1, height: 1}));
 
-console.log("Новая позиция текста: ", setTextPosition(textSlide.content[0], { x: 200, y: 200}));
+console.log("Новая позиция текста: ", setObjectPosition(textSlide.content[0], { x: 200, y: 200}));
 
-console.log("Новый размер текста: ", setTextSize(textSlide.content[0], { width: 1, height: 1}));
+console.log("Новый размер текста: ", setObjectSize(textSlide.content[0], { width: 1, height: 1}));
 
 console.log("Новый размер шрифта: ", setFontSize(textSlide.content[0], 36));
 

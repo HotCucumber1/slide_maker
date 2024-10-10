@@ -17,9 +17,6 @@ export default function SlideList({slides}: SlideListProps)
         return;
     }
 
-    // TODO: засунуть pointer-events: none; в отдельный className, который дополнительно добавить к SlideView
-    // TODO: сам слайд обернуть в div, на который уже и надо вешать onClick
-
     // TODO: добавить фигуры
     // TODO: добавить получение презентации в каждую фукнкцию
     const slidesList = slides.map(slide => (
@@ -29,7 +26,6 @@ export default function SlideList({slides}: SlideListProps)
                     scale={SLIDE_SCALE}
                     background={slide.background}
                     content={slide.content}
-                    key={slide.id}
                     extraStyles={{
                         borderRadius: 'var(--slide-preview-border-radius)',
                         pointerEvents: "none",

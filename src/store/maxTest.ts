@@ -1,16 +1,16 @@
 import {Presentation, SelectedObjects, SelectedSlides} from "./objects";
 import {
     addSlide,
-    addImageToSlide,
-    addTextToSlide,
+    addImage,
+    addText,
     setPresentationTitle,
     setPresentationBackground,
     setSlideBackground,
     setSlidePosition,
     setText,
     setImagePosition,
-    setTextPosition,
-    setTextSize,
+    setObjectPosition,
+    setObjectSize,
     setImageSize,
     setFontSize,
     setFontFamily,
@@ -35,13 +35,13 @@ console.log("Презентация с двумя слайдом: ", twoSlidesPr
 
 
 // передавать presentation
-const imageSlide = addImageToSlide(
+const imageSlide = addImage(
     twoSlidesPres.slides[0],
     { x: 100, y: 100},
     {width: 500, height: 500},
     "./static/img6.jpg",
 );
-const image2Slide = addImageToSlide(
+const image2Slide = addImage(
     imageSlide,
     { x: 100, y: 100},
     {width: 500, height: 500},
@@ -50,7 +50,7 @@ const image2Slide = addImageToSlide(
 console.log("Слайд с 2-мя картинкой: ", image2Slide, "\n");
 
 
-const textSlide = addTextToSlide(
+const textSlide = addText(
     twoSlidesPres.slides[0],
     { x: 100, y: 100},
     12,
@@ -61,7 +61,7 @@ const textSlide = addTextToSlide(
         value: "white",
         type: "color",
     });
-const text2Slide = addTextToSlide(
+const text2Slide = addText(
     textSlide,
     { x: 100, y: 100},
     12,
@@ -89,9 +89,9 @@ console.log("Новая позиция картинки: ", setImagePosition(ima
 
 console.log("Новый размер картинки: ", setImageSize(image2Slide.content[0], { width: 1, height: 1}), "\n");
 
-console.log("Новая позиция текста: ", setTextPosition(text2Slide.content[0], { x: 200, y: 200}), "\n");
+console.log("Новая позиция текста: ", setObjectPosition(text2Slide.content[0], { x: 200, y: 200}), "\n");
 
-console.log("Новый размер текста: ", setTextSize(text2Slide.content[0], { width: 1, height: 1}), "\n");
+console.log("Новый размер текста: ", setObjectSize(text2Slide.content[0], { width: 1, height: 1}), "\n");
 
 console.log('Новый размер шрифта: ', setFontSize(textSlide.content[0], 36), "\n");
 

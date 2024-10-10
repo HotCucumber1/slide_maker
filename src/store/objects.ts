@@ -39,6 +39,19 @@ export type FigureObject = BaseObject & {
     type: "figure";
 }
 
+export type EllipseFigure = FigureObject & {
+    radiusX: number;
+    radiusY: number;
+}
+
+export type TriangleFigure = FigureObject & {
+    points: [Point, Point, Point];
+}
+
+export type PathFigure = FigureObject & {
+    points: Point[];
+}
+
 export type SlideObject = TextObject|ImageObject|FigureObject;
 
 export type Gradient = {

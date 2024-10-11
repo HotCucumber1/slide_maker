@@ -8,7 +8,9 @@ import {
     Size,
     Slide,
     TextObject,
-    FontStyle, FigureObject, EllipseFigure,
+    FontStyle,
+    EllipseFigure,
+    LabelFigure,
 } from "./objects";
 import {Editor} from "./editor.ts";
 
@@ -168,7 +170,7 @@ type AddFigureProps = {
     strokeStyle?: Color,
 }
 
-function addFigure(editor: Editor, props: AddFigureProps): Editor
+function addLabel(editor: Editor, props: AddFigureProps): Editor
 {
     const baseFillStyle: Color = {
         value: "gray",
@@ -179,14 +181,14 @@ function addFigure(editor: Editor, props: AddFigureProps): Editor
         value: "black",
         type: "color",
     };
-    const figureObject: FigureObject = {
+    const figureObject: LabelFigure = {
         id: uuidv4(),
         pos: props.position,
         size: props.size,
         fillStyle: typeof props.fillStyle === "undefined" ? baseFillStyle : props.fillStyle,
         strokeWidth: typeof props.strokeWidth === "undefined" ? baseStrokeWidth : props.strokeWidth,
         strokeStyle:  typeof props.strokeStyle === "undefined" ? baseStrokeStyle : props.strokeStyle,
-        type: "figure",
+        type: "label",
     };
 
     const currentSlide = editor.presentation.slides.filter(
@@ -227,7 +229,7 @@ function addEllipse(editor: Editor, props: AddFigureProps): Editor
         strokeStyle:  typeof props.strokeStyle === "undefined" ? baseStrokeStyle : props.strokeStyle,
         radiusX: radiusX,
         radiusY: radiusY,
-        type: "figure",
+        type: "ellipse",
     };
 
     const currentSlide = editor.presentation.slides.filter(
@@ -496,7 +498,7 @@ export {
     setObjectPosition,
     setObjectSize,
     addEllipse,
-    addFigure,
+    addLabel,
     addText,
     addImage,
     addSlide,

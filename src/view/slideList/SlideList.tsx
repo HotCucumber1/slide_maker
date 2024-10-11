@@ -18,7 +18,8 @@ export default function SlideList({slides}: SlideListProps)
     }
 
     // TODO: добавить фигуры
-    // TODO: добавить получение презентации в каждую фукнкцию
+    // TODO: добавить стили для firefox и safari
+
     const slidesList = slides.map(slide => (
         <li key={slide.id}>
             <div className={styles.slidePreviewWrapper}>

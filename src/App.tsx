@@ -4,7 +4,7 @@ import WorkArea from "./view/workArea/WorkArea.tsx";
 
 import {Presentation} from "./store/objects.ts";
 import styles from "./App.module.css";
-import {maxSlides, minSlides} from "./store/testData.ts";
+import {maxSlides} from "./store/testData.ts";
 
 import {Editor, dispatch} from "./store/editor.ts";
 import {setText} from "./store/functions.ts";
@@ -34,7 +34,7 @@ export default function App({editor}: AppProps) {
                     // selection={}
                 >
                 </SlideList>
-                <WorkArea activeSlide={newPresentation.slides[0]}></WorkArea>
+                <WorkArea activeSlide={newPresentation.slides[2]}></WorkArea>
             </div>
         </>
     )

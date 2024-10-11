@@ -1,5 +1,4 @@
 import {Slide} from "./objects.ts";
-import {addImage, addText} from "./functions.ts";
 import {v4 as uuidv4} from "uuid";
 
 
@@ -7,12 +6,12 @@ export const maxSlides: Slide[] = [];
 maxSlides.push({
     id: uuidv4(),
     background: {
+        type: "gradient",
         colors: [
             {value: "white", type: "color"},
             {value: "#EDF2FA", type: "color"},
         ],
         angle: 45,
-        type: "gradient",
     },
 
     content: [{
@@ -36,7 +35,7 @@ maxSlides.push({
             value: "gray",
             type: "color"
         },
-        type: "figure",
+        type: "label",
     }]
 });
 maxSlides.push({
@@ -62,31 +61,39 @@ for (let i = 0; i < 8; i++)
         },
         content: [],
     };
+
     if (i % 2 === 0)
     {
-        maxSlides.push(
-            addText(
-                slide,
-                {
-                    x: 100,
-                    y: 100
+        maxSlides.push({
+            ...slide,
+            content: [{
+                id: uuidv4(),
+                pos: {x: 50, y: 50},
+                size: {width: 500, height: 30},
+                text: "It is a text",
+                fontSize: 20,
+                fontFamily: "Arial",
+                fontStyles: [],
+                color: {
+                    value: "black",
+                    type: "color",
                 },
-                40,
-                "Arial",
-                ["italic"]
-            )
-        );
+                type: "text"
+            }],
+        });
     }
     else
     {
-        maxSlides.push(
-            addImage(
-                slide,
-                {x: 100, y: 100},
-                {width: 500, height: 500},
-                "../public/image/earth.gif",
-            )
-        );
+        maxSlides.push({
+            ...slide,
+            content: [{
+                    id: uuidv4(),
+                    pos: {x: 50, y: 50},
+                    size: {width: 500, height: 500},
+                    src: "../public/image/earth.gif",
+                    type: "image",
+            }]
+        });
     }
 }
 

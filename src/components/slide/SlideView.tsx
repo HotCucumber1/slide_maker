@@ -2,6 +2,7 @@ import {Color, Gradient, Image, SlideObject} from "../../store/objects.ts";
 import SlideObjectView from "../slideObject/SlideObjectView.tsx";
 import styles from "./SlideView.module.css";
 import {CSSProperties} from "react";
+import {TextObjectView} from "../slideObject/textObject/TextObjectView.tsx";
 
 
 type SlideProps = {
@@ -25,28 +26,57 @@ export default function SlideView({scale, background, content, extraStyles}: Sli
     switch (background.type)
     {
         case "color":
-            slideStyle["backgroundColor"] = background.value;
+            slideStyle.backgroundColor = background.value;
             break;
         case "image":
-            slideStyle["backgroundImage"] = "url(" + background.src + ")";
+            slideStyle.backgroundImage = "url(" + background.src + ")";
             break;
         case "gradient":
-            slideStyle["background"] =
-                "linear-gradient(" + background.angle + "deg, " + background.colors
-                                                                               .map(color => color.value)
-                                                                               .join(", ") + ")";
+            slideStyle.background = "linear-gradient(" + background.angle + "deg, " + background.colors
+                                                                                        .map(color => color.value)
+                                                                                        .join(", ") + ")";
             break;
     }
 
-    const slideObjects = content.map(object => (
-        // TODO: с помощью switch case определять тип объекта и вынести их в отдельные компоненты
-        <SlideObjectView
-            scale={scale}
-            object={object}
-            key={object.id}
-        >
-        </SlideObjectView>
-    ));
+    const slideObjects = content.map(object => {
+        switch (object.type)
+        {
+            case "text":
+                return (
+                    <TextObjectView
+                        pos={object.pos}
+                        size={object.size}
+                        scale={scale}
+                        text={object.text}
+                        fontSize={object.fontSize}
+                        fontFamily={object.fontFamily}
+                        fontStyles={object.fontStyles}
+                        color={object.color}
+                        key={object.id}
+                    >
+                    </TextObjectView>
+                );
+            case "image":
+                break;
+            case "label":
+                break;
+            case "ellipse":
+                break;
+            case "triangle":
+                break;
+            case "path":
+                break;
+        }
+
+        // return (
+        //     <SlideObjectView
+        //         scale={scale}
+        //         object={object}
+        //         key={object.id}
+        //     >
+        //     </SlideObjectView>
+        // )
+    });
 
     return (
         <div

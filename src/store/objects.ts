@@ -36,23 +36,29 @@ export type FigureObject = BaseObject & {
     fillStyle: Color|Gradient;
     strokeStyle: Color;
     strokeWidth: number;
-    type: "figure";
+}
+
+export type LabelFigure = FigureObject & {
+    type: "label";
 }
 
 export type EllipseFigure = FigureObject & {
     radiusX: number;
     radiusY: number;
+    type: "ellipse";
 }
 
 export type TriangleFigure = FigureObject & {
     points: [Point, Point, Point];
+    type: "triangle";
 }
 
 export type PathFigure = FigureObject & {
     points: Point[];
+    type: "path";
 }
 
-export type SlideObject = TextObject|ImageObject|FigureObject;
+export type SlideObject = TextObject|ImageObject|LabelFigure|EllipseFigure|TriangleFigure|PathFigure;
 
 export type Gradient = {
     colors: Color[];

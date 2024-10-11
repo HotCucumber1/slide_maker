@@ -21,22 +21,22 @@ export default function SlideObjectView({object, scale}: SlideObjectProps)
     };
     switch (object.type)
     {
-        // TODO: вынести это и разделить по объектам
         case "text":
-            objectStyle["fontSize"] = object.fontSize + "px";
-            objectStyle["fontFamily"] = object.fontFamily;
-            objectStyle["color"] = object.color.value;
+            objectStyle.fontSize= object.fontSize * scale + "px";
+            objectStyle.fontFamily = object.fontFamily;
+            objectStyle.color = object.color.value;
+            objectStyle.border = ""
             if (object.fontStyles.indexOf("underline"))
             {
-                objectStyle["textDecoration"] = "underline";
+                objectStyle.textDecoration = "underline";
             }
             if (object.fontStyles.indexOf("italic"))
             {
-                objectStyle["fontStyle"] = "underline";
+                objectStyle.fontStyle = "italic";
             }
             if (object.fontStyles.indexOf("bold"))
             {
-                objectStyle["fontWeight"] = "bold";
+                objectStyle.fontWeight = "bold";
             }
             return (
                 <input
@@ -53,16 +53,15 @@ export default function SlideObjectView({object, scale}: SlideObjectProps)
                     alt={object.src.split("/").pop()}
                 />
             )
-        case "figure":
-            objectStyle["border"] = object.strokeWidth + "px solid " + object.strokeStyle.value;
+        case "label":
+            objectStyle.border = object.strokeWidth * scale + "px solid " + object.strokeStyle.value;
             switch (object.fillStyle.type)
             {
                 case "color":
-                    objectStyle["backgroundColor"] = object.fillStyle.value;
+                    objectStyle.backgroundColor = object.fillStyle.value;
                     break;
                 case "gradient":
-                    objectStyle["background"] =
-                        "linear-gradient(" + object.fillStyle.angle + "deg, " + object.fillStyle.colors
+                    objectStyle.background = "linear-gradient(" + object.fillStyle.angle + "deg, " + object.fillStyle.colors
                                                                                                     .map(color => color.value)
                                                                                                     .join(", ") + ")";
                     break;

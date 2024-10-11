@@ -27,16 +27,15 @@ function TextObjectView(props: TextObjectProps)
         color: props.color.value,
     };
 
-
-    if (props.fontStyles.indexOf("underline"))
+    if (props.fontStyles.indexOf("underline") > 0)
     {
         objectStyle.textDecoration = "underline";
     }
-    if (props.fontStyles.indexOf("italic"))
+    if (props.fontStyles.indexOf("italic") > 0)
     {
         objectStyle.fontStyle = "italic";
     }
-    if (props.fontStyles.indexOf("bold"))
+    if (props.fontStyles.indexOf("bold") > 0)
     {
         objectStyle.fontWeight = "bold";
     }

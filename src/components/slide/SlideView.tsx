@@ -3,6 +3,7 @@ import SlideObjectView from "../slideObject/SlideObjectView.tsx";
 import styles from "./SlideView.module.css";
 import {CSSProperties} from "react";
 import {TextObjectView} from "../slideObject/textObject/TextObjectView.tsx";
+import {ImageObjectView} from "../slideObject/imageObject/ImageObjectView.tsx";
 
 
 type SlideProps = {
@@ -57,7 +58,16 @@ export default function SlideView({scale, background, content, extraStyles}: Sli
                     </TextObjectView>
                 );
             case "image":
-                break;
+                return (
+                    <ImageObjectView
+                        pos={object.pos}
+                        size={object.size}
+                        scale={scale}
+                        src={object.src}
+                        key={object.id}
+                    >
+                    </ImageObjectView>
+                );
             case "label":
                 break;
             case "ellipse":

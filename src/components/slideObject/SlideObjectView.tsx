@@ -21,38 +21,6 @@ export default function SlideObjectView({object, scale}: SlideObjectProps)
     };
     switch (object.type)
     {
-        case "text":
-            objectStyle.fontSize= object.fontSize * scale + "px";
-            objectStyle.fontFamily = object.fontFamily;
-            objectStyle.color = object.color.value;
-            objectStyle.border = ""
-            if (object.fontStyles.indexOf("underline"))
-            {
-                objectStyle.textDecoration = "underline";
-            }
-            if (object.fontStyles.indexOf("italic"))
-            {
-                objectStyle.fontStyle = "italic";
-            }
-            if (object.fontStyles.indexOf("bold"))
-            {
-                objectStyle.fontWeight = "bold";
-            }
-            return (
-                <input
-                    className={styles.textObject}
-                    style={objectStyle}
-                    defaultValue={object.text}
-                />
-            )
-        case "image":
-            return (
-                <img
-                    style={objectStyle}
-                    src={object.src}
-                    alt={object.src.split("/").pop()}
-                />
-            )
         case "label":
             objectStyle.border = object.strokeWidth * scale + "px solid " + object.strokeStyle.value;
             switch (object.fillStyle.type)

@@ -9,5 +9,6 @@
     position: relative;
     border-radius: var(--slide-border-radius);
     margin-inline: auto;
+    background-size: cover;
 }
 

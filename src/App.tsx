@@ -7,15 +7,15 @@ import styles from "./App.module.css";
 import {maxSlides} from "./store/testData.ts";
 
 import {Editor, dispatch} from "./store/editor.ts";
-import {setText} from "./store/functions.ts";
+// import {setText} from "./store/functions.ts";
+//
+//
+// type AppProps = {
+//     editor: Editor,
+// }
 
 
-type AppProps = {
-    editor: Editor,
-}
-
-
-export default function App({editor}: AppProps) {
+export default function App() {
     const newPresentation: Presentation = {
         title: "Cамая новая презентация",
         slides: maxSlides,
@@ -34,7 +34,7 @@ export default function App({editor}: AppProps) {
                     // selection={}
                 >
                 </SlideList>
-                <WorkArea activeSlide={newPresentation.slides[2]}></WorkArea>
+                <WorkArea activeSlide={newPresentation.slides[0]}></WorkArea>
             </div>
         </>
     )

@@ -19,14 +19,20 @@ maxSlides.push({
         pos: {x: 100, y: 100},
         size: { width: 500, height: 500},
         fillStyle: {
-            colors: [{
-                value: "#ebcb3f",
-                type: "color"
-            },
+            colors: [
                 {
-                    value: "white",
+                    value: "red",
                     type: "color"
-                }],
+                },
+                {
+                    value: "#ebcb3f",
+                    type: "color"
+                },
+                {
+                value: "white",
+                type: "color"
+                },
+            ],
             angle: 40,
             type: "gradient"
         },

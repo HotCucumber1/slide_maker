@@ -1,9 +1,9 @@
 import {Color, Gradient, Image, SlideObject} from "../../store/objects.ts";
-import SlideObjectView from "../slideObject/SlideObjectView.tsx";
 import styles from "./SlideView.module.css";
 import {CSSProperties} from "react";
 import {TextObjectView} from "../slideObject/textObject/TextObjectView.tsx";
 import {ImageObjectView} from "../slideObject/imageObject/ImageObjectView.tsx";
+import {FigureObjectView} from "../slideObject/figureObject/FigureObjectView.tsx";
 
 
 type SlideProps = {
@@ -69,7 +69,18 @@ export default function SlideView({scale, background, content, extraStyles}: Sli
                     </ImageObjectView>
                 );
             case "label":
-                break;
+                return (
+                    <FigureObjectView
+                        pos={object.pos}
+                        size={object.size}
+                        scale={scale}
+                        fill={object.fillStyle}
+                        strokeColor={object.strokeStyle}
+                        strokeWidth={object.strokeWidth}
+                        key={object.id}
+                    >
+                    </FigureObjectView>
+                );
             case "ellipse":
                 break;
             case "triangle":

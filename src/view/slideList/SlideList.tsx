@@ -10,7 +10,7 @@ type SlideListProps = {
 
 export default function SlideList({slides}: SlideListProps)
 {
-    const SLIDE_SCALE: number = 0.13;
+    const SLIDE_SCALE: number = 0.083;
 
     if (slides === undefined)
     {
@@ -19,6 +19,7 @@ export default function SlideList({slides}: SlideListProps)
 
     // TODO: добавить фигуры
     // TODO: добавить стили для firefox и safari
+    // TODO: вынести `scale` в стили
 
     const slidesList = slides.map(slide => (
         <li key={slide.id}>

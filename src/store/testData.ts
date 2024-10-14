@@ -14,7 +14,8 @@ maxSlides.push({
         angle: 45,
     },
 
-    content: [{
+    content: [
+    {
         id: uuidv4(),
         pos: {x: 100, y: 100},
         size: { width: 500, height: 500},
@@ -36,12 +37,41 @@ maxSlides.push({
             angle: 40,
             type: "gradient"
         },
-        strokeWidth: 3,
+        strokeWidth: 0,
         strokeStyle: {
             value: "gray",
             type: "color"
         },
         type: "label",
+    },
+        {
+            id: uuidv4(),
+            pos: {x: 200, y: 200},
+            size: { width: 1000, height: 500},
+            fillStyle: {
+                colors: [
+                    {
+                        value: "black",
+                        type: "color"
+                    },
+                    {
+                        value: "#ebcb3f",
+                        type: "color"
+                    },
+                    {
+                        value: "white",
+                        type: "color"
+                    },
+                ],
+                angle: 90,
+                type: "gradient"
+            },
+            strokeWidth: 1,
+            strokeStyle: {
+                value: "red",
+                type: "color"
+            },
+            type: "ellipse"
     }]
 });
 maxSlides.push({

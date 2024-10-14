@@ -43,8 +43,6 @@ export type LabelFigure = FigureObject & {
 }
 
 export type EllipseFigure = FigureObject & {
-    radiusX: number;
-    radiusY: number;
     type: "ellipse";
 }
 

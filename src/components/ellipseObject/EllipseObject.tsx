@@ -1,17 +1,17 @@
-import {CSSProperties} from "react";
 import {Color, Gradient, Point, Size} from "../../store/objects.ts";
+import {CSSProperties} from "react";
 
-type FigureObjectProps = {
+type EllipseObjectProps = {
     pos: Point,
     size: Size,
     scale: number,
     fill: Color|Gradient,
     strokeColor: Color,
     strokeWidth: number,
-};
+}
 
 
-function FigureObjectView(props: FigureObjectProps)
+function EllipseObject(props: EllipseObjectProps)
 {
     let colorsLength: number = 1;
     const objectStyle: CSSProperties = {
@@ -21,6 +21,8 @@ function FigureObjectView(props: FigureObjectProps)
         width: props.size.width * props.scale,
         height: props.size.height * props.scale,
     };
+    const rx: number = props.size.width / 2;
+    const ry: number = props.size.height / 2;
     if (props.fill.type === "gradient")
     {
         colorsLength = props.fill.colors.length;
@@ -54,23 +56,22 @@ function FigureObjectView(props: FigureObjectProps)
                     </linearGradient>
                 </defs>
             )}
-            <rect
-                x="0"
-                y="0"
-                width={props.size.width * props.scale}
-                height={props.size.height * props.scale}
+            <ellipse
+                cx={rx * props.scale}
+                cy={ry * props.scale}
+                rx={rx * props.scale - props.strokeWidth}
+                ry={ry * props.scale - props.strokeWidth}
                 fill={props.fill.type === "color" ?
-                    props.fill.value :
-                    "url(#grad)"
+                        props.fill.value :
+                        "url(#grad)"
                 }
                 stroke={props.strokeColor.value}
-                strokeWidth={props.strokeWidth * props.scale}>
-            </rect>
+                strokeWidth={props.strokeWidth * props.scale}
+            />
         </svg>
     )
 }
 
-
 export {
-    FigureObjectView
+    EllipseObject
 }

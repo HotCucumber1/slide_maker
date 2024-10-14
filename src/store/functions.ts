@@ -217,9 +217,6 @@ function addEllipse(editor: Editor, props: AddFigureProps): Editor
         type: "color",
     };
 
-    const radiusX: number = props.size.width / 2;
-    const radiusY: number = props.size.height / 2;
-
     const newEllipse: EllipseFigure = {
         id: uuidv4(),
         pos: props.position,
@@ -227,8 +224,6 @@ function addEllipse(editor: Editor, props: AddFigureProps): Editor
         fillStyle: typeof props.fillStyle === "undefined" ? baseFillStyle : props.fillStyle,
         strokeWidth: typeof props.strokeWidth === "undefined" ? baseStrokeWidth : props.strokeWidth,
         strokeStyle:  typeof props.strokeStyle === "undefined" ? baseStrokeStyle : props.strokeStyle,
-        radiusX: radiusX,
-        radiusY: radiusY,
         type: "ellipse",
     };
 

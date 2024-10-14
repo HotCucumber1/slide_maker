@@ -10,7 +10,7 @@ type WorkAreaProps = {
 
 export default function WorkArea({activeSlide}: WorkAreaProps)
 {
-    const SLIDE_SCALE: number = 1;
+    const SLIDE_SCALE: number = 0.625;
     if (activeSlide === undefined)
     {
         return;

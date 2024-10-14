@@ -4,6 +4,7 @@ import {CSSProperties} from "react";
 import {TextObjectView} from "../textObject/TextObjectView.tsx";
 import {ImageObjectView} from "../imageObject/ImageObjectView.tsx";
 import {FigureObjectView} from "../figureObject/FigureObjectView.tsx";
+import {EllipseObject} from "../ellipseObject/EllipseObject.tsx";
 
 
 type SlideProps = {
@@ -16,8 +17,8 @@ type SlideProps = {
 
 export default function SlideView({scale, background, content, extraStyles}: SlideProps)
 {
-    const SLIDE_WIDTH= 1200;
-    const SLIDE_HEIGHT= 675;
+    const SLIDE_WIDTH: number = 1920;
+    const SLIDE_HEIGHT: number = 1080;
 
     const slideStyle: CSSProperties = {
         ...extraStyles,
@@ -82,21 +83,23 @@ export default function SlideView({scale, background, content, extraStyles}: Sli
                     </FigureObjectView>
                 );
             case "ellipse":
-                break;
+                return (
+                    <EllipseObject
+                        pos={object.pos}
+                        size={object.size}
+                        scale={scale}
+                        fill={object.fillStyle}
+                        strokeColor={object.strokeStyle}
+                        strokeWidth={object.strokeWidth}
+                        key={object.id}
+                    >
+                    </EllipseObject>
+                );
             case "triangle":
                 break;
             case "path":
                 break;
         }
-
-        // return (
-        //     <SlideObjectView
-        //         scale={scale}
-        //         object={object}
-        //         key={object.id}
-        //     >
-        //     </SlideObjectView>
-        // )
     });
 
     return (

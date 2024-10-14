@@ -1,6 +1,6 @@
 import {CSSProperties} from "react";
-import {Color, FontStyle, Point, Size} from "../../../store/objects.ts";
-import styles from "../SlideObject.module.css";
+import {Color, FontStyle, Point, Size} from "../../store/objects.ts";
+import styles from "./TextObjectView.module.css";
 
 type TextObjectProps = {
     pos: Point,

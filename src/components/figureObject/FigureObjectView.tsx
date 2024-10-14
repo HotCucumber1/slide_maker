@@ -1,5 +1,5 @@
 import {CSSProperties} from "react";
-import {Color, Gradient, Point, Size} from "../../../store/objects.ts";
+import {Color, Gradient, Point, Size} from "../../store/objects.ts";
 
 type FigureObjectProps = {
     pos: Point,
@@ -56,7 +56,10 @@ function FigureObjectView(props: FigureObjectProps)
                 y="0"
                 width={props.size.width * props.scale}
                 height={props.size.height * props.scale}
-                fill={props.fill.type === "color" ? props.fill.value : "url(#grad)"}
+                fill={props.fill.type === "color" ?
+                    props.fill.value :
+                    "url(#grad)"
+                }
                 stroke={props.strokeColor.value}
                 strokeWidth={props.strokeWidth * props.scale}>
             </rect>

@@ -1,5 +1,5 @@
 import {CSSProperties} from "react";
-import {Point, Size} from "../../../store/objects.ts";
+import {Point, Size} from "../../store/objects.ts";
 
 type ImageObjectProps = {
     pos: Point,

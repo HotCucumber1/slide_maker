@@ -1,5 +1,5 @@
 import styles from "./SlideList.module.css";
-import {SelectedSlides, Slide} from "../../store/objects.ts";
+import {Slide} from "../../store/objects.ts";
 import SlideView from "../../components/slide/SlideView.tsx";
 
 type SlideListProps = {
@@ -20,6 +20,7 @@ export default function SlideList({slides}: SlideListProps)
     // TODO: добавить фигуры
     // TODO: добавить стили для firefox и safari
     // TODO: вынести `scale` в стили
+    // TODO: угол градиенту
 
     const slidesList = slides.map(slide => (
         <li key={slide.id}>

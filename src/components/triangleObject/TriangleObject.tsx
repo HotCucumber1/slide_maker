@@ -1,18 +1,18 @@
-import {Color, Gradient, Point, Size} from "../../store/objects.ts";
 import {CSSProperties} from "react";
+import {Color, Gradient, Point, Size} from "../../store/objects.ts";
 import {v4 as uuidv4} from "uuid";
 
-type EllipseObjectProps = {
+type TriangleObjectProps = {
     pos: Point,
     size: Size,
     scale: number,
     fill: Color|Gradient,
     strokeColor: Color,
     strokeWidth: number,
-}
+};
 
 
-function EllipseObject(props: EllipseObjectProps)
+function TriangleObjectView(props: TriangleObjectProps)
 {
     let colorsLength: number = 1;
     const objectStyle: CSSProperties = {
@@ -22,8 +22,6 @@ function EllipseObject(props: EllipseObjectProps)
         width: props.size.width * props.scale,
         height: props.size.height * props.scale,
     };
-    const rx: number = props.size.width / 2;
-    const ry: number = props.size.height / 2;
     if (props.fill.type === "gradient")
     {
         colorsLength = props.fill.colors.length;
@@ -59,15 +57,12 @@ function EllipseObject(props: EllipseObjectProps)
                     </linearGradient>
                 </defs>
             )}
-            <ellipse
-                cx={rx * props.scale}
-                cy={ry * props.scale}
-                rx={rx * props.scale - props.strokeWidth}
-                ry={ry * props.scale - props.strokeWidth}
+            <polygon
+                points={`${props.size.width * props.scale / 2},0 0,${props.size.height * props.scale} ${props.size.width * props.scale},${props.size.height * props.scale}`}
                 fill={props.fill.type === "color" ?
-                        props.fill.value :
-                        `url(#${gradId})`
-                    }
+                    props.fill.value :
+                    `url(#${gradId})`
+                }
                 stroke={props.strokeColor.value}
                 strokeWidth={props.strokeWidth * props.scale}
             />
@@ -75,6 +70,7 @@ function EllipseObject(props: EllipseObjectProps)
     )
 }
 
+
 export {
-    EllipseObject
+    TriangleObjectView
 }

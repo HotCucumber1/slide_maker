@@ -37,16 +37,16 @@ maxSlides.push({
             angle: 40,
             type: "gradient"
         },
-        strokeWidth: 0,
+        strokeWidth: 100,
         strokeStyle: {
-            value: "gray",
+            value: "red",
             type: "color"
         },
         type: "label",
     },
         {
             id: uuidv4(),
-            pos: {x: 200, y: 200},
+            pos: {x: 500, y: 500},
             size: { width: 1000, height: 500},
             fillStyle: {
                 colors: [
@@ -68,12 +68,41 @@ maxSlides.push({
             },
             strokeWidth: 1,
             strokeStyle: {
-                value: "red",
+                value: "black",
                 type: "color"
             },
             type: "ellipse"
-    }]
-});
+        },
+        {
+            id: uuidv4(),
+            pos: {x: 1400, y: 100},
+            size: { width: 500, height: 500},
+            fillStyle: {
+                colors: [
+                    {
+                        value: "white",
+                        type: "color"
+                    },
+                    {
+                        value: "blue",
+                        type: "color"
+                    },
+                    {
+                        value: "red",
+                        type: "color"
+                    },
+                ],
+                angle: 90,
+                type: "gradient"
+            },
+            strokeWidth: 1,
+            strokeStyle: {
+                value: "red",
+                type: "color"
+            },
+            type: "triangle"
+        }
+    ], });
 maxSlides.push({
     id: uuidv4(),
     background: {

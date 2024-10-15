@@ -1,5 +1,6 @@
 import {CSSProperties} from "react";
 import {Color, Gradient, Point, Size} from "../../store/objects.ts";
+import {v4 as uuidv4} from "uuid";
 
 type FigureObjectProps = {
     pos: Point,
@@ -25,6 +26,7 @@ function FigureObjectView(props: FigureObjectProps)
     {
         colorsLength = props.fill.colors.length;
     }
+    const gradId = uuidv4();
 
     return (
         <svg
@@ -34,11 +36,12 @@ function FigureObjectView(props: FigureObjectProps)
             {props.fill.type === "gradient" && (
                 <defs>
                     <linearGradient
-                        id="grad"
+                        id={gradId}
                         x1="0%"
                         y1="0%"
                         x2="100%"
                         y2="100%"
+                        direction={props.fill.angle}
                     >
                         {props.fill.colors.map((color, index) => {
                             return (
@@ -61,7 +64,7 @@ function FigureObjectView(props: FigureObjectProps)
                 height={props.size.height * props.scale}
                 fill={props.fill.type === "color" ?
                     props.fill.value :
-                    "url(#grad)"
+                    `url(#${gradId})`
                 }
                 stroke={props.strokeColor.value}
                 strokeWidth={props.strokeWidth * props.scale}>

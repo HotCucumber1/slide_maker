@@ -47,7 +47,6 @@ export type EllipseFigure = FigureObject & {
 }
 
 export type TriangleFigure = FigureObject & {
-    points: [Point, Point, Point];
     type: "triangle";
 }
 

@@ -5,6 +5,7 @@ import {TextObjectView} from "../textObject/TextObjectView.tsx";
 import {ImageObjectView} from "../imageObject/ImageObjectView.tsx";
 import {FigureObjectView} from "../figureObject/FigureObjectView.tsx";
 import {EllipseObject} from "../ellipseObject/EllipseObject.tsx";
+import {TriangleObjectView} from "../triangleObject/TriangleObject.tsx";
 
 
 type SlideProps = {
@@ -96,7 +97,18 @@ export default function SlideView({scale, background, content, extraStyles}: Sli
                     </EllipseObject>
                 );
             case "triangle":
-                break;
+                return (
+                    <TriangleObjectView
+                        pos={object.pos}
+                        size={object.size}
+                        scale={scale}
+                        fill={object.fillStyle}
+                        strokeColor={object.strokeStyle}
+                        strokeWidth={object.strokeWidth}
+                        key={object.id}
+                    >
+                    </TriangleObjectView>
+                );
             case "path":
                 break;
         }

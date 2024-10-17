@@ -1,4 +1,3 @@
-import {CSSProperties} from "react";
 import {Point, Size} from "../../store/objects.ts";
 import {getSlideObjectStyles} from "../../service/getSlideObjectStyles.ts";
 

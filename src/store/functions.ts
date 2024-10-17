@@ -10,7 +10,7 @@ import {
     TextObject,
     FontStyle,
     EllipseFigure,
-    LabelFigure,
+    LabelFigure, SelectedSlides,
 } from "./objects";
 import {Editor} from "./editor.ts";
 
@@ -481,6 +481,22 @@ function setPresentationBackground(editor: Editor, newBackground: Color|Image|Gr
     };
 }
 
+function setSelection(editor: Editor, newSelection: SelectedSlides): Editor
+{
+    return {
+        ...editor,
+        selectedSlides: newSelection,
+    }
+}
+
+function setActiveSlide(editor: Editor, newActiveSlideId: string): Editor
+{
+    return {
+        ...editor,
+        currentSlideId: newActiveSlideId,
+    }
+}
+
 export {
     setText,
     setFontFamily,
@@ -499,4 +515,6 @@ export {
     addSlide,
     deleteSlides,
     deleteSlideObjects,
+    setSelection,
+    setActiveSlide,
 }

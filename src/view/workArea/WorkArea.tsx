@@ -20,7 +20,8 @@ export default function WorkArea({activeSlide}: WorkAreaProps)
             <SlideView
                 scale={SLIDE_SCALE}
                 background={activeSlide.background}
-                content={activeSlide.content}>
+                content={activeSlide.content}
+            >
             </SlideView>
         </div>
     )

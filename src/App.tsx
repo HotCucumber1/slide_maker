@@ -4,6 +4,7 @@ import WorkArea from "./view/workArea/WorkArea.tsx";
 
 import styles from "./App.module.css";
 import {Editor} from "./store/editor.ts";
+import * as React from "react";
 
 
 type AppProps = {
@@ -12,19 +13,20 @@ type AppProps = {
 
 
 export default function App({editor}: AppProps) {
-
     return (
         <>
-            <ToolBar
-                fileName={editor.presentation.title}
-            ></ToolBar>
+            <ToolBar fileName={editor.presentation.title}></ToolBar>
             <div className={styles.slideArea}>
                 <SlideList
                     slides={editor.presentation.slides}
-                    // selection={}
+                    selection={editor.selectedSlides}
                 >
                 </SlideList>
-                <WorkArea activeSlide={editor.presentation.slides[0]}></WorkArea>
+                <WorkArea
+                    activeSlide={editor.presentation.slides.filter(
+                        slide => slide.id === editor.currentSlideId
+                    )[0]}>
+                </WorkArea>
             </div>
         </>
     )

@@ -17,7 +17,7 @@ body {
     --tool-bar-margin: 15px;
     --tool-bar-border-radius: 15px;
     --tool-bar-block-height: 40px;
-    --font-family: sans-serif;
+    --font-family: "Inter", sans-serif;
     --slide-border-radius: 20px;
     --slide-preview-border-radius: calc(var(--slide-border-radius) / 2);
 }

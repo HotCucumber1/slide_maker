@@ -38,7 +38,7 @@ maxSlides.push({
             angle: 40,
             type: "gradient"
         },
-        strokeWidth: 100,
+        strokeWidth: 10,
         strokeStyle: {
             value: "red",
             type: "color"
@@ -102,7 +102,28 @@ maxSlides.push({
                 type: "color"
             },
             type: "triangle"
-        }
+        },
+        {
+            id: uuidv4(),
+            pos: {x: 1400, y: 100},
+            size: {width: 500, height: 500},
+            src: "../public/image/earth.gif",
+            type: "image",
+        },
+        {
+            id: uuidv4(),
+            pos: {x: 650, y: 50},
+            size: {width: 500, height: 74},
+            text: "It is a text",
+            fontSize: 72,
+            fontFamily: "Montserrat",
+            fontStyles: ["bold", "italic"],
+            color: {
+                value: "black",
+                type: "color",
+            },
+            type: "text",
+        },
     ], });
 maxSlides.push({
     id: uuidv4(),
@@ -182,8 +203,8 @@ const presentation: Presentation = {
 
 const editor: Editor = {
     presentation: presentation,
-    currentSlideId: "",
-    selectedSlides: [],
+    currentSlideId: presentation.slides[0].id,
+    selectedSlides: [presentation.slides[0].id],
     selectedObjects: []
 };
 

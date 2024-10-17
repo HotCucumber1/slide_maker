@@ -8,24 +8,33 @@ import styles from "./SlideView.module.css";
 import {CSSProperties} from "react";
 
 
+const SLIDE_WIDTH: number = 1920;
+const SLIDE_HEIGHT: number = 1080;
+const SELECTED_SLIDE_BORDER_STYLE = "2px solid #2F7DF7";
+
+
 type SlideProps = {
     scale: number,
     background: Color|Gradient|Image,
     content: Array<SlideObject>,
+    isActive?: boolean,
+    isSelected?: boolean,
     extraStyles?: CSSProperties,
 };
 
 
-export default function SlideView({scale, background, content, extraStyles}: SlideProps)
+export default function SlideView({scale, background, content, extraStyles, isSelected}: SlideProps)
 {
-    const SLIDE_WIDTH: number = 1920;
-    const SLIDE_HEIGHT: number = 1080;
-
     const slideStyle: CSSProperties = {
         ...extraStyles,
         width: `${SLIDE_WIDTH * scale}px`,
         height: `${SLIDE_HEIGHT * scale}px`,
     };
+    if (isSelected)
+    {
+        slideStyle.border = SELECTED_SLIDE_BORDER_STYLE;
+    }
+
     switch (background.type)
     {
         case "color":

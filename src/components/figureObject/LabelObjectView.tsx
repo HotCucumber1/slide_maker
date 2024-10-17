@@ -1,7 +1,7 @@
 import {Color, Gradient, Point, Size} from "../../store/objects.ts";
-import {v4 as uuidv4} from "uuid";
 import {getGradientCoords, GradientCoords} from "../../service/getGradientCoords.ts";
 import {getSlideObjectStyles} from "../../service/getSlideObjectStyles.ts";
+import {v4 as uuidv4} from "uuid";
 
 type FigureObjectProps = {
     pos: Point,
@@ -13,7 +13,7 @@ type FigureObjectProps = {
 };
 
 
-function FigureObjectView(props: FigureObjectProps)
+function LabelObjectView(props: FigureObjectProps)
 {
     let colorsLength: number = 1;
 
@@ -72,5 +72,5 @@ function FigureObjectView(props: FigureObjectProps)
 
 
 export {
-    FigureObjectView
+    LabelObjectView
 }

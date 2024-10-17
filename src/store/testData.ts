@@ -1,8 +1,9 @@
-import {Slide} from "./objects.ts";
+import {Presentation, Slide} from "./objects.ts";
 import {v4 as uuidv4} from "uuid";
+import {Editor} from "./editor.ts";
 
 
-export const maxSlides: Slide[] = [];
+const maxSlides: Slide[] = [];
 maxSlides.push({
     id: uuidv4(),
     background: {
@@ -163,7 +164,7 @@ for (let i = 0; i < 8; i++)
 }
 
 
-export const minSlides: Slide[] = [];
+const minSlides: Slide[] = [];
 minSlides.push({
     id: uuidv4(),
     background: {
@@ -172,3 +173,20 @@ minSlides.push({
     },
     content: []
 });
+
+const presentation: Presentation = {
+    title: "Новая презентация",
+    slides: maxSlides,
+}
+
+
+const editor: Editor = {
+    presentation: presentation,
+    currentSlideId: "",
+    selectedSlides: [],
+    selectedObjects: []
+};
+
+export {
+    editor,
+}

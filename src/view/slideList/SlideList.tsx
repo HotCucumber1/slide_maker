@@ -17,11 +17,6 @@ export default function SlideList({slides}: SlideListProps)
         return;
     }
 
-    // TODO: добавить фигуры
-    // TODO: добавить стили для firefox и safari
-    // TODO: вынести `scale` в стили
-    // TODO: угол градиенту
-
     const slidesList = slides.map(slide => (
         <li key={slide.id}>
             <div className={styles.slidePreviewWrapper}>

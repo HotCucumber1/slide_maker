@@ -10,6 +10,10 @@
     margin-bottom: 20px;
 }
 
+/*
+Работает дял всех браузеров:
+https://only-to-top.ru/blog/coding/2020-01-31-stilizaciya-skrolla-css.html
+ */
 .slideList::-webkit-scrollbar {
     width: 8px;
 }

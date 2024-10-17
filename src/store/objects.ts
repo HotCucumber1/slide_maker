@@ -1,17 +1,17 @@
-export type Presentation = {
+type Presentation = {
     title: string;
     slides: Slide[];
 }
 
-export type SelectedSlides = string[];
+type SelectedSlides = string[];
 
-export type Slide = {
+type Slide = {
     id: string;
     background: Color|Gradient|Image;
     content: Array<SlideObject>;
 }
 
-export type SelectedObjects = string[];
+type SelectedObjects = string[];
 
 type BaseObject = {
     id: string;
@@ -19,9 +19,9 @@ type BaseObject = {
     size: Size;
 }
 
-export type ImageObject = BaseObject & Image;
+type ImageObject = BaseObject & Image;
 
-export type TextObject = BaseObject & {
+type TextObject = BaseObject & {
     text: string;
     fontSize: number;
     fontFamily: string;
@@ -30,60 +30,94 @@ export type TextObject = BaseObject & {
     type: "text";
 }
 
-export type FontStyle = Array<"italic"|"bold"|"underline">;
+type FontStyle = Array<"italic"|"bold"|"underline">;
 
-export type FigureObject = BaseObject & {
+type FigureObject = BaseObject & {
     fillStyle: Color|Gradient;
     strokeStyle: Color;
     strokeWidth: number;
 }
 
-export type LabelFigure = FigureObject & {
+type LabelFigure = FigureObject & {
     type: "label";
 }
 
-export type EllipseFigure = FigureObject & {
+type EllipseFigure = FigureObject & {
     type: "ellipse";
 }
 
-export type TriangleFigure = FigureObject & {
+type TriangleFigure = FigureObject & {
     type: "triangle";
 }
 
-export type PathFigure = FigureObject & {
+/*
+    Команды d:
+    Z — замыкает контур, возвращаясь к начальной точке (50, 50).
+    M (Move To) — перемещение пера без рисования.
+    L (Line To) — рисование линии.
+    H (Horizontal Line To) — рисование горизонтальной линии.
+    V (Vertical Line To) — рисование вертикальной линии.
+    C (Cubic Bezier Curve) — рисование кубической кривой Безье.
+    S (Smooth Cubic Bezier Curve) — плавная кубическая кривая.
+    Q (Quadratic Bezier Curve) — квадратичная кривая Безье.
+    A (Arc) — дуга окружности.
+    Z — закрыть контур, возвращая перо в начальную точку.
+ */
+type PathFigure = FigureObject & {
+    pathType: Array<"Z"|"M"|"L"|"H"|"V"|"C"|"S"|"Q"|"A">;
     points: Point[];
     type: "path";
 }
 
-export type SlideObject = TextObject|
-                          ImageObject|
-                          LabelFigure|
-                          EllipseFigure|
-                          TriangleFigure|
-                          PathFigure;
+type SlideObject = TextObject|
+                   ImageObject|
+                   LabelFigure|
+                   EllipseFigure|
+                   TriangleFigure|
+                   PathFigure;
 
-export type Gradient = {
+type Gradient = {
     colors: Color[];
     angle: number;
     type: "gradient";
 }
 
-export type Image = {
+type Image = {
     src: string;
     type: "image";
 }
 
-export type Color = {
+type Color = {
     value: string;
     type: "color";
 }
 
-export type Point = {
+type Point = {
     x: number;
     y: number;
 }
 
-export type Size = {
+type Size = {
     width: number;
     height: number;
+}
+
+export {
+    Presentation,
+    SelectedSlides,
+    SelectedObjects,
+    Slide,
+    ImageObject,
+    TextObject,
+    LabelFigure,
+    TriangleFigure,
+    EllipseFigure,
+    PathFigure,
+    FontStyle,
+    SlideObject,
+    Gradient,
+    Image,
+    Color,
+    Point,
+    Size
 }

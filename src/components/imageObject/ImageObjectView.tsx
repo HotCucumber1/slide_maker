@@ -1,5 +1,6 @@
 import {CSSProperties} from "react";
 import {Point, Size} from "../../store/objects.ts";
+import {getSlideObjectStyles} from "../../service/getSlideObjectStyles.ts";
 
 type ImageObjectProps = {
     pos: Point,
@@ -11,17 +12,9 @@ type ImageObjectProps = {
 
 function ImageObjectView({pos, size, scale, src}: ImageObjectProps)
 {
-    const objectStyle: CSSProperties = {
-        position: "absolute",
-        top: pos.y * scale,
-        left: pos.x * scale,
-        width: size.width * scale,
-        height: size.height * scale,
-    };
-
     return (
         <img
-            style={objectStyle}
+            style={getSlideObjectStyles(pos, size, scale)}
             src={src}
             alt={src.split("/").pop()}
         />

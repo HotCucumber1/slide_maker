@@ -1,6 +1,7 @@
 import {CSSProperties} from "react";
 import {Color, FontStyle, Point, Size} from "../../store/objects.ts";
 import styles from "./TextObjectView.module.css";
+import {getSlideObjectStyles} from "../../service/getSlideObjectStyles.ts";
 
 type TextObjectProps = {
     pos: Point,
@@ -17,12 +18,7 @@ type TextObjectProps = {
 function TextObjectView(props: TextObjectProps)
 {
     const objectStyle: CSSProperties = {
-        position: "absolute",
-        top: props.pos.y * props.scale,
-        left: props.pos.x * props.scale,
-        width: props.size.width * props.scale,
-        height: props.size.height * props.scale,
-        fontSize: props.fontSize * props.scale + "px",
+        fontSize: `${props.fontSize * props.scale}px`,
         fontFamily: props.fontFamily,
         color: props.color.value,
     };
@@ -42,7 +38,10 @@ function TextObjectView(props: TextObjectProps)
     return (
         <input
             className={styles.textObject}
-            style={objectStyle}
+            style={{
+                ...objectStyle,
+                ...getSlideObjectStyles(props.pos, props.size, props.scale),
+            }}
             defaultValue={props.text}
         />
     )

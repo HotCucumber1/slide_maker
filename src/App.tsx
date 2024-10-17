@@ -2,39 +2,29 @@ import ToolBar from "./view/toolBar/ToolBar.tsx";
 import SlideList from "./view/slideList/SlideList.tsx";
 import WorkArea from "./view/workArea/WorkArea.tsx";
 
-import {Presentation} from "./store/objects.ts";
 import styles from "./App.module.css";
-import {maxSlides} from "./store/testData.ts";
-
-// import {Editor, dispatch} from "./store/editor.ts";
-// import {setText} from "./store/functions.ts";
-//
-//
-// type AppProps = {
-//     editor: Editor,
-// }
+import {Editor} from "./store/editor.ts";
 
 
-export default function App() {
-    const newPresentation: Presentation = {
-        title: "Cамая новая презентация",
-        slides: maxSlides,
-        // slides: minSlides,
-        // slide: [],
-    };
+type AppProps = {
+    editor: Editor,
+}
+
+
+export default function App({editor}: AppProps) {
 
     return (
         <>
             <ToolBar
-                fileName={newPresentation.title}
+                fileName={editor.presentation.title}
             ></ToolBar>
             <div className={styles.slideArea}>
                 <SlideList
-                    slides={newPresentation.slides}
+                    slides={editor.presentation.slides}
                     // selection={}
                 >
                 </SlideList>
-                <WorkArea activeSlide={newPresentation.slides[0]}></WorkArea>
+                <WorkArea activeSlide={editor.presentation.slides[0]}></WorkArea>
             </div>
         </>
     )

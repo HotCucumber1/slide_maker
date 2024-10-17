@@ -1,7 +1,7 @@
 import {Color, Gradient, Image, SlideObject} from "../../store/objects.ts";
 import {TextObjectView} from "../textObject/TextObjectView.tsx";
 import {ImageObjectView} from "../imageObject/ImageObjectView.tsx";
-import {FigureObjectView} from "../figureObject/FigureObjectView.tsx";
+import {LabelObjectView} from "../figureObject/LabelObjectView.tsx";
 import {EllipseObject} from "../ellipseObject/EllipseObject.tsx";
 import {TriangleObjectView} from "../triangleObject/TriangleObject.tsx";
 import styles from "./SlideView.module.css";
@@ -23,8 +23,8 @@ export default function SlideView({scale, background, content, extraStyles}: Sli
 
     const slideStyle: CSSProperties = {
         ...extraStyles,
-        width: SLIDE_WIDTH * scale + "px",
-        height: SLIDE_HEIGHT * scale + "px",
+        width: `${SLIDE_WIDTH * scale}px`,
+        height: `${SLIDE_HEIGHT * scale}px`,
     };
     switch (background.type)
     {
@@ -32,12 +32,13 @@ export default function SlideView({scale, background, content, extraStyles}: Sli
             slideStyle.backgroundColor = background.value;
             break;
         case "image":
-            slideStyle.backgroundImage = "url(" + background.src + ")";
+            slideStyle.backgroundImage = `url(${background.src})`;
             break;
         case "gradient":
-            slideStyle.background = "linear-gradient(" + background.angle + "deg, " + background.colors
-                                                                                        .map(color => color.value)
-                                                                                        .join(", ") + ")";
+            slideStyle.background = `linear-gradient(${background.angle}deg, 
+                                                     ${background.colors
+                                                                      .map(color => color.value)
+                                                                      .join(", ")})`
             break;
     }
 
@@ -72,7 +73,7 @@ export default function SlideView({scale, background, content, extraStyles}: Sli
                 );
             case "label":
                 return (
-                    <FigureObjectView
+                    <LabelObjectView
                         pos={object.pos}
                         size={object.size}
                         scale={scale}
@@ -81,7 +82,7 @@ export default function SlideView({scale, background, content, extraStyles}: Sli
                         strokeWidth={object.strokeWidth}
                         key={object.id}
                     >
-                    </FigureObjectView>
+                    </LabelObjectView>
                 );
             case "ellipse":
                 return (

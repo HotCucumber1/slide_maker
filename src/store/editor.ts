@@ -1,4 +1,5 @@
 import {Presentation, SelectedObjects, SelectedSlides} from "./objects.ts";
+import {editor} from "./testData.ts";
 
 type Editor = {
     presentation: Presentation,
@@ -7,26 +8,18 @@ type Editor = {
     selectedObjects: SelectedObjects,
 };
 
-let editor: Editor = {
-    presentation: {
-        title: "Новая презентация",
-        slides: []
-    },
-    currentSlideId: "",
-    selectedSlides: [],
-    selectedObjects: []
-};
+let _editor: Editor = editor;
 let editorChangeHandler = null;
 
 
 function getEditor(): Editor
 {
-    return editor;
+    return _editor;
 }
 
 function setEditor(newEditor: Editor): void
 {
-    editor = newEditor
+    _editor = newEditor
 }
 
 function addEditorChangeHandler(handler)
@@ -34,9 +27,9 @@ function addEditorChangeHandler(handler)
     editorChangeHandler = handler;
 }
 
-function dispatch(modifyFunc: Function, payload: Object): void
+function dispatch(modifyFunc: Function, payload?: Object): void
 {
-    const newEditor = modifyFunc(editor, payload);
+    const newEditor = modifyFunc(_editor, payload);
     setEditor(newEditor);
     if (editorChangeHandler)
     {

@@ -55,7 +55,12 @@ export type PathFigure = FigureObject & {
     type: "path";
 }
 
-export type SlideObject = TextObject|ImageObject|LabelFigure|EllipseFigure|TriangleFigure|PathFigure;
+export type SlideObject = TextObject|
+                          ImageObject|
+                          LabelFigure|
+                          EllipseFigure|
+                          TriangleFigure|
+                          PathFigure;
 
 export type Gradient = {
     colors: Color[];

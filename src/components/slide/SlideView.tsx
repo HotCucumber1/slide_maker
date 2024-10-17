@@ -1,11 +1,11 @@
 import {Color, Gradient, Image, SlideObject} from "../../store/objects.ts";
-import styles from "./SlideView.module.css";
-import {CSSProperties} from "react";
 import {TextObjectView} from "../textObject/TextObjectView.tsx";
 import {ImageObjectView} from "../imageObject/ImageObjectView.tsx";
 import {FigureObjectView} from "../figureObject/FigureObjectView.tsx";
 import {EllipseObject} from "../ellipseObject/EllipseObject.tsx";
 import {TriangleObjectView} from "../triangleObject/TriangleObject.tsx";
+import styles from "./SlideView.module.css";
+import {CSSProperties} from "react";
 
 
 type SlideProps = {

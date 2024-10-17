@@ -6,7 +6,7 @@ import {Presentation} from "./store/objects.ts";
 import styles from "./App.module.css";
 import {maxSlides} from "./store/testData.ts";
 
-import {Editor, dispatch} from "./store/editor.ts";
+// import {Editor, dispatch} from "./store/editor.ts";
 // import {setText} from "./store/functions.ts";
 //
 //

@@ -352,14 +352,14 @@ function setText(editor: Editor, newText: string): Editor
     const updatedContent: SlideObject = currentSlide.content.filter(
         object => editor.selectedObjects.indexOf(object.id) !== -1
     )[0];
+    const updatedContentIndex = currentSlide.content.indexOf(updatedContent);
 
     if (updatedContent.type !== "text")
     {
         return editor;
     }
 
-    updatedContent.text = newText;
-    currentSlide.content.push(updatedContent);
+    updatedContent[updatedContentIndex].text = newText;
 
     const newSlides = editor.presentation.slides.slice();
     newSlides[currentSlideIndex] = currentSlide;

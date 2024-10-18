@@ -114,10 +114,10 @@ maxSlides.push({
             id: uuidv4(),
             pos: {x: 650, y: 50},
             size: {width: 500, height: 74},
-            text: "It is a text",
+            text: "It is a text with styles",
             fontSize: 72,
             fontFamily: "Montserrat",
-            fontStyles: ["bold", "italic"],
+            fontStyles: ["italic", "underline"],
             color: {
                 value: "black",
                 type: "color",

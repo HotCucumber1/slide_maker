@@ -2,6 +2,7 @@
     outline: none;
     border: none;
     background: none;
+    text-overflow: clip;
 }
 
 .textObject::placeholder {

@@ -28,27 +28,27 @@ function TextObjectView(props: TextObjectProps)
         fontSize: `${props.fontSize * props.scale}px`,
         fontFamily: props.fontFamily,
         color: props.color.value,
+        lineHeight: `${(props.fontSize + 8) * props.scale}px`,
     };
 
-    if (props.fontStyles.indexOf("underline") > 0)
+    if (props.fontStyles.includes("underline"))
     {
         objectStyle.textDecoration = "underline";
     }
-    if (props.fontStyles.indexOf("italic") > 0)
+    if (props.fontStyles.includes("italic"))
     {
         objectStyle.fontStyle = "italic";
     }
-    if (props.fontStyles.indexOf("bold") > 0)
+    if (props.fontStyles.includes("bold"))
     {
         objectStyle.fontWeight = "bold";
     }
     return (
-        <input
+        <textarea
             id={props.objectId}
             className={styles.textObject}
             style={{
                 ...objectStyle,
-                width: "20ch"
             }}
             defaultValue={props.text}
             placeholder={placeholder}

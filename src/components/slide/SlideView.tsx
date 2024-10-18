@@ -59,90 +59,98 @@ export default function SlideView({scale, background, content, extraStyles, isSe
     }
 
     // TODO: разобраться с selection
-    const slideObjects = content.map(object => {
-        switch (object.type)
-        {
-            case "text":
-                return (
-                    <TextObjectView
-                        pos={object.pos}
-                        size={object.size}
-                        scale={scale}
-                        text={object.text}
-                        fontSize={object.fontSize}
-                        fontFamily={object.fontFamily}
-                        fontStyles={object.fontStyles}
-                        color={object.color}
-                        key={object.id}
-                        onClick={onObjectClick}
-                    >
-                    </TextObjectView>
-                );
-            case "image":
-                return (
-                    <ImageObjectView
-                        id={object.id}
-                        pos={object.pos}
-                        size={object.size}
-                        scale={scale}
-                        src={object.src}
-                        key={object.id}
-                    >
-                    </ImageObjectView>
-                );
-            case "label":
-                return (
-                    <LabelObjectView
-                        id={object.id}
-                        pos={object.pos}
-                        size={object.size}
-                        scale={scale}
-                        fill={object.fillStyle}
-                        strokeColor={object.strokeStyle}
-                        strokeWidth={object.strokeWidth}
-                        key={object.id}
-                    >
-                    </LabelObjectView>
-                );
-            case "ellipse":
-                return (
-                    <EllipseObject
-                        id={object.id}
-                        pos={object.pos}
-                        size={object.size}
-                        scale={scale}
-                        fill={object.fillStyle}
-                        strokeColor={object.strokeStyle}
-                        strokeWidth={object.strokeWidth}
-                        key={object.id}
-                    >
-                    </EllipseObject>
-                );
-            case "triangle":
-                return (
-                    <TriangleObjectView
-                        id={object.id}
-                        pos={object.pos}
-                        size={object.size}
-                        scale={scale}
-                        fill={object.fillStyle}
-                        strokeColor={object.strokeStyle}
-                        strokeWidth={object.strokeWidth}
-                        key={object.id}
-                    >
-                    </TriangleObjectView>
-                );
-            case "path":
-                break;
-        }
-    });
-
     return (
         <div
             style={slideStyle}
             className={styles.slide}
         >
-            {slideObjects}
+            {content.map(object => {
+                switch (object.type)
+                {
+                    case "text":
+                        return (
+                            <div>
+                                <TextObjectView
+                                    pos={object.pos}
+                                    size={object.size}
+                                    scale={scale}
+                                    text={object.text}
+                                    fontSize={object.fontSize}
+                                    fontFamily={object.fontFamily}
+                                    fontStyles={object.fontStyles}
+                                    color={object.color}
+                                    key={object.id}
+                                    onClick={onObjectClick}
+                                >
+                                </TextObjectView>
+                            </div>
+                        );
+                    case "image":
+                        return (
+                            <div>
+                                <ImageObjectView
+                                    id={object.id}
+                                    pos={object.pos}
+                                    size={object.size}
+                                    scale={scale}
+                                    src={object.src}
+                                    key={object.id}
+                                >
+                                </ImageObjectView>
+                            </div>
+                        );
+                    case "label":
+                        return (
+                            <div>
+                                <LabelObjectView
+                                    id={object.id}
+                                    pos={object.pos}
+                                    size={object.size}
+                                    scale={scale}
+                                    fill={object.fillStyle}
+                                    strokeColor={object.strokeStyle}
+                                    strokeWidth={object.strokeWidth}
+                                    key={object.id}
+                                >
+                                </LabelObjectView>
+                            </div>
+                        );
+                    case "ellipse":
+                        return (
+                            <div>
+                                <EllipseObject
+                                    id={object.id}
+                                    pos={object.pos}
+                                    size={object.size}
+                                    scale={scale}
+                                    fill={object.fillStyle}
+                                    strokeColor={object.strokeStyle}
+                                    strokeWidth={object.strokeWidth}
+                                    key={object.id}
+                                >
+                                </EllipseObject>
+                            </div>
+                        );
+                    case "triangle":
+                        return (
+                            <div>
+                                <TriangleObjectView
+                                    id={object.id}
+                                    pos={object.pos}
+                                    size={object.size}
+                                    scale={scale}
+                                    fill={object.fillStyle}
+                                    strokeColor={object.strokeStyle}
+                                    strokeWidth={object.strokeWidth}
+                                    key={object.id}
+                                >
+                                </TriangleObjectView>
+                            </div>
+                        );
+                    case "path":
+                        break;
+                }}
+            )}
         </div>
     )
 }

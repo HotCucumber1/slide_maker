@@ -36,11 +36,21 @@ function addSlide(editor: Editor): Editor
         },
         content: [],
     };
+    const selectedSlides = editor.presentation.slides.filter(
+        slide => editor.selectedSlides.indexOf(slide.id) !== -1
+    );
+
+    const lastSelectedSlide = selectedSlides[selectedSlides.length - 1];
+    const lastSelectedSlideIndex = editor.presentation.slides.indexOf(lastSelectedSlide);
+
+    const newSlides = editor.presentation.slides.slice();
+    newSlides.splice(lastSelectedSlideIndex + 1, 0, newSlide);
+
     return {
         ...editor,
         presentation: {
             ...editor.presentation,
-            slides: [...editor.presentation.slides, newSlide],
+            slides: newSlides,
         },
     };
 }

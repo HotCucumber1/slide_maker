@@ -76,7 +76,14 @@ maxSlides.push({
         },
         {
             id: uuidv4(),
-            pos: {x: 1400, y: 100},
+            pos: {x: 1400, y: 500},
+            size: {width: 500, height: 500},
+            src: "../public/image/earth.gif",
+            type: "image",
+        },
+        {
+            id: uuidv4(),
+            pos: {x: 1400, y: 0},
             size: { width: 500, height: 500},
             fillStyle: {
                 colors: [
@@ -105,13 +112,6 @@ maxSlides.push({
         },
         {
             id: uuidv4(),
-            pos: {x: 1400, y: 100},
-            size: {width: 500, height: 500},
-            src: "../public/image/earth.gif",
-            type: "image",
-        },
-        {
-            id: uuidv4(),
             pos: {x: 650, y: 50},
             size: {width: 500, height: 74},
             text: "It is a text",
@@ -133,56 +133,6 @@ maxSlides.push({
     },
     content: []
 });
-
-for (let i = 0; i < 8; i++)
-{
-    const slide: Slide = {
-        id: uuidv4(),
-        background: {
-            colors: [
-                {value: "white", type: "color"},
-                {value: "#EDF2FF", type: "color"},
-            ],
-            angle: 45,
-            type: "gradient",
-        },
-        content: [],
-    };
-
-    if (i % 2 === 0)
-    {
-        maxSlides.push({
-            ...slide,
-            content: [{
-                id: uuidv4(),
-                pos: {x: 50, y: 50},
-                size: {width: 500, height: 30},
-                text: "It is a text",
-                fontSize: 20,
-                fontFamily: "Arial",
-                fontStyles: [],
-                color: {
-                    value: "black",
-                    type: "color",
-                },
-                type: "text"
-            }],
-        });
-    }
-    else
-    {
-        maxSlides.push({
-            ...slide,
-            content: [{
-                    id: uuidv4(),
-                    pos: {x: 50, y: 50},
-                    size: {width: 500, height: 500},
-                    src: "../public/image/earth.gif",
-                    type: "image",
-            }]
-        });
-    }
-}
 
 
 const minSlides: Slide[] = [];

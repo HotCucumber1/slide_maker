@@ -10,7 +10,7 @@
 }
 
 .icon {
-    margin-left: 10px;
+    margin-left: 15px;
     margin-block: 5px;
 }
 
@@ -26,6 +26,8 @@
 }
 
 .toolArea {
+    display: flex;
+    padding-inline: 15px;
     background-color: #EDF2FA;
     height: var(--tool-bar-block-height);
     border-bottom-right-radius: var(--tool-bar-border-radius);

@@ -1,7 +1,14 @@
 import styles from "./ToolBar.module.css";
 import * as React from "react";
 import {dispatch} from "../../store/editor.ts";
-import {setPresentationTitle} from "../../store/functions.ts";
+import {addSlide, setPresentationTitle} from "../../store/functions.ts";
+import {Icon, MenuButton} from "../../components/menuButton/MenuButton.tsx";
+
+
+const addSlideButtonContent: Icon = {
+    type: "icon",
+    src: "../../../public/image/add_slide_button_icon.png",
+}
 
 type ToolBarProps = {
     fileName: string,
@@ -26,7 +33,13 @@ export default function ToolBar({fileName}: ToolBarProps)
                     defaultValue={fileName}
                 />
             </div>
-            <div className={styles.toolArea}></div>
+            <div className={styles.toolArea}>
+                <MenuButton
+                    content={addSlideButtonContent}
+                    onClick={() => dispatch(addSlide)}
+                >
+                </MenuButton>
+            </div>
         </div>
     )
 }

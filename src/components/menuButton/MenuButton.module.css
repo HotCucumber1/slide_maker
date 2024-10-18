@@ -1,0 +1,23 @@
+.menuButton {
+    height: 80%;
+    aspect-ratio: 1 / 1;
+    margin-block: auto;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    border-radius: 15%;
+}
+
+.menuButton:hover {
+    background-color: #E5E5E5;
+}
+
+.menuButtonIcon {
+    display: block;
+    max-width: 70%;
+    max-height: 70%;
+    margin-inline: auto;
+}
+.menuButtonIcon:active {
+    transform: scale(0.8);
+}

@@ -10,7 +10,7 @@ import {
     TextObject,
     FontStyle,
     EllipseFigure,
-    LabelFigure, SelectedSlides,
+    LabelFigure, SelectedSlides, SlideObject, SelectedObjects,
 } from "./objects";
 import {Editor} from "./editor.ts";
 
@@ -96,16 +96,20 @@ function setSlidePosition(editor: Editor, newPosition: number): Editor
 }
 
 type AddTextProps = {
-    position: Point,
     fontSize: number,
     fontFamily: string,
     fontStyles: FontStyle,
     size?: Size,
     color?: Color,
+    position?: Point,
 }
 
 function addText(editor: Editor, props: AddTextProps): Editor
 {
+    const defaultPosition: Point = {
+        x: 500,
+        y: 500,
+    }
     const defaultColor: Color = {
         value: "black",
         type: "color"
@@ -119,7 +123,7 @@ function addText(editor: Editor, props: AddTextProps): Editor
 
     const textObject: TextObject = {
         id: uuidv4(),
-        pos: props.position,
+        pos: typeof props.position === "undefined" ? defaultPosition : props.position,
         text: defaultText,
         size: typeof props.size === "undefined" ? defaultSize : props.size,
         fontSize: props.fontSize,
@@ -132,13 +136,18 @@ function addText(editor: Editor, props: AddTextProps): Editor
     const currentSlide = editor.presentation.slides.filter(
         slide => slide.id === editor.currentSlideId
     )[0];
-    currentSlide.content.push(textObject);
+    const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
 
+    currentSlide.content.push(textObject);
+    const newSlides = editor.presentation.slides.slice();
+    newSlides[currentSlideIndex] = currentSlide;
+
+    // TODO: обновить модельку добавления слайдов при изменении текста (здесь норм)
     return {
         ...editor,
         presentation: {
             ...editor.presentation,
-            slides: [...editor.presentation.slides, currentSlide]
+            slides: newSlides,
         }
     };
 }
@@ -333,8 +342,10 @@ function setText(editor: Editor, newText: string): Editor
     const currentSlide = editor.presentation.slides.filter(
         slide => slide.id === editor.currentSlideId
     )[0];
-    const updatedContent = currentSlide.content.filter(
-        object => editor.selectedObjects.indexOf(object.id) === -1
+    const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
+
+    const updatedContent: SlideObject = currentSlide.content.filter(
+        object => editor.selectedObjects.indexOf(object.id) !== -1
     )[0];
 
     if (updatedContent.type !== "text")
@@ -343,19 +354,16 @@ function setText(editor: Editor, newText: string): Editor
     }
 
     updatedContent.text = newText;
-    currentSlide.content = [
-        ...currentSlide.content,
-        updatedContent,
-    ];
+    currentSlide.content.push(updatedContent);
+
+    const newSlides = editor.presentation.slides.slice();
+    newSlides[currentSlideIndex] = currentSlide;
 
     return {
         ...editor,
         presentation: {
             ...editor.presentation,
-            slides: [
-                ...editor.presentation.slides,
-                currentSlide,
-            ]
+            slides: newSlides,
         }
     };
 }
@@ -491,7 +499,16 @@ function setPresentationBackground(editor: Editor, newBackground: Color|Image|Gr
     };
 }
 
-function setSelection(editor: Editor, newSelection: SelectedSlides): Editor
+function setSlideSelection(editor: Editor, newSelection: SelectedSlides): Editor
+{
+    return {
+        ...editor,
+        selectedObjects: [],
+        selectedSlides: newSelection,
+    }
+}
+
+function setObjectSelection(editor: Editor, newSelection: SelectedObjects): Editor
 {
     return {
         ...editor,
@@ -525,6 +542,7 @@ export {
     addSlide,
     deleteSlides,
     deleteSlideObjects,
-    setSelection,
+    setSlideSelection,
     setActiveSlide,
+    setObjectSelection,
 }

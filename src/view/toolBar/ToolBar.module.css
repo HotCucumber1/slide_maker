@@ -33,3 +33,14 @@
     border-bottom-right-radius: var(--tool-bar-border-radius);
     border-bottom-left-radius: var(--tool-bar-border-radius);
 }
+
+.slideActions {
+    display: flex;
+    column-gap: 5px;
+}
+
+.toolBarSeparator {
+    margin: 6px 10px;
+    background-color: var(--light-gray-color);
+    width: 2px;
+}

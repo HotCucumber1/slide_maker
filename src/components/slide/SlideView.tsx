@@ -6,6 +6,9 @@ import {EllipseObject} from "../ellipseObject/EllipseObject.tsx";
 import {TriangleObjectView} from "../triangleObject/TriangleObject.tsx";
 import styles from "./SlideView.module.css";
 import {CSSProperties} from "react";
+import * as React from "react";
+import {dispatch} from "../../store/editor.ts";
+import {setActiveSlide, setObjectSelection, setSlideSelection, setText} from "../../store/functions.ts";
 
 
 const SLIDE_WIDTH: number = 1920;
@@ -25,6 +28,10 @@ type SlideProps = {
 
 export default function SlideView({scale, background, content, extraStyles, isSelected}: SlideProps)
 {
+    const onObjectClick: React.MouseEventHandler = event => {
+        dispatch(setObjectSelection, [(event.target as HTMLDivElement).id])
+    }
+
     const slideStyle: CSSProperties = {
         ...extraStyles,
         width: `${SLIDE_WIDTH * scale}px`,
@@ -51,6 +58,7 @@ export default function SlideView({scale, background, content, extraStyles, isSe
             break;
     }
 
+    // TODO: разобраться с selection
     const slideObjects = content.map(object => {
         switch (object.type)
         {
@@ -66,12 +74,14 @@ export default function SlideView({scale, background, content, extraStyles, isSe
                         fontStyles={object.fontStyles}
                         color={object.color}
                         key={object.id}
+                        onClick={onObjectClick}
                     >
                     </TextObjectView>
                 );
             case "image":
                 return (
                     <ImageObjectView
+                        id={object.id}
                         pos={object.pos}
                         size={object.size}
                         scale={scale}
@@ -83,6 +93,7 @@ export default function SlideView({scale, background, content, extraStyles, isSe
             case "label":
                 return (
                     <LabelObjectView
+                        id={object.id}
                         pos={object.pos}
                         size={object.size}
                         scale={scale}
@@ -96,6 +107,7 @@ export default function SlideView({scale, background, content, extraStyles, isSe
             case "ellipse":
                 return (
                     <EllipseObject
+                        id={object.id}
                         pos={object.pos}
                         size={object.size}
                         scale={scale}
@@ -109,6 +121,7 @@ export default function SlideView({scale, background, content, extraStyles, isSe
             case "triangle":
                 return (
                     <TriangleObjectView
+                        id={object.id}
                         pos={object.pos}
                         size={object.size}
                         scale={scale}

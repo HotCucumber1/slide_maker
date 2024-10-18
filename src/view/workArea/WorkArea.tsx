@@ -1,14 +1,15 @@
 import SlideView from "../../components/slide/SlideView.tsx";
 import styles from "./WorkArea.module.css";
 
-import {Slide} from "../../store/objects.ts";
+import {SelectedObjects, Slide} from "../../store/objects.ts";
 
 type WorkAreaProps = {
     activeSlide?: Slide,
+    objectSelection: SelectedObjects,
 }
 
 
-export default function WorkArea({activeSlide}: WorkAreaProps)
+export default function WorkArea({activeSlide, objectSelection}: WorkAreaProps)
 {
     const SLIDE_SCALE: number = 0.625;
     if (activeSlide === undefined)
@@ -21,6 +22,7 @@ export default function WorkArea({activeSlide}: WorkAreaProps)
                 scale={SLIDE_SCALE}
                 background={activeSlide.background}
                 content={activeSlide.content}
+                objectSelection={objectSelection}
             >
             </SlideView>
         </div>

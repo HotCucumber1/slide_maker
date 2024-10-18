@@ -1,14 +1,15 @@
-import {Color, Gradient, Image, SlideObject} from "../../store/objects.ts";
+import {Color, Gradient, Image, SelectedObjects, SlideObject} from "../../store/objects.ts";
 import {TextObjectView} from "../textObject/TextObjectView.tsx";
 import {ImageObjectView} from "../imageObject/ImageObjectView.tsx";
-import {LabelObjectView} from "../figureObject/LabelObjectView.tsx";
+import {LabelObjectView} from "../labelObject/LabelObjectView.tsx";
 import {EllipseObject} from "../ellipseObject/EllipseObject.tsx";
 import {TriangleObjectView} from "../triangleObject/TriangleObject.tsx";
 import styles from "./SlideView.module.css";
 import {CSSProperties} from "react";
 import * as React from "react";
 import {dispatch} from "../../store/editor.ts";
-import {setActiveSlide, setObjectSelection, setSlideSelection, setText} from "../../store/functions.ts";
+import {setObjectSelection} from "../../store/functions.ts";
+import {ObjectWrapper} from "../objectWrapper/ObjectWrapper.tsx";
 
 
 const SLIDE_WIDTH: number = 1920;
@@ -23,10 +24,11 @@ type SlideProps = {
     isActive?: boolean,
     isSelected?: boolean,
     extraStyles?: CSSProperties,
+    objectSelection: SelectedObjects,
 };
 
 
-export default function SlideView({scale, background, content, extraStyles, isSelected}: SlideProps)
+export default function SlideView({scale, background, content, extraStyles, isSelected, objectSelection}: SlideProps)
 {
     const onObjectClick: React.MouseEventHandler = event => {
         dispatch(setObjectSelection, [(event.target as HTMLDivElement).id])
@@ -58,7 +60,6 @@ export default function SlideView({scale, background, content, extraStyles, isSe
             break;
     }
 
-    // TODO: разобраться с selection
     return (
         <div
             style={slideStyle}
@@ -69,55 +70,76 @@ export default function SlideView({scale, background, content, extraStyles, isSe
                 {
                     case "text":
                         return (
-                            <div>
+                            <ObjectWrapper
+                                objectId={object.id}
+                                pos={object.pos}
+                                size={object.size}
+                                scale={scale}
+                                key={object.id}
+                                onClick={onObjectClick}
+                                isSelected={objectSelection.includes(object.id)}
+                            >
                                 <TextObjectView
-                                    pos={object.pos}
-                                    size={object.size}
-                                    scale={scale}
+                                    objectId={object.id}
                                     text={object.text}
                                     fontSize={object.fontSize}
                                     fontFamily={object.fontFamily}
                                     fontStyles={object.fontStyles}
                                     color={object.color}
-                                    key={object.id}
-                                    onClick={onObjectClick}
+                                    scale={scale}
                                 >
                                 </TextObjectView>
-                            </div>
+                            </ObjectWrapper>
                         );
                     case "image":
                         return (
-                            <div>
+                            <ObjectWrapper
+                                objectId={object.id}
+                                pos={object.pos}
+                                size={object.size}
+                                scale={scale}
+                                key={object.id}
+                                onClick={onObjectClick}
+                                isSelected={objectSelection.includes(object.id)}
+                            >
                                 <ImageObjectView
                                     id={object.id}
-                                    pos={object.pos}
-                                    size={object.size}
-                                    scale={scale}
                                     src={object.src}
-                                    key={object.id}
                                 >
                                 </ImageObjectView>
-                            </div>
+                            </ObjectWrapper>
                         );
                     case "label":
                         return (
-                            <div>
+                            <ObjectWrapper
+                                objectId={object.id}
+                                pos={object.pos}
+                                size={object.size}
+                                scale={scale}
+                                key={object.id}
+                                onClick={onObjectClick}
+                                isSelected={objectSelection.includes(object.id)}
+                            >
                                 <LabelObjectView
-                                    id={object.id}
-                                    pos={object.pos}
-                                    size={object.size}
                                     scale={scale}
                                     fill={object.fillStyle}
                                     strokeColor={object.strokeStyle}
                                     strokeWidth={object.strokeWidth}
-                                    key={object.id}
                                 >
                                 </LabelObjectView>
-                            </div>
+                            </ObjectWrapper>
                         );
                     case "ellipse":
                         return (
-                            <div>
+                            <ObjectWrapper
+                                objectId={object.id}
+                                pos={object.pos}
+                                size={object.size}
+                                scale={scale}
+                                key={object.id}
+                                onClick={onObjectClick}
+                                isSelected={objectSelection.includes(object.id)}
+                            >
                                 <EllipseObject
                                     id={object.id}
                                     pos={object.pos}
@@ -126,26 +148,31 @@ export default function SlideView({scale, background, content, extraStyles, isSe
                                     fill={object.fillStyle}
                                     strokeColor={object.strokeStyle}
                                     strokeWidth={object.strokeWidth}
-                                    key={object.id}
                                 >
                                 </EllipseObject>
-                            </div>
+                            </ObjectWrapper>
                         );
                     case "triangle":
                         return (
-                            <div>
+                            <ObjectWrapper
+                                objectId={object.id}
+                                pos={object.pos}
+                                size={object.size}
+                                scale={scale}
+                                key={object.id}
+                                onClick={onObjectClick}
+                                isSelected={objectSelection.includes(object.id)}
+                            >
                                 <TriangleObjectView
-                                    id={object.id}
                                     pos={object.pos}
                                     size={object.size}
                                     scale={scale}
                                     fill={object.fillStyle}
                                     strokeColor={object.strokeStyle}
                                     strokeWidth={object.strokeWidth}
-                                    key={object.id}
                                 >
                                 </TriangleObjectView>
-                            </div>
+                            </ObjectWrapper>
                         );
                     case "path":
                         break;

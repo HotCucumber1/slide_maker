@@ -143,6 +143,7 @@ function addText(editor: Editor, props: AddTextProps): Editor
     newSlides[currentSlideIndex] = currentSlide;
 
     // TODO: обновить модельку добавления слайдов при изменении текста (здесь норм)
+    // TODO: обновить модельку скидывания выделения при нажатии на объект
     return {
         ...editor,
         presentation: {
@@ -344,6 +345,10 @@ function setText(editor: Editor, newText: string): Editor
     )[0];
     const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
 
+    console.log(currentSlide.content.filter(
+        object => editor.selectedObjects.indexOf(object.id) !== -1
+    ));
+
     const updatedContent: SlideObject = currentSlide.content.filter(
         object => editor.selectedObjects.indexOf(object.id) !== -1
     )[0];
@@ -512,7 +517,7 @@ function setObjectSelection(editor: Editor, newSelection: SelectedObjects): Edit
 {
     return {
         ...editor,
-        selectedSlides: newSelection,
+        selectedObjects: newSelection,
     }
 }
 

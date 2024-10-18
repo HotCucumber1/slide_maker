@@ -1,10 +1,9 @@
-import {Color, Gradient, Point, Size} from "../../store/objects.ts";
+import {Color, Gradient, Size} from "../../store/objects.ts";
 import {v4 as uuidv4} from "uuid";
 import {getGradientCoords, GradientCoords} from "../../service/getGradientCoords.ts";
-import {getSlideObjectStyles} from "../../service/getSlideObjectStyles.ts";
+import styles from "../Object.module.css";
 
 type TriangleObjectProps = {
-    pos: Point,
     size: Size,
     scale: number,
     fill: Color|Gradient,
@@ -27,8 +26,8 @@ function TriangleObjectView(props: TriangleObjectProps)
 
     return (
         <svg
-            style={getSlideObjectStyles(props.pos, props.size, props.scale)}
             xmlns="http://www.w3.org/2000/svg"
+            className={styles.object}
         >
             {props.fill.type === "gradient" && (
                 <defs>

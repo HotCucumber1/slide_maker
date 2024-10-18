@@ -1,19 +1,15 @@
-import {Point, Size} from "../../store/objects.ts";
-import {getSlideObjectStyles} from "../../service/getSlideObjectStyles.ts";
+import styles from "../Object.module.css";
 
 type ImageObjectProps = {
-    pos: Point,
-    size: Size,
-    scale: number,
     src: string,
 };
 
 
-function ImageObjectView({pos, size, scale, src}: ImageObjectProps)
+function ImageObjectView({src}: ImageObjectProps)
 {
     return (
         <img
-            style={getSlideObjectStyles(pos, size, scale)}
+            className={styles.object}
             src={src}
             alt={src.split("/").pop()}
         />

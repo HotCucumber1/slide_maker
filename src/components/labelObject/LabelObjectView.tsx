@@ -1,11 +1,9 @@
-import {Color, Gradient, Point, Size} from "../../store/objects.ts";
+import {Color, Gradient} from "../../store/objects.ts";
 import {getGradientCoords, GradientCoords} from "../../service/getGradientCoords.ts";
-import {getSlideObjectStyles} from "../../service/getSlideObjectStyles.ts";
 import {v4 as uuidv4} from "uuid";
+import styles from "../Object.module.css";
 
 type FigureObjectProps = {
-    pos: Point,
-    size: Size,
     scale: number,
     fill: Color|Gradient,
     strokeColor: Color,
@@ -27,8 +25,8 @@ function LabelObjectView(props: FigureObjectProps)
 
     return (
         <svg
-            style={getSlideObjectStyles(props.pos, props.size, props.scale)}
             xmlns="http://www.w3.org/2000/svg"
+            className={styles.object}
         >
             {props.fill.type === "gradient" && (
                 <defs>
@@ -38,7 +36,6 @@ function LabelObjectView(props: FigureObjectProps)
                         y1={gradientCoords.y1}
                         x2={gradientCoords.x2}
                         y2={gradientCoords.y2}
-                        direction={props.fill.angle}
                     >
                         {props.fill.colors.map((color, index) => {
                             return (
@@ -57,8 +54,8 @@ function LabelObjectView(props: FigureObjectProps)
             <rect
                 x="0"
                 y="0"
-                width={props.size.width * props.scale}
-                height={props.size.height * props.scale}
+                width="100%"
+                height="100%"
                 fill={props.fill.type === "color" ?
                     props.fill.value :
                     `url(#${gradId})`

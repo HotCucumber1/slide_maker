@@ -1,4 +1,4 @@
-import {Color, FontStyle, Point, Presentation, Size, Slide} from "./objects.ts";
+import {Presentation, Slide} from "./objects.ts";
 import {v4 as uuidv4} from "uuid";
 import {Editor} from "./editor.ts";
 

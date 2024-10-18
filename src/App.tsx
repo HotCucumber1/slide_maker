@@ -20,12 +20,15 @@ export default function App({editor}: AppProps) {
                 <SlideList
                     slides={editor.presentation.slides}
                     selection={editor.selectedSlides}
+                    objectSelection={editor.selectedObjects}
                 >
                 </SlideList>
                 <WorkArea
                     activeSlide={editor.presentation.slides.filter(
                         slide => slide.id === editor.currentSlideId
-                    )[0]}>
+                    )[0]}
+                    objectSelection={editor.selectedObjects}
+                >
                 </WorkArea>
             </div>
         </>

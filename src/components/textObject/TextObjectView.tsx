@@ -1,22 +1,18 @@
 import {CSSProperties} from "react";
-import {Color, FontStyle, Point, Size} from "../../store/objects.ts";
+import {Color, FontStyle} from "../../store/objects.ts";
 import styles from "./TextObjectView.module.css";
-import {getSlideObjectStyles} from "../../service/getSlideObjectStyles.ts";
 import * as React from "react";
 import {dispatch} from "../../store/editor.ts";
 import {setText} from "../../store/functions.ts";
 
 type TextObjectProps = {
-    objectId: string
-    pos: Point,
-    size: Size,
     scale: number,
     text: string,
     fontSize: number,
     fontFamily: string,
     fontStyles: FontStyle,
     color: Color,
-    onClick: React.MouseEventHandler,
+    objectId: string,
 };
 
 
@@ -52,12 +48,10 @@ function TextObjectView(props: TextObjectProps)
             className={styles.textObject}
             style={{
                 ...objectStyle,
-                ...getSlideObjectStyles(props.pos, props.size, props.scale),
                 width: "20ch"
             }}
             defaultValue={props.text}
             placeholder={placeholder}
-            onClick={props.onClick}
             onChange={onTextChange}
         />
     )

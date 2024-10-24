@@ -34,9 +34,12 @@
     border-bottom-left-radius: var(--tool-bar-border-radius);
 }
 
-.slideActions {
-    display: flex;
-    column-gap: 5px;
+.slideActionsText {
+    color: #505050;
+    margin-block: auto;
+    font-family: var(--font-family);
+    font-size: 14px;
+    margin-right: 10px;
 }
 
 .toolBarSeparator {

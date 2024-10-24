@@ -29,6 +29,11 @@ const addImageButtonContent: Icon = {
     src: "./../../public/image/add_image_button_icon.png",
 }
 
+const addFigureButtonContent: Icon = {
+    type: "icon",
+    src: "./../../public/image/add_figure_button_icon.png",
+}
+
 type ToolBarProps = {
     fileName: string,
 }
@@ -53,21 +58,22 @@ function ToolBar({fileName}: ToolBarProps)
                 />
             </div>
             <div className={styles.toolArea}>
-                <div className={styles.slideActions}>
-                    <MenuButton
-                        content={addSlideButtonContent}
-                        onClick={() => dispatch(addSlide)}
-                    >
-                    </MenuButton>
-                    <MenuButton
-                        content={deleteSlideButtonContent}
-                        onClick={() => dispatch(deleteSlides)}
-                    >
-                    </MenuButton>
-                </div>
+                <span className={styles.slideActionsText}>Слайд</span>
+                <MenuButton
+                    content={addSlideButtonContent}
+                    onClick={() => dispatch(addSlide)}
+                >
+                </MenuButton>
+                <MenuButton
+                    content={deleteSlideButtonContent}
+                    onClick={() => dispatch(deleteSlides)}
+                >
+                </MenuButton>
+
                 <div className={styles.toolBarSeparator}>
                 </div>
 
+                <span className={styles.slideActionsText}>Добавить объект </span>
                 <MenuButton
                     content={addTextButtonContent}
                     onClick={() => dispatch(addText, defaultTextSettings)}
@@ -82,6 +88,18 @@ function ToolBar({fileName}: ToolBarProps)
                     }}
                 >
                 </MenuButton>
+                <MenuButton
+                    content={addFigureButtonContent}
+                    onClick={() => dispatch(addText, defaultTextSettings)}
+                    iconStyles={{
+                        marginTop: "2px",
+                        height: "50%",
+                    }}
+                >
+                </MenuButton>
+
+                <div className={styles.toolBarSeparator}>
+                </div>
             </div>
         </div>
     )

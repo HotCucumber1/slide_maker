@@ -49,7 +49,7 @@ function TextObjectView(props: TextObjectProps)
             style={{
                 ...objectStyle,
             }}
-            onChange={onTextChange}
+            onBlur={onTextChange}
             dangerouslySetInnerHTML={{
                 __html: props.text
             }}

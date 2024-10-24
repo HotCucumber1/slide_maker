@@ -22,7 +22,13 @@ function MenuButton({content, onClick}: MenuButtonProps)
             onClick={onClick}
             className={style.menuButton}
         >
-            {content.type === "icon" && <img className={style.menuButtonIcon} src={content.src} alt="Add slide button"/>}
+            {content.type === "icon" &&
+                <img
+                    className={style.menuButtonIcon}
+                    src={content.src}
+                    alt="Add slide button"
+                />
+            }
             {content.type === "text" && content.value}
         </button>
     )

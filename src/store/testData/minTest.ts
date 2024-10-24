@@ -1,4 +1,4 @@
-import {Presentation, SelectedObjects, SelectedSlides} from "./objects.ts";
+import {Presentation, SelectedObjects, SelectedSlides} from "../objects.ts";
 import {
     addSlide,
     addImage,

@@ -2,7 +2,8 @@ import styles from "./SlideList.module.css";
 import {SelectedObjects, SelectedSlides, Slide} from "../../store/objects.ts";
 import SlideView from "../../components/slide/SlideView.tsx";
 import {dispatch} from "../../store/editor.ts";
-import {setActiveSlide, setSlideSelection} from "../../store/functions.ts";
+import {setActiveSlide} from "../../store/setActiveSlide.ts";
+import {setSlideSelection} from "../../store/setSlideSelection.ts"
 import * as React from "react";
 
 
@@ -15,7 +16,7 @@ type SlideListProps = {
 };
 
 
-export default function SlideList({slides, selection, objectSelection}: SlideListProps)
+function SlideList({slides, selection, objectSelection}: SlideListProps)
 {
     const onSlideClick: React.MouseEventHandler = event => {
         dispatch(setSlideSelection, [(event.target as HTMLDivElement).id])
@@ -50,4 +51,8 @@ export default function SlideList({slides, selection, objectSelection}: SlideLis
             {slidesList}
         </ol>
     )
+}
+
+export {
+    SlideList,
 }

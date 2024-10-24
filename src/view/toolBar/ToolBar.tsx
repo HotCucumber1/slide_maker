@@ -1,9 +1,12 @@
 import styles from "./ToolBar.module.css";
 import * as React from "react";
 import {dispatch} from "../../store/editor.ts";
-import {addSlide, addText, deleteSlides, setPresentationTitle} from "../../store/functions.ts";
+import {addSlide} from "../../store/addSlide.ts";
 import {Icon, MenuButton} from "../../components/menuButton/MenuButton.tsx";
-import {defaultTextSettings} from "../../store/testData.ts";
+import {defaultTextSettings} from "../../store/testData/testData.ts";
+import {setPresentationTitle} from "../../store/setPresentationTitle.ts";
+import {deleteSlides} from "../../store/deleteSlide.ts";
+import {addText} from "../../store/addText.ts";
 
 
 const addSlideButtonContent: Icon = {
@@ -25,7 +28,7 @@ type ToolBarProps = {
     fileName: string,
 }
 
-export default function ToolBar({fileName}: ToolBarProps)
+function ToolBar({fileName}: ToolBarProps)
 {
     const onTitleChange: React.ChangeEventHandler = event => {
         dispatch(setPresentationTitle, (event.target as HTMLInputElement).value)
@@ -68,4 +71,8 @@ export default function ToolBar({fileName}: ToolBarProps)
             </div>
         </div>
     )
+}
+
+export {
+    ToolBar
 }

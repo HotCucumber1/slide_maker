@@ -3,7 +3,7 @@ import {Color, FontStyle} from "../../store/objects.ts";
 import styles from "./TextObjectView.module.css";
 import * as React from "react";
 import {dispatch} from "../../store/editor.ts";
-import {setText} from "../../store/functions.ts";
+import {setText} from "../../store/setText.ts";
 
 type TextObjectProps = {
     scale: number,

@@ -1,5 +1,5 @@
 import {Presentation, SelectedObjects, SelectedSlides} from "./objects.ts";
-import {editor} from "./testData.ts";
+import {editor} from "./testData/testData.ts";
 
 type Editor = {
     presentation: Presentation,

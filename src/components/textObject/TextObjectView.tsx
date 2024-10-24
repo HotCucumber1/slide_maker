@@ -18,11 +18,9 @@ type TextObjectProps = {
 
 function TextObjectView(props: TextObjectProps)
 {
-    const onTextChange: React.ChangeEventHandler = event => {
-        dispatch(setText, (event.target as HTMLInputElement).value)
+    const onTextChange: React.FormEventHandler = (event) => {
+        dispatch(setText, (event.target as HTMLDivElement).textContent)
     }
-
-    const placeholder = "Введите текст...";
 
     const objectStyle: CSSProperties = {
         fontSize: `${props.fontSize * props.scale}px`,
@@ -44,20 +42,23 @@ function TextObjectView(props: TextObjectProps)
         objectStyle.fontWeight = "bold";
     }
     return (
-        <textarea
+        <div
+            contentEditable
             id={props.objectId}
             className={styles.textObject}
             style={{
                 ...objectStyle,
             }}
-            defaultValue={props.text}
-            placeholder={placeholder}
             onChange={onTextChange}
-        />
+            dangerouslySetInnerHTML={{
+                __html: props.text
+            }}
+        >
+        </div>
     )
 }
 
 
 export {
-    TextObjectView
+    TextObjectView,
 }

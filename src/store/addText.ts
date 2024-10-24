@@ -50,9 +50,9 @@ function addText(editor: Editor, props: AddTextProps): Editor
     newSlides[currentSlideIndex] = currentSlide;
 
     // TODO: обновить модельку добавления слайдов при изменении текста (здесь норм)
-    // TODO: обновить модельку скидывания выделения при нажатии на объект
     return {
         ...editor,
+        selectedObjects: [textObject.id],
         presentation: {
             ...editor.presentation,
             slides: newSlides,

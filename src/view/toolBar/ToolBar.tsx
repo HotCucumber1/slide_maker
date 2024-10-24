@@ -24,6 +24,11 @@ const addTextButtonContent: Icon = {
     src: "../../../public/image/add_text_button_icon.png",
 }
 
+const addImageButtonContent: Icon = {
+    type: "icon",
+    src: "./../../public/image/add_image_button_icon.png",
+}
+
 type ToolBarProps = {
     fileName: string,
 }
@@ -66,6 +71,15 @@ function ToolBar({fileName}: ToolBarProps)
                 <MenuButton
                     content={addTextButtonContent}
                     onClick={() => dispatch(addText, defaultTextSettings)}
+                >
+                </MenuButton>
+                <MenuButton
+                    content={addImageButtonContent}
+                    onClick={() => dispatch(addText, defaultTextSettings)}
+                    iconStyles={{
+                        marginTop: "2px",
+                        height: "50%",
+                    }}
                 >
                 </MenuButton>
             </div>

@@ -8,21 +8,19 @@ function setText(editor: Editor, newText: string): Editor
     )[0];
     const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
 
-    console.log(currentSlide.content.filter(
-        object => editor.selectedObjects.indexOf(object.id) !== -1
-    ));
-
     const updatedContent: SlideObject = currentSlide.content.filter(
         object => editor.selectedObjects.indexOf(object.id) !== -1
     )[0];
+
     const updatedContentIndex = currentSlide.content.indexOf(updatedContent);
 
-    if (updatedContent.type !== "text")
+    if (currentSlide.content[updatedContentIndex].type !== "text")
     {
         return editor;
     }
 
-    updatedContent[updatedContentIndex].text = newText;
+
+    currentSlide.content[updatedContentIndex].text = newText;
 
     const newSlides = editor.presentation.slides.slice();
     newSlides[currentSlideIndex] = currentSlide;

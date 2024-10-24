@@ -11,14 +11,15 @@ function deleteSlideObjects(editor: Editor): Editor
     );
     editor.selectedObjects = [];
 
+    const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
+    const newSlides = editor.presentation.slides.slice();
+    newSlides[currentSlideIndex] = currentSlide;
+
     return {
         ...editor,
         presentation: {
             ...editor.presentation,
-            slides: [
-                ...editor.presentation.slides,
-                currentSlide
-            ]
+            slides: newSlides,
         }
     };
 }

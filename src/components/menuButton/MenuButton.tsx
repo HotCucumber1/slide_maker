@@ -1,4 +1,5 @@
 import style from "./MenuButton.module.css"
+import {CSSProperties} from "react";
 
 type Icon = {
     src: string,
@@ -13,9 +14,10 @@ type Text = {
 type MenuButtonProps = {
     content: Icon|Text,
     onClick: () => void,
+    iconStyles?: CSSProperties
 }
 
-function MenuButton({content, onClick}: MenuButtonProps)
+function MenuButton({content, onClick, iconStyles}: MenuButtonProps)
 {
     return (
         <button
@@ -24,6 +26,7 @@ function MenuButton({content, onClick}: MenuButtonProps)
         >
             {content.type === "icon" &&
                 <img
+                    style={iconStyles}
                     className={style.menuButtonIcon}
                     src={content.src}
                     alt="Add slide button"

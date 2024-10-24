@@ -19,7 +19,7 @@ function deleteSlides(editor: Editor): Editor
     let active = "";
     if (newActiveSlidePos >= 0)
     {
-        const newActiveSlideId =  editor.presentation.slides[newActiveSlidePos].id;
+        const newActiveSlideId = editor.presentation.slides[newActiveSlidePos].id;
         selection = [newActiveSlideId];
         active = newActiveSlideId;
     }
@@ -28,7 +28,7 @@ function deleteSlides(editor: Editor): Editor
         slide => editor.selectedSlides.indexOf(slide.id) === -1
     );
 
-    return  {
+    return {
         ...editor,
         selectedSlides: selection,
         currentSlideId: active,

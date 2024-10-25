@@ -24,7 +24,7 @@ function addText(editor: Editor, props: AddTextProps): Editor
     const defaultTextPadding: number = 5;
     const defaultSize: Size = {
         height: props.fontSize + 2 * defaultTextPadding,
-        width: 400
+        width: 700
     };
     const defaultText: string = "";
 

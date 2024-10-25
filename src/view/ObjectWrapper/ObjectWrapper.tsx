@@ -30,7 +30,7 @@ function ObjectWrapper(props: ObjectWrapperProps)
     const objectStyles: CSSProperties = {};
     if (props.isSelected)
     {
-        objectStyles.border = `${4 * props.scale}px solid #2F7DF7`;
+        objectStyles.outline = `${4 * props.scale}px solid #2F7DF7`;
     }
     if (props.isAdaptive)
     {

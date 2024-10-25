@@ -44,7 +44,7 @@ function ToolBar({fileName}: ToolBarProps)
     const onColorChange = (event) => {
         dispatch(setSlideBackground, {
             value: (event.target as HTMLInputElement).value,
-            type: "color"
+            type: "color",
         })
     }
 
@@ -90,7 +90,8 @@ function ToolBar({fileName}: ToolBarProps)
             <div className={styles.fileNameArea}>
                 <img
                     className={styles.icon}
-                    src="../../../public/image/icon.png" alt="icon"
+                    src="../../../public/image/icon.png"
+                    alt="icon"
                 />
                 <input
                     onBlur={onTitleChange}
@@ -113,12 +114,6 @@ function ToolBar({fileName}: ToolBarProps)
                     onChange={onBgFileChange}
                     accept="image/"
                 />
-                <input
-                    className={styles.colorInput}
-                    type="color"
-                    id="colorInput"
-                    onChange={onColorChange}
-                />
 
                 <span className={styles.slideActionsText}>Слайд</span>
                 <MenuButton
@@ -136,6 +131,12 @@ function ToolBar({fileName}: ToolBarProps)
                         height: "50%",
                     }}
                 />
+                <input
+                    className={styles.colorInput}
+                    type="color"
+                    id="colorInput"
+                    onChange={onColorChange}
+                />
                 <MenuButton
                     content={ButtonData.setImageBackgroundButtonContent}
                     onClick={onBgFileButtonClick}
@@ -147,7 +148,7 @@ function ToolBar({fileName}: ToolBarProps)
                 <div className={styles.toolBarSeparator}>
                 </div>
 
-                <span className={styles.slideActionsText}>Добавить объект </span>
+                <span className={styles.slideActionsText}>Добавить объект</span>
                 <MenuButton
                     content={ButtonData.addTextButtonContent}
                     onClick={() => dispatch(addText, defaultTextSettings)}

@@ -49,7 +49,6 @@ function addText(editor: Editor, props: AddTextProps): Editor
     const newSlides = editor.presentation.slides.slice();
     newSlides[currentSlideIndex] = currentSlide;
 
-    // TODO: обновить модельку добавления слайдов при изменении текста (здесь норм)
     return {
         ...editor,
         selectedObjects: [textObject.id],

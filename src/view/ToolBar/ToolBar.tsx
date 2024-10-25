@@ -26,8 +26,13 @@ function ToolBar({fileName}: ToolBarProps)
         dispatch(setPresentationTitle, (event.target as HTMLInputElement).value)
     }
 
-    const onFileButtonClick = () => {
+    const onImageFileButtonClick = () => {
         const fileInput = document.getElementById("imageFileInput") as HTMLInputElement
+        fileInput.click()
+    }
+
+    const onBgFileButtonClick = () => {
+        const fileInput = document.getElementById("bgFileInput") as HTMLInputElement
         fileInput.click()
     }
 
@@ -43,7 +48,7 @@ function ToolBar({fileName}: ToolBarProps)
         })
     }
 
-    const onFileChange = async (event) => {
+    const onImageFileChange = async (event) => {
         const file = event.target.files[0]
         if (file)
         {
@@ -54,6 +59,26 @@ function ToolBar({fileName}: ToolBarProps)
 
                 img.onload = () => {
                     dispatch(addImage, {img})
+                }
+            }
+            reader.readAsDataURL(file)
+        }
+    }
+
+    const onBgFileChange = async (event) => {
+        const file = event.target.files[0]
+        if (file)
+        {
+            const reader = new FileReader()
+            reader.onload = (event) => {
+                const img = new Image()
+                img.src = event.target.result as string
+
+                img.onload = () => {
+                    dispatch(setSlideBackground, {
+                        src: img.src,
+                        type: "image"
+                    })
                 }
             }
             reader.readAsDataURL(file)
@@ -78,14 +103,14 @@ function ToolBar({fileName}: ToolBarProps)
                     className={styles.fileInput}
                     type="file"
                     id="imageFileInput"
-                    onChange={onFileChange}
+                    onChange={onImageFileChange}
                     accept="image/"
                 />
                 <input
                     className={styles.fileInput}
                     type="file"
-                    id="fileInput"
-                    onChange={onFileChange}
+                    id="bgFileInput"
+                    onChange={onBgFileChange}
                     accept="image/"
                 />
                 <input
@@ -113,7 +138,7 @@ function ToolBar({fileName}: ToolBarProps)
                 />
                 <MenuButton
                     content={ButtonData.setImageBackgroundButtonContent}
-                    onClick={onColorButtonClick}
+                    onClick={onBgFileButtonClick}
                     iconStyles={{
                         height: "60%",
                     }}
@@ -129,7 +154,7 @@ function ToolBar({fileName}: ToolBarProps)
                 />
                 <MenuButton
                     content={ButtonData.addImageButtonContent}
-                    onClick={onFileButtonClick}
+                    onClick={onImageFileButtonClick}
                     iconStyles={{
                         marginTop: "2px",
                         height: "50%",

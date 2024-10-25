@@ -1,5 +1,4 @@
 import styles from "./ToolBar.module.css";
-import * as React from "react";
 import {dispatch, getEditor} from "../../store/editor.ts";
 import {addSlide} from "../../store/addSlide.ts";
 import {MenuButton} from "../../components/MenuButton/MenuButton.tsx";
@@ -101,7 +100,7 @@ function ToolBar({fileName}: ToolBarProps)
             <div className={styles.fileNameArea}>
                 <img
                     className={styles.icon}
-                    src="../../../public/image/icon.png"
+                    src="../../../public/image/icon2.png"
                     alt="icon"
                 />
                 <input

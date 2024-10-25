@@ -14,7 +14,7 @@ import {ObjectWrapper} from "../ObjectWrapper/ObjectWrapper.tsx";
 
 const SLIDE_WIDTH: number = 1920;
 const SLIDE_HEIGHT: number = 1080;
-const SELECTED_SLIDE_BORDER_STYLE = "2px solid #2F7DF7";
+const SELECTED_SLIDE_BORDER_STYLE = "2px solid #2684FC";
 
 
 type SlideProps = {

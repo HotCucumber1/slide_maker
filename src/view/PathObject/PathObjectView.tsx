@@ -37,7 +37,7 @@ function PathObjectView(props: PathObjectProps)
     Q (Quadratic Bezier Curve) — квадратичная кривая Безье.
     A (Arc) — дуга окружности.
     Z — закрыть контур, возвращая перо в начальную точку.
- */
+*/
 
     return (
         <svg

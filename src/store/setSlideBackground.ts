@@ -8,14 +8,15 @@ function setSlideBackground(editor: Editor, newBackground: Color|Image|Gradient)
     )[0];
     currentSlide.background = newBackground;
 
+    const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
+    const newSlides = editor.presentation.slides.slice();
+    newSlides[currentSlideIndex] = currentSlide;
+
     return {
         ...editor,
         presentation: {
             ...editor.presentation,
-            slides: [
-                ...editor.presentation.slides,
-                currentSlide,
-            ]
+            slides: newSlides
         }
     };
 }

@@ -2,54 +2,19 @@ import styles from "./ToolBar.module.css";
 import * as React from "react";
 import {dispatch} from "../../store/editor.ts";
 import {addSlide} from "../../store/addSlide.ts";
-import {Icon, MenuButton} from "../../components/MenuButton/MenuButton.tsx";
+import {MenuButton} from "../../components/MenuButton/MenuButton.tsx";
 import {defaultTextSettings} from "../../store/testData/testData.ts";
 import {setPresentationTitle} from "../../store/setPresentationTitle.ts";
 import {deleteSlides} from "../../store/deleteSlide.ts";
 import {addText} from "../../store/addText.ts";
 import {addImage} from "../../store/addImage.ts";
+import {addLabel} from "../../store/addLabel.ts";
+import {addEllipse} from "../../store/addEllipse.ts";
+import {addTriangle} from "../../store/addTriangle.ts";
+import {setSlideBackground} from "../../store/setSlideBackground.ts";
+import * as ButtonData from "./toolBarButtonsData.ts";
 
 
-const addSlideButtonContent: Icon = {
-    type: "icon",
-    src: "../../../public/image/add_slide_button_icon.png",
-}
-
-const deleteSlideButtonContent: Icon = {
-    type: "icon",
-    src: "../../../public/image/delete_slide_button_icon.png",
-}
-
-const addTextButtonContent: Icon = {
-    type: "icon",
-    src: "../../../public/image/add_text_button_icon.png",
-}
-
-const addImageButtonContent: Icon = {
-    type: "icon",
-    src: "./../../public/image/add_image_button_icon.png",
-}
-
-const addLabelButtonContent: Icon = {
-    type: "icon",
-    src: "./../../public/image/add_label_button_icon.png",
-}
-
-const addTriangleButtonContent: Icon = {
-    type: "icon",
-    src: "./../../public/image/add_triangle_button_icon.png",
-}
-
-const addCircleButtonContent: Icon = {
-    type: "icon",
-    src: "./../../public/image/add_circle_button_icon.png",
-}
-
-
-const addFigureButtonContent: Icon = {
-    type: "icon",
-    src: "./../../public/image/add_figure_button_icon.png",
-}
 
 type ToolBarProps = {
     fileName: string,
@@ -62,8 +27,20 @@ function ToolBar({fileName}: ToolBarProps)
     }
 
     const onFileButtonClick = () => {
-        const fileInput = document.getElementById("fileInput") as HTMLInputElement
+        const fileInput = document.getElementById("imageFileInput") as HTMLInputElement
         fileInput.click()
+    }
+
+    const onColorButtonClick = () => {
+        const colorInput = document.getElementById("colorInput") as HTMLInputElement
+        colorInput.click()
+    }
+
+    const onColorChange = (event) => {
+        dispatch(setSlideBackground, {
+            value: (event.target as HTMLInputElement).value,
+            type: "color"
+        })
     }
 
     const onFileChange = async (event) => {
@@ -83,10 +60,6 @@ function ToolBar({fileName}: ToolBarProps)
         }
     }
 
-    const onFigureButtonClick = () => {
-
-    }
-
     return (
         <div className={styles.toolBar}>
             <div className={styles.fileNameArea}>
@@ -104,68 +77,88 @@ function ToolBar({fileName}: ToolBarProps)
                 <input
                     className={styles.fileInput}
                     type="file"
+                    id="imageFileInput"
+                    onChange={onFileChange}
+                    accept="image/"
+                />
+                <input
+                    className={styles.fileInput}
+                    type="file"
                     id="fileInput"
                     onChange={onFileChange}
                     accept="image/"
                 />
+                <input
+                    className={styles.colorInput}
+                    type="color"
+                    id="colorInput"
+                    onChange={onColorChange}
+                />
 
                 <span className={styles.slideActionsText}>Слайд</span>
                 <MenuButton
-                    content={addSlideButtonContent}
+                    content={ButtonData.addSlideButtonContent}
                     onClick={() => dispatch(addSlide)}
-                >
-                </MenuButton>
+                />
                 <MenuButton
-                    content={deleteSlideButtonContent}
+                    content={ButtonData.deleteSlideButtonContent}
                     onClick={() => dispatch(deleteSlides)}
-                >
-                </MenuButton>
+                />
+                <MenuButton
+                    content={ButtonData.setColorBackgroundButtonContent}
+                    onClick={onColorButtonClick}
+                    iconStyles={{
+                        height: "50%",
+                    }}
+                />
+                <MenuButton
+                    content={ButtonData.setImageBackgroundButtonContent}
+                    onClick={onColorButtonClick}
+                    iconStyles={{
+                        height: "60%",
+                    }}
+                />
 
                 <div className={styles.toolBarSeparator}>
                 </div>
 
                 <span className={styles.slideActionsText}>Добавить объект </span>
                 <MenuButton
-                    content={addTextButtonContent}
+                    content={ButtonData.addTextButtonContent}
                     onClick={() => dispatch(addText, defaultTextSettings)}
-                >
-                </MenuButton>
+                />
                 <MenuButton
-                    content={addImageButtonContent}
+                    content={ButtonData.addImageButtonContent}
                     onClick={onFileButtonClick}
                     iconStyles={{
                         marginTop: "2px",
                         height: "50%",
                     }}
-                >
-                </MenuButton>
+                />
                 <MenuButton
-                    content={addLabelButtonContent}
-                    onClick={onFigureButtonClick}
+                    content={ButtonData.addLabelButtonContent}
+                    onClick={() => dispatch(addLabel)}
                     iconStyles={{
                         marginTop: "1px",
                         height: "45%",
                     }}
-                >
-                </MenuButton>
+                />
                 <MenuButton
-                    content={addTriangleButtonContent}
-                    onClick={onFigureButtonClick}
+                    content={ButtonData.addTriangleButtonContent}
+                    onClick={() => dispatch(addTriangle)}
                     iconStyles={{
                         marginTop: "1px",
                         height: "56%",
                     }}
-                >
-                </MenuButton>
+                />
                 <MenuButton
-                    content={addCircleButtonContent}
-                    onClick={onFigureButtonClick}
+                    content={ButtonData.addCircleButtonContent}
+                    onClick={() => dispatch(addEllipse)}
                     iconStyles={{
                         marginTop: "1px",
                         height: "50%",
                     }}
-                >
-                </MenuButton>
+                />
 
                 <div className={styles.toolBarSeparator}>
                 </div>

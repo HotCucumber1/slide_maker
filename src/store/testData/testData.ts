@@ -1,4 +1,4 @@
-import {Presentation, Slide} from "../objects.ts";
+import {Color, Point, Presentation, Size, Slide} from "../objects.ts";
 import {v4 as uuidv4} from "uuid";
 import {Editor} from "../editor.ts";
 
@@ -164,8 +164,25 @@ const defaultTextSettings = {
     fontStyles: [],
 }
 
+const baseFillStyle: Color = {
+    value: "white",
+    type: "color",
+};
+const baseStrokeWidth = 4;
+const baseStrokeStyle: Color = {
+    value: "black",
+    type: "color",
+};
+const baseSize: Size = {width: 500, height: 600};
+const basePos: Point = {x: 800, y: 300};
+
 
 export {
     editor,
     defaultTextSettings,
+    baseFillStyle,
+    baseStrokeWidth,
+    baseStrokeStyle,
+    baseSize,
+    basePos,
 }

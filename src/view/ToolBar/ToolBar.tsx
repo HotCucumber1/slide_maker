@@ -2,7 +2,7 @@ import styles from "./ToolBar.module.css";
 import * as React from "react";
 import {dispatch} from "../../store/editor.ts";
 import {addSlide} from "../../store/addSlide.ts";
-import {Icon, MenuButton} from "../../components/menuButton/MenuButton.tsx";
+import {Icon, MenuButton} from "../../components/MenuButton/MenuButton.tsx";
 import {defaultTextSettings} from "../../store/testData/testData.ts";
 import {setPresentationTitle} from "../../store/setPresentationTitle.ts";
 import {deleteSlides} from "../../store/deleteSlide.ts";
@@ -30,6 +30,22 @@ const addImageButtonContent: Icon = {
     src: "./../../public/image/add_image_button_icon.png",
 }
 
+const addLabelButtonContent: Icon = {
+    type: "icon",
+    src: "./../../public/image/add_label_button_icon.png",
+}
+
+const addTriangleButtonContent: Icon = {
+    type: "icon",
+    src: "./../../public/image/add_triangle_button_icon.png",
+}
+
+const addCircleButtonContent: Icon = {
+    type: "icon",
+    src: "./../../public/image/add_circle_button_icon.png",
+}
+
+
 const addFigureButtonContent: Icon = {
     type: "icon",
     src: "./../../public/image/add_figure_button_icon.png",
@@ -45,7 +61,7 @@ function ToolBar({fileName}: ToolBarProps)
         dispatch(setPresentationTitle, (event.target as HTMLInputElement).value)
     }
 
-    const onButtonClick = () => {
+    const onFileButtonClick = () => {
         const fileInput = document.getElementById("fileInput") as HTMLInputElement
         fileInput.click()
     }
@@ -65,6 +81,10 @@ function ToolBar({fileName}: ToolBarProps)
             }
             reader.readAsDataURL(file)
         }
+    }
+
+    const onFigureButtonClick = () => {
+
     }
 
     return (
@@ -112,7 +132,7 @@ function ToolBar({fileName}: ToolBarProps)
                 </MenuButton>
                 <MenuButton
                     content={addImageButtonContent}
-                    onClick={onButtonClick}
+                    onClick={onFileButtonClick}
                     iconStyles={{
                         marginTop: "2px",
                         height: "50%",
@@ -120,10 +140,28 @@ function ToolBar({fileName}: ToolBarProps)
                 >
                 </MenuButton>
                 <MenuButton
-                    content={addFigureButtonContent}
-                    onClick={() => dispatch(addText, defaultTextSettings)}
+                    content={addLabelButtonContent}
+                    onClick={onFigureButtonClick}
                     iconStyles={{
-                        marginTop: "2px",
+                        marginTop: "1px",
+                        height: "45%",
+                    }}
+                >
+                </MenuButton>
+                <MenuButton
+                    content={addTriangleButtonContent}
+                    onClick={onFigureButtonClick}
+                    iconStyles={{
+                        marginTop: "1px",
+                        height: "56%",
+                    }}
+                >
+                </MenuButton>
+                <MenuButton
+                    content={addCircleButtonContent}
+                    onClick={onFigureButtonClick}
+                    iconStyles={{
+                        marginTop: "1px",
                         height: "50%",
                     }}
                 >

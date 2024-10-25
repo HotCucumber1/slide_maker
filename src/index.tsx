@@ -5,6 +5,7 @@ import {addEditorChangeHandler, getEditor} from "./store/editor.ts";
 
 const container = document.getElementById('root');
 const root = createRoot(container);
+
 function render(): void
 {
     root.render(

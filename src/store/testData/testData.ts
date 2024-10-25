@@ -164,9 +164,6 @@ const defaultTextSettings = {
     fontStyles: [],
 }
 
-const defaultImageSettings = {
-
-}
 
 export {
     editor,

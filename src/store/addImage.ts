@@ -54,7 +54,7 @@ function addImage(editor: Editor, {position, img}: NewAddImageProps): Editor
         y: 100,
     }
 
-    const imageObject: ImageObject = {
+    const ImageObject: ImageObject = {
         id: uuidv4(),
         pos: typeof position === "undefined" ? defaultPosition : position,
         size: size,
@@ -62,12 +62,12 @@ function addImage(editor: Editor, {position, img}: NewAddImageProps): Editor
         type: "image",
     };
     const currentSlide = editor.presentation.slides.filter(
-        slide => slide.id === editor.currentSlideId
+        Slide => Slide.id === editor.currentSlideId
     )[0];
 
     const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
 
-    currentSlide.content.push(imageObject);
+    currentSlide.content.push(ImageObject);
     const newSlides = editor.presentation.slides.slice();
     newSlides[currentSlideIndex] = currentSlide;
 

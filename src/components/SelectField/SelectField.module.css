@@ -1,0 +1,19 @@
+.selectField {
+    border-radius: 10px;
+    box-shadow: 0 5px 5px var(--light-gray-color);
+}
+
+.selectFieldIcon {
+    height: 40%;
+    aspect-ratio: 1 / 1;
+    display: block;
+    margin: auto 5px;
+}
+
+.selectFieldName {
+    color: #505050;
+    margin-block: auto;
+    font-family: var(--font-family);
+    font-size: 14px;
+    margin-right: 10px;
+}

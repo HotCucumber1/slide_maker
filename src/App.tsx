@@ -1,6 +1,6 @@
-import {ToolBar} from "./view/toolBar/ToolBar.tsx";
-import {SlideList} from "./view/slideList/SlideList.tsx";
-import WorkArea from "./view/workArea/WorkArea.tsx";
+import {ToolBar} from "./view/ToolBar/ToolBar.tsx";
+import {SlideList} from "./view/SlideList/SlideList.tsx";
+import WorkArea from "./view/WorkArea/WorkArea.tsx";
 
 import styles from "./App.module.css";
 import {Editor} from "./store/editor.ts";

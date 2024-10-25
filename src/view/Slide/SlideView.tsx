@@ -1,15 +1,15 @@
 import {Color, Gradient, Image, SelectedObjects, SlideObject} from "../../store/objects.ts";
-import {TextObjectView} from "../textObject/TextObjectView.tsx";
-import {ImageObjectView} from "../imageObject/ImageObjectView.tsx";
-import {LabelObjectView} from "../labelObject/LabelObjectView.tsx";
-import {EllipseObject} from "../ellipseObject/EllipseObject.tsx";
-import {TriangleObjectView} from "../triangleObject/TriangleObject.tsx";
+import {TextObjectView} from "../TextObject/TextObjectView.tsx";
+import {ImageObjectView} from "../ImageObject/ImageObjectView.tsx";
+import {LabelObjectView} from "../LabelObject/LabelObjectView.tsx";
+import {EllipseObject} from "../EllipseObject/EllipseObject.tsx";
+import {TriangleObjectView} from "../TriangleObject/TriangleObject.tsx";
 import styles from "./SlideView.module.css";
 import {CSSProperties} from "react";
 import * as React from "react";
 import {dispatch} from "../../store/editor.ts";
 import {setObjectSelection} from "../../store/setObjectSelection.ts";
-import {ObjectWrapper} from "../objectWrapper/ObjectWrapper.tsx";
+import {ObjectWrapper} from "../ObjectWrapper/ObjectWrapper.tsx";
 
 
 const SLIDE_WIDTH: number = 1920;

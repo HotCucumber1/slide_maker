@@ -7,6 +7,7 @@ import {defaultTextSettings} from "../../store/testData/testData.ts";
 import {setPresentationTitle} from "../../store/setPresentationTitle.ts";
 import {deleteSlides} from "../../store/deleteSlide.ts";
 import {addText} from "../../store/addText.ts";
+import {addImage} from "../../store/addImage.ts";
 
 
 const addSlideButtonContent: Icon = {
@@ -40,8 +41,30 @@ type ToolBarProps = {
 
 function ToolBar({fileName}: ToolBarProps)
 {
-    const onTitleChange: React.ChangeEventHandler = event => {
+    const onTitleChange = (event) => {
         dispatch(setPresentationTitle, (event.target as HTMLInputElement).value)
+    }
+
+    const onButtonClick = () => {
+        const fileInput = document.getElementById("fileInput") as HTMLInputElement
+        fileInput.click()
+    }
+
+    const onFileChange = async (event) => {
+        const file = event.target.files[0]
+        if (file)
+        {
+            const reader = new FileReader()
+            reader.onload = (event) => {
+                const img = new Image()
+                img.src = event.target.result as string
+
+                img.onload = () => {
+                    dispatch(addImage, {img})
+                }
+            }
+            reader.readAsDataURL(file)
+        }
     }
 
     return (
@@ -52,12 +75,20 @@ function ToolBar({fileName}: ToolBarProps)
                     src="../../../public/image/icon.png" alt="icon"
                 />
                 <input
-                    onChange={onTitleChange}
+                    onBlur={onTitleChange}
                     className={styles.fileName}
                     defaultValue={fileName}
                 />
             </div>
             <div className={styles.toolArea}>
+                <input
+                    className={styles.fileInput}
+                    type="file"
+                    id="fileInput"
+                    onChange={onFileChange}
+                    accept="image/"
+                />
+
                 <span className={styles.slideActionsText}>Слайд</span>
                 <MenuButton
                     content={addSlideButtonContent}
@@ -81,7 +112,7 @@ function ToolBar({fileName}: ToolBarProps)
                 </MenuButton>
                 <MenuButton
                     content={addImageButtonContent}
-                    onClick={() => dispatch(addText, defaultTextSettings)}
+                    onClick={onButtonClick}
                     iconStyles={{
                         marginTop: "2px",
                         height: "50%",

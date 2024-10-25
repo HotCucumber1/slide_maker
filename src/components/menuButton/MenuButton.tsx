@@ -13,7 +13,7 @@ type Text = {
 
 type MenuButtonProps = {
     content: Icon|Text,
-    onClick: () => void,
+    onClick: (event) => void,
     iconStyles?: CSSProperties
 }
 

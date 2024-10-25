@@ -15,7 +15,7 @@ const addTextButtonContent: Icon = {
     src: "../../../public/image/add_text_button_icon.png",
 }
 
-const setColorBackgroundButtonContent: Icon = {
+const setColorButtonContent: Icon = {
     type: "icon",
     src: "../../../public/image/set_color_background_button_icon.png",
 }
@@ -60,6 +60,6 @@ export {
     addTextButtonContent,
     addTriangleButtonContent,
     setImageBackgroundButtonContent,
-    setColorBackgroundButtonContent,
+    setColorButtonContent,
     deleteSlideButtonContent,
 }

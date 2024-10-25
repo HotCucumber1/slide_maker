@@ -1,6 +1,6 @@
 import styles from "./ToolBar.module.css";
 import * as React from "react";
-import {dispatch} from "../../store/editor.ts";
+import {dispatch, getEditor} from "../../store/editor.ts";
 import {addSlide} from "../../store/addSlide.ts";
 import {MenuButton} from "../../components/MenuButton/MenuButton.tsx";
 import {defaultTextSettings} from "../../store/testData/testData.ts";
@@ -13,6 +13,7 @@ import {addEllipse} from "../../store/addEllipse.ts";
 import {addTriangle} from "../../store/addTriangle.ts";
 import {setSlideBackground} from "../../store/setSlideBackground.ts";
 import * as ButtonData from "./toolBarButtonsData.ts";
+import {setFigureColor} from "../../store/setFigureColor.ts";
 
 
 
@@ -42,10 +43,20 @@ function ToolBar({fileName}: ToolBarProps)
     }
 
     const onColorChange = (event) => {
-        dispatch(setSlideBackground, {
-            value: (event.target as HTMLInputElement).value,
-            type: "color",
-        })
+        if (getEditor().selectedObjects.length > 0)
+        {
+            dispatch(setFigureColor, {
+                value: (event.target as HTMLInputElement).value,
+                type: "color",
+            });
+        }
+        else
+        {
+            dispatch(setSlideBackground, {
+                value: (event.target as HTMLInputElement).value,
+                type: "color",
+            });
+        }
     }
 
     const onImageFileChange = async (event) => {
@@ -95,6 +106,7 @@ function ToolBar({fileName}: ToolBarProps)
                 />
                 <input
                     onBlur={onTitleChange}
+                    onFocus={(event) => event.target.select()}
                     className={styles.fileName}
                     defaultValue={fileName}
                 />
@@ -125,7 +137,7 @@ function ToolBar({fileName}: ToolBarProps)
                     onClick={() => dispatch(deleteSlides)}
                 />
                 <MenuButton
-                    content={ButtonData.setColorBackgroundButtonContent}
+                    content={ButtonData.setColorButtonContent}
                     onClick={onColorButtonClick}
                     iconStyles={{
                         height: "50%",

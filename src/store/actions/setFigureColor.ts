@@ -1,5 +1,5 @@
-import {Editor} from "./editor.ts";
-import {Color} from "./objects.ts";
+import {Editor} from "../editor.ts";
+import {Color} from "../objects.ts";
 
 function setFigureColor(editor: Editor, color: Color)
 {

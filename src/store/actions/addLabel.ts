@@ -1,7 +1,7 @@
-import {LabelFigure} from "./objects.ts";
+import {LabelFigure} from "../objects.ts";
 import {AddFigureProps} from "./addFigureProps.ts";
-import {Editor} from "./editor.ts";
-import {basePos, baseSize, baseStrokeWidth, baseStrokeStyle, baseFillStyle} from "./testData/testData.ts";
+import {Editor} from "../editor.ts";
+import {basePos, baseSize, baseStrokeWidth, baseStrokeStyle, baseFillStyle} from "../testData/testData.ts";
 import {v4 as uuidv4} from "uuid";
 
 

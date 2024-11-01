@@ -1,5 +1,5 @@
-import {Editor} from "./editor.ts";
-import {ImageObject, Point} from "./objects.ts";
+import {Editor} from "../editor.ts";
+import {ImageObject, Point} from "../objects.ts";
 import {v4 as uuidv4} from "uuid";
 
 

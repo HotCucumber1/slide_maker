@@ -1,4 +1,4 @@
-import {Editor} from "./editor.ts";
+import {Editor} from "../editor.ts";
 
 function setFontSize(editor: Editor, newFontSize: number): Editor {
     const currentSlide = editor.presentation.slides.filter(

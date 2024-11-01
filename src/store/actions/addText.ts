@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from "uuid";
-import {Color, FontStyle, Point, Size, TextObject} from "./objects.ts";
-import {Editor} from "./editor.ts";
+import {Color, FontStyle, Point, Size, TextObject} from "../objects.ts";
+import {Editor} from "../editor.ts";
 
 type AddTextProps = {
     fontSize: number,

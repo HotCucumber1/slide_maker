@@ -1,4 +1,4 @@
-import {Color, Gradient, Point, Size} from "./objects.ts";
+import {Color, Gradient, Point, Size} from "../objects.ts";
 
 type AddFigureProps = {
     position?: Point,

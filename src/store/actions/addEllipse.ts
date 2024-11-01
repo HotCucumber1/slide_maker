@@ -1,7 +1,7 @@
 import {Editor} from "../editor.ts";
 import {EllipseFigure} from "../objects.ts";
 import {AddFigureProps} from "./addFigureProps.ts";
-import {basePos, baseSize, baseStrokeWidth, baseStrokeStyle, baseFillStyle} from "./testData/testData.ts";
+import {basePos, baseSize, baseStrokeWidth, baseStrokeStyle, baseFillStyle} from "../testData/testData.ts";
 import {v4 as uuidv4} from "uuid";
 
 function addEllipse(editor: Editor, props: AddFigureProps): Editor

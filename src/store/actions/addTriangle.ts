@@ -1,7 +1,7 @@
-import {Editor} from "./editor.ts";
-import {TriangleFigure} from "./objects.ts";
+import {Editor} from "../editor.ts";
+import {TriangleFigure} from "../objects.ts";
 import {AddFigureProps} from "./addFigureProps.ts";
-import {basePos, baseSize, baseStrokeWidth, baseStrokeStyle, baseFillStyle} from "./testData/testData.ts";
+import {basePos, baseSize, baseStrokeWidth, baseStrokeStyle, baseFillStyle} from "../testData/testData.ts";
 import {v4 as uuidv4} from "uuid";
 
 function addTriangle(editor: Editor, props: AddFigureProps): Editor

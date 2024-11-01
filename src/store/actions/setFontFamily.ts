@@ -1,4 +1,4 @@
-import {Editor} from "./editor.ts";
+import {Editor} from "../editor.ts";
 
 function setFontFamily(editor: Editor, newFontFamily: string): Editor
 {

@@ -1,5 +1,5 @@
-import {Editor} from "./editor.ts";
-import {Point} from "./objects.ts";
+import {Editor} from "../editor.ts";
+import {Point} from "../objects.ts";
 
 function setObjectPosition(editor: Editor, newPosition: Point): Editor
 {

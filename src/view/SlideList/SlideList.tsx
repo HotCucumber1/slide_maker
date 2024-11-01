@@ -2,8 +2,8 @@ import styles from "./SlideList.module.css";
 import {SelectedObjects, SelectedSlides, Slide} from "../../store/objects.ts";
 import SlideView from "../Slide/SlideView.tsx";
 import {dispatch} from "../../store/editor.ts";
-import {setActiveSlide} from "../../store/setActiveSlide.ts";
-import {setSlideSelection} from "../../store/setSlideSelection.ts"
+import {setActiveSlide} from "../../store/actions/setActiveSlide.ts";
+import {setSlideSelection} from "../../store/actions/setSlideSelection.ts";
 import * as React from "react";
 
 

@@ -1,5 +1,5 @@
-import {Editor} from "./editor.ts";
-import {Color, Gradient, Image} from "./objects.ts";
+import {Editor} from "../editor.ts";
+import {Color, Gradient, Image} from "../objects.ts";
 
 function setPresentationBackground(editor: Editor, newBackground: Color|Image|Gradient): Editor
 {

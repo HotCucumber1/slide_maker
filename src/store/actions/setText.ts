@@ -1,5 +1,5 @@
-import {Editor} from "./editor.ts";
-import {SlideObject} from "./objects.ts";
+import {Editor} from "../editor.ts";
+import {SlideObject} from "../objects.ts";
 
 function setText(editor: Editor, newText: string): Editor
 {

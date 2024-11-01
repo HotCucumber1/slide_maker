@@ -4,7 +4,7 @@ import * as React from "react";
 import {CSSProperties} from "react";
 import styles from "./ObjectWrapper.module.css";
 import {dispatch} from "../../store/editor.ts";
-import {deleteSlideObjects} from "../../store/deleteSlideObject.ts";
+import {deleteSlideObjects} from "../../store/actions/deleteSlideObject.ts";
 
 
 type ObjectWrapperProps = {

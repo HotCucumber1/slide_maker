@@ -1,5 +1,5 @@
-import {Editor} from "./editor.ts";
-import {FontStyle} from "./objects.ts";
+import {Editor} from "../editor.ts";
+import {FontStyle} from "../objects.ts";
 
 function setFontStyle(editor: Editor, newFontStyles: FontStyle): Editor
 {

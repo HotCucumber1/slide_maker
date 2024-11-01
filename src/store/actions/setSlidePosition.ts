@@ -1,4 +1,4 @@
-import {Editor} from "./editor.ts";
+import {Editor} from "../editor.ts";
 
 function setSlidePosition(editor: Editor, newPosition: number): Editor
 {

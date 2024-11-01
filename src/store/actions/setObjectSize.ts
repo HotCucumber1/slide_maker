@@ -1,5 +1,5 @@
-import {Editor} from "./editor.ts";
-import {Size} from "./objects.ts";
+import {Editor} from "../editor.ts";
+import {Size} from "../objects.ts";
 
 function setObjectSize(editor: Editor, newSize: Size): Editor
 {

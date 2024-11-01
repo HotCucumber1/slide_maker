@@ -8,7 +8,7 @@ import styles from "./SlideView.module.css";
 import {CSSProperties} from "react";
 import * as React from "react";
 import {dispatch} from "../../store/editor.ts";
-import {setObjectSelection} from "../../store/setObjectSelection.ts";
+import {setObjectSelection} from "../../store/actions/setObjectSelection.ts";
 import {ObjectWrapper} from "../ObjectWrapper/ObjectWrapper.tsx";
 
 

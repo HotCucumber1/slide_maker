@@ -1,18 +1,18 @@
 import styles from "./ToolBar.module.css";
 import {dispatch, getEditor} from "../../store/editor.ts";
-import {addSlide} from "../../store/addSlide.ts";
+import {addSlide} from "../../store/actions/addSlide.ts";
 import {MenuButton} from "../../components/MenuButton/MenuButton.tsx";
 import {defaultTextSettings} from "../../store/testData/testData.ts";
-import {setPresentationTitle} from "../../store/setPresentationTitle.ts";
-import {deleteSlides} from "../../store/deleteSlide.ts";
-import {addText} from "../../store/addText.ts";
-import {addImage} from "../../store/addImage.ts";
-import {addLabel} from "../../store/addLabel.ts";
-import {addEllipse} from "../../store/addEllipse.ts";
-import {addTriangle} from "../../store/addTriangle.ts";
-import {setSlideBackground} from "../../store/setSlideBackground.ts";
+import {setPresentationTitle} from "../../store/actions/setPresentationTitle.ts";
+import {deleteSlides} from "../../store/actions/deleteSlide.ts";
+import {addText} from "../../store/actions/addText.ts";
+import {addImage} from "../../store/actions/addImage.ts";
+import {addLabel} from "../../store/actions/addLabel.ts";
+import {addEllipse} from "../../store/actions/addEllipse.ts";
+import {addTriangle} from "../../store/actions/addTriangle.ts";
+import {setSlideBackground} from "../../store/actions/setSlideBackground.ts";
 import * as ButtonData from "./toolBarButtonsData.ts";
-import {setFigureColor} from "../../store/setFigureColor.ts";
+import {setFigureColor} from "../../store/actions/setFigureColor.ts";
 
 
 

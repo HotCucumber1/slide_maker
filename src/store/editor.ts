@@ -1,5 +1,6 @@
 import {Presentation, SelectedObjects, SelectedSlides} from "./objects.ts";
 import {editor} from "./testData/testData.ts";
+import {getDocumentState, saveDocumentState} from "./storage.ts";
 
 type Editor = {
     presentation: Presentation,
@@ -8,7 +9,8 @@ type Editor = {
     selectedObjects: SelectedObjects,
 };
 
-let _editor: Editor = editor;
+const documentState = getDocumentState() || editor;
+let _editor: Editor = documentState;
 let editorChangeHandler = null;
 
 
@@ -33,6 +35,7 @@ function dispatch(modifyFunc: Function, payload?: Object): void
     setEditor(newEditor);
     if (editorChangeHandler)
     {
+        saveDocumentState(getEditor());
         editorChangeHandler();
     }
 }

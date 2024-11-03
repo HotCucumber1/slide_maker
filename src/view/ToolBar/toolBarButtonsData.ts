@@ -1,65 +1,77 @@
 import {Icon} from "../../components/MenuButton/MenuButton.tsx";
+import uploadButtonIcon from "../../assets/icons/download_button_icon.png";
+import addTextButtonIcon from "../../assets/icons/add_text_button_icon.png";
+import downloadButtonIcon from "../../assets/icons/download_button_icon.png";
+import addImageButtonIcon from "../../assets/icons/add_image_button_icon.png";
+import addLabelButtonIcon from "../../assets/icons/add_label_button_icon.png";
+import addSlideButtonIcon from "../../assets/icons/add_slide_button_icon.png";
+import setColorButtonIcon from "../../assets/icons/set_color_button_icon.png";
+import addCircleButtonIcon from "../../assets/icons/add_circle_button_icon.png";
+import addFigureButtonIcon from "../../assets/icons/add_figure_button_icon.png";
+import addTriangleButtonIcon from "../../assets/icons/add_triangle_button_icon.png";
+import deleteSlideButtonIcon from "../../assets/icons/delete_slide_button_icon.png";
+import setBackgroundImageButtonIcon from "../../assets/icons/set_background_image_button_icon.png";
 
 
 const downloadButtonContent: Icon = {
     type: "icon",
-    src: "../../../public/image/upload_button_icon.png",
+    src: downloadButtonIcon,
 }
 
 const uploadButtonContent: Icon = {
     type: "icon",
-    src: "../../../public/image/download_button_icon.png",
+    src: uploadButtonIcon,
 }
 
 const addSlideButtonContent: Icon = {
     type: "icon",
-    src: "../../../public/image/add_slide_button_icon.png",
+    src: addSlideButtonIcon,
 }
 
 const deleteSlideButtonContent: Icon = {
     type: "icon",
-    src: "../../../public/image/delete_slide_button_icon.png",
+    src: deleteSlideButtonIcon,
 }
 
 const addTextButtonContent: Icon = {
     type: "icon",
-    src: "../../../public/image/add_text_button_icon.png",
+    src: addTextButtonIcon,
 }
 
 const setColorButtonContent: Icon = {
     type: "icon",
-    src: "../../../public/image/set_color_background_button_icon.png",
+    src: setColorButtonIcon,
 }
 
 const addImageButtonContent: Icon = {
     type: "icon",
-    src: "./../../public/image/add_image_button_icon.png",
+    src: addImageButtonIcon,
 }
 
 const addLabelButtonContent: Icon = {
     type: "icon",
-    src: "./../../public/image/add_label_button_icon.png",
+    src: addLabelButtonIcon,
 }
 
 const addTriangleButtonContent: Icon = {
     type: "icon",
-    src: "./../../public/image/add_triangle_button_icon.png",
+    src: addTriangleButtonIcon,
 }
 
 const addCircleButtonContent: Icon = {
     type: "icon",
-    src: "./../../public/image/add_circle_button_icon.png",
+    src: addCircleButtonIcon,
 }
 
-const setImageBackgroundButtonContent: Icon = {
+const setBackgroundImageButtonContent: Icon = {
     type: "icon",
-    src: "../../../public/image/set_image_background_button_icon.png",
+    src: setBackgroundImageButtonIcon,
 }
 
 
 const addFigureButtonContent: Icon = {
     type: "icon",
-    src: "./../../public/image/add_figure_button_icon.png",
+    src: addFigureButtonIcon,
 }
 
 export {
@@ -72,7 +84,7 @@ export {
     addSlideButtonContent,
     addTextButtonContent,
     addTriangleButtonContent,
-    setImageBackgroundButtonContent,
+    setBackgroundImageButtonContent,
     setColorButtonContent,
     deleteSlideButtonContent,
 }

@@ -2,7 +2,7 @@ import style from "./MenuButton.module.css"
 import {CSSProperties} from "react";
 
 type Icon = {
-    src: string,
+    src: object,
     type: "icon",
 }
 

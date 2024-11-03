@@ -15,7 +15,7 @@ import {setFigureColor} from "../../store/actions/setFigureColor.ts";
 import {downloadAsJson} from "../../store/fileUtils/downloadAsJson.ts";
 import {uploadImageFile, uploadJsonPresentation} from "../../store/fileUtils/uploadFile.ts";
 import {useRef} from "react";
-
+import icon from "../../assets/icons/icon.png";
 
 
 type ToolBarProps = {
@@ -28,10 +28,8 @@ function ToolBar({fileName}: ToolBarProps)
     const backgroundFileInputRef = useRef(null);
     const colorInputRef = useRef(null);
     const uploadFileInputRef = useRef(null);
+    const titleRef = useRef(null);
 
-    const onTitleChange = (event) => {
-        dispatch(setPresentationTitle, (event.target as HTMLInputElement).value);
-    }
 
     const onButtonClick = (inputElement) => {
         inputElement.current.click();
@@ -54,25 +52,19 @@ function ToolBar({fileName}: ToolBarProps)
         }
     }
 
-    // TODO: не прокидывать ref в модель
-    const onImageFileChange = async (event) => {
+    const onImageInputChange = async (event) => {
         const file: File = event.target.files[0];
-        uploadImageFile(file, imageFileInputRef);
+        uploadImageFile(file, "object");
     }
-
-    // const onFileChange = async (event, inputRef) => {
-    //     const file: File = event.target.files[0];
-    //     uploadImageFile(file, inputRef);
-    // }
 
     const onFileInputChange = async (event) => {
         const file: File = event.target.files[0];
         uploadJsonPresentation(file);
     }
 
-    const onBgFileChange = async (event) => {
+    const onBackgroundInputChange = async (event) => {
         const file: File = event.target.files[0];
-        uploadImageFile(file, backgroundFileInputRef);
+        uploadImageFile(file, "background");
     }
 
     return (
@@ -80,11 +72,12 @@ function ToolBar({fileName}: ToolBarProps)
             <div className={styles.fileNameArea}>
                 <img
                     className={styles.icon}
-                    src="../../../public/image/icon2.png"
+                    src={icon}
                     alt="icon"
                 />
                 <input
-                    onBlur={onTitleChange}
+                    onBlur={() => dispatch(setPresentationTitle, titleRef.current.value)}
+                    ref={titleRef}
                     onFocus={(event) => event.target.select()}
                     className={styles.fileName}
                     defaultValue={fileName}
@@ -96,7 +89,7 @@ function ToolBar({fileName}: ToolBarProps)
                     ref={imageFileInputRef}
                     type="file"
                     id="imageFileInput"
-                    onChange={(event) => onFileChange(event, imageFileInputRef)}
+                    onChange={onImageInputChange}
                     accept="image/"
                 />
                 <input
@@ -104,7 +97,7 @@ function ToolBar({fileName}: ToolBarProps)
                     ref={backgroundFileInputRef}
                     type="file"
                     id="bgFileInput"
-                    onChange={onBgFileChange}
+                    onChange={onBackgroundInputChange}
                     accept="image/"
                 />
                 <input
@@ -155,7 +148,7 @@ function ToolBar({fileName}: ToolBarProps)
                     ref={colorInputRef}
                 />
                 <MenuButton
-                    content={ButtonData.setImageBackgroundButtonContent}
+                    content={ButtonData.setBackgroundImageButtonContent}
                     onClick={() => onButtonClick(backgroundFileInputRef)}
                     iconStyles={{
                         height: "60%",

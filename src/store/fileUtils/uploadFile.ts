@@ -1,7 +1,10 @@
 import {dispatch, Editor} from "../editor.ts";
 import {setSlideBackground} from "../actions/setSlideBackground.ts";
-import {MutableRefObject, RefObject} from "react";
 import {addImage} from "../actions/addImage.ts";
+
+
+const JSON_TYPE: string = "application/json";
+const IMAGE_TYPES: string[] = ["image/svg", "image/png", "image/jpeg", "image/jpg"];
 
 function uploadJsonPresentation(dataFile: File): void
 {
@@ -9,7 +12,7 @@ function uploadJsonPresentation(dataFile: File): void
     {
         return;
     }
-    if (dataFile.type !== "application/json")
+    if (dataFile.type !== JSON_TYPE)
     {
         return;
     }
@@ -23,14 +26,13 @@ function uploadJsonPresentation(dataFile: File): void
     reader.readAsText(dataFile);
 }
 
-function uploadImageFile(dataFile: File, inputElement: RefObject<HTMLInputElement>): void
+function uploadImageFile(dataFile: File, type: "object"|"background"): void
 {
-    const allowedTypes = ['image/svg', 'image/png', 'image/jpeg'];
     if (!dataFile)
     {
         return;
     }
-    if (!allowedTypes.includes(dataFile.type))
+    if (!IMAGE_TYPES.includes(dataFile.type))
     {
         return;
     }
@@ -39,14 +41,14 @@ function uploadImageFile(dataFile: File, inputElement: RefObject<HTMLInputElemen
         const img = new Image();
         img.src = event.target.result as string;
 
-        switch (inputElement.current?.id)
+        switch (type)
         {
-            case "imageFileInput":
+            case "object":
                 img.onload = () => {
                     dispatch(addImage, {img})
                 };
                 break;
-            case "bgFileInput":
+            case "background":
                 img.onload = () => {
                     dispatch(setSlideBackground, {
                         src: img.src,

@@ -1,5 +1,16 @@
 import {Icon} from "../../components/MenuButton/MenuButton.tsx";
 
+
+const downloadButtonContent: Icon = {
+    type: "icon",
+    src: "../../../public/image/upload_button_icon.png",
+}
+
+const uploadButtonContent: Icon = {
+    type: "icon",
+    src: "../../../public/image/download_button_icon.png",
+}
+
 const addSlideButtonContent: Icon = {
     type: "icon",
     src: "../../../public/image/add_slide_button_icon.png",
@@ -52,6 +63,8 @@ const addFigureButtonContent: Icon = {
 }
 
 export {
+    uploadButtonContent,
+    downloadButtonContent,
     addFigureButtonContent,
     addCircleButtonContent,
     addImageButtonContent,

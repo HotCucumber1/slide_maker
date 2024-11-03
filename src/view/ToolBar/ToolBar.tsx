@@ -6,13 +6,15 @@ import {defaultTextSettings} from "../../store/testData/testData.ts";
 import {setPresentationTitle} from "../../store/actions/setPresentationTitle.ts";
 import {deleteSlides} from "../../store/actions/deleteSlide.ts";
 import {addText} from "../../store/actions/addText.ts";
-import {addImage} from "../../store/actions/addImage.ts";
 import {addLabel} from "../../store/actions/addLabel.ts";
 import {addEllipse} from "../../store/actions/addEllipse.ts";
 import {addTriangle} from "../../store/actions/addTriangle.ts";
 import {setSlideBackground} from "../../store/actions/setSlideBackground.ts";
 import * as ButtonData from "./toolBarButtonsData.ts";
 import {setFigureColor} from "../../store/actions/setFigureColor.ts";
+import {downloadAsJson} from "../../store/fileUtils/downloadAsJson.ts";
+import {uploadImageFile, uploadJsonPresentation} from "../../store/fileUtils/uploadFile.ts";
+import {useRef} from "react";
 
 
 
@@ -22,23 +24,17 @@ type ToolBarProps = {
 
 function ToolBar({fileName}: ToolBarProps)
 {
+    const imageFileInputRef = useRef(null);
+    const backgroundFileInputRef = useRef(null);
+    const colorInputRef = useRef(null);
+    const uploadFileInputRef = useRef(null);
+
     const onTitleChange = (event) => {
-        dispatch(setPresentationTitle, (event.target as HTMLInputElement).value)
+        dispatch(setPresentationTitle, (event.target as HTMLInputElement).value);
     }
 
-    const onImageFileButtonClick = () => {
-        const fileInput = document.getElementById("imageFileInput") as HTMLInputElement
-        fileInput.click()
-    }
-
-    const onBgFileButtonClick = () => {
-        const fileInput = document.getElementById("bgFileInput") as HTMLInputElement
-        fileInput.click()
-    }
-
-    const onColorButtonClick = () => {
-        const colorInput = document.getElementById("colorInput") as HTMLInputElement
-        colorInput.click()
+    const onButtonClick = (inputElement) => {
+        inputElement.current.click();
     }
 
     const onColorChange = (event) => {
@@ -58,41 +54,25 @@ function ToolBar({fileName}: ToolBarProps)
         }
     }
 
+    // TODO: не прокидывать ref в модель
     const onImageFileChange = async (event) => {
-        const file = event.target.files[0]
-        if (file)
-        {
-            const reader = new FileReader()
-            reader.onload = (event) => {
-                const img = new Image()
-                img.src = event.target.result as string
+        const file: File = event.target.files[0];
+        uploadImageFile(file, imageFileInputRef);
+    }
 
-                img.onload = () => {
-                    dispatch(addImage, {img})
-                }
-            }
-            reader.readAsDataURL(file)
-        }
+    // const onFileChange = async (event, inputRef) => {
+    //     const file: File = event.target.files[0];
+    //     uploadImageFile(file, inputRef);
+    // }
+
+    const onFileInputChange = async (event) => {
+        const file: File = event.target.files[0];
+        uploadJsonPresentation(file);
     }
 
     const onBgFileChange = async (event) => {
-        const file = event.target.files[0]
-        if (file)
-        {
-            const reader = new FileReader()
-            reader.onload = (event) => {
-                const img = new Image()
-                img.src = event.target.result as string
-
-                img.onload = () => {
-                    dispatch(setSlideBackground, {
-                        src: img.src,
-                        type: "image"
-                    })
-                }
-            }
-            reader.readAsDataURL(file)
-        }
+        const file: File = event.target.files[0];
+        uploadImageFile(file, backgroundFileInputRef);
     }
 
     return (
@@ -113,18 +93,43 @@ function ToolBar({fileName}: ToolBarProps)
             <div className={styles.toolArea}>
                 <input
                     className={styles.fileInput}
+                    ref={imageFileInputRef}
                     type="file"
                     id="imageFileInput"
-                    onChange={onImageFileChange}
+                    onChange={(event) => onFileChange(event, imageFileInputRef)}
                     accept="image/"
                 />
                 <input
                     className={styles.fileInput}
+                    ref={backgroundFileInputRef}
                     type="file"
                     id="bgFileInput"
                     onChange={onBgFileChange}
                     accept="image/"
                 />
+                <input
+                    className={styles.fileInput}
+                    ref={uploadFileInputRef}
+                    type="file"
+                    id="jsonFileInput"
+                    onChange={onFileInputChange}
+                    accept="application/json"
+                />
+
+                <span className={styles.slideActionsText}>Файл</span>
+                <MenuButton
+                    content={ButtonData.downloadButtonContent}
+                    onClick={() => downloadAsJson(
+                        getEditor(),
+                        getEditor().presentation.title)
+                    }
+                />
+                <MenuButton
+                    content={ButtonData.uploadButtonContent}
+                    onClick={() => onButtonClick(uploadFileInputRef)}
+                />
+                <div className={styles.toolBarSeparator}>
+                </div>
 
                 <span className={styles.slideActionsText}>Слайд</span>
                 <MenuButton
@@ -137,7 +142,7 @@ function ToolBar({fileName}: ToolBarProps)
                 />
                 <MenuButton
                     content={ButtonData.setColorButtonContent}
-                    onClick={onColorButtonClick}
+                    onClick={() => onButtonClick(colorInputRef)}
                     iconStyles={{
                         height: "50%",
                     }}
@@ -147,15 +152,15 @@ function ToolBar({fileName}: ToolBarProps)
                     type="color"
                     id="colorInput"
                     onChange={onColorChange}
+                    ref={colorInputRef}
                 />
                 <MenuButton
                     content={ButtonData.setImageBackgroundButtonContent}
-                    onClick={onBgFileButtonClick}
+                    onClick={() => onButtonClick(backgroundFileInputRef)}
                     iconStyles={{
                         height: "60%",
                     }}
                 />
-
                 <div className={styles.toolBarSeparator}>
                 </div>
 
@@ -166,7 +171,7 @@ function ToolBar({fileName}: ToolBarProps)
                 />
                 <MenuButton
                     content={ButtonData.addImageButtonContent}
-                    onClick={onImageFileButtonClick}
+                    onClick={() => onButtonClick(imageFileInputRef)}
                     iconStyles={{
                         marginTop: "2px",
                         height: "50%",
@@ -205,5 +210,5 @@ function ToolBar({fileName}: ToolBarProps)
 }
 
 export {
-    ToolBar
+    ToolBar,
 }

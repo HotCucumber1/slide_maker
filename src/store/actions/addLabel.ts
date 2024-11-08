@@ -1,7 +1,13 @@
 import {LabelFigure} from "../objects.ts";
 import {AddFigureProps} from "./addFigureProps.ts";
 import {Editor} from "../editor.ts";
-import {basePos, baseSize, baseStrokeWidth, baseStrokeStyle, baseFillStyle} from "../testData/testData.ts";
+import {
+    defaultPos,
+    defaultSize,
+    defaultStrokeWidth,
+    defaultFillStyle,
+    defaultStrokeStyle
+} from "../default_data/defaultObjectSettings.ts";
 import {v4 as uuidv4} from "uuid";
 
 
@@ -10,11 +16,11 @@ function addLabel(editor: Editor, props: AddFigureProps): Editor
 
     const figureObject: LabelFigure = {
         id: uuidv4(),
-        pos: props?.position === undefined ? basePos : props.position,
-        size: props?.size === undefined ? baseSize : props.size,
-        fillStyle: props?.fillStyle === undefined ? baseFillStyle : props.fillStyle,
-        strokeWidth: props?.strokeWidth === undefined ? baseStrokeWidth : props.strokeWidth,
-        strokeStyle:  props?.strokeStyle === undefined ? baseStrokeStyle : props.strokeStyle,
+        pos: props?.position === undefined ? defaultPos : props.position,
+        size: props?.size === undefined ? defaultSize : props.size,
+        fillStyle: props?.fillStyle === undefined ? defaultFillStyle : props.fillStyle,
+        strokeWidth: props?.strokeWidth === undefined ? defaultStrokeWidth : props.strokeWidth,
+        strokeStyle:  props?.strokeStyle === undefined ? defaultStrokeStyle : props.strokeStyle,
         type: "label",
     };
 

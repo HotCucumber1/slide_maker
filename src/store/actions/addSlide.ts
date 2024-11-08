@@ -1,17 +1,9 @@
 import {Editor} from "../editor.ts";
-import {Slide} from "../objects.ts";
-import {v4 as uuidv4} from "uuid";
+import {defaultSlide} from "../default_data/defaultSlide.ts";
 
 function addSlide(editor: Editor): Editor
 {
-    const newSlide: Slide = {
-        id: uuidv4(),
-        background: {
-            value: "white",
-            type: "color",
-        },
-        content: [],
-    };
+    const newSlide = defaultSlide;
     const selectedSlides = editor.presentation.slides.filter(
         slide => editor.selectedSlides.indexOf(slide.id) !== -1
     );

@@ -1,5 +1,6 @@
 import {Editor} from "../editor.ts";
 import {ImageObject, Point} from "../objects.ts";
+import {defaultPos} from "../default_data/defaultObjectSettings.ts";
 import {v4 as uuidv4} from "uuid";
 
 
@@ -10,15 +11,13 @@ type AddImageProps = {
 
 function addImage(editor: Editor, {position, img}: AddImageProps): Editor
 {
-    const defaultPosition: Point = {
-        x: 100,
-        y: 100,
-    }
-
     const imageObject: ImageObject = {
         id: uuidv4(),
-        pos: typeof position === "undefined" ? defaultPosition : position,
-        size: {width: img.width, height: img.height},
+        pos: typeof position === "undefined" ? defaultPos : position,
+        size: {
+            width: img.width,
+            height: img.height
+        },
         src: img.src,
         type: "image",
     };

@@ -1,5 +1,5 @@
 import {Presentation, SelectedObjects, SelectedSlides} from "./objects.ts";
-import {editor} from "./testData/testData.ts";
+import {editor} from "./default_data/editor.ts";
 import {getDocumentState, saveDocumentState} from "./storage.ts";
 
 type Editor = {

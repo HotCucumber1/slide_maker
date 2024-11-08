@@ -1,6 +1,5 @@
-import {Color, Point, Presentation, Size, Slide} from "../objects.ts";
+import {Slide} from "../objects.ts";
 import {v4 as uuidv4} from "uuid";
-import {Editor} from "../editor.ts";
 
 
 const maxSlides: Slide[] = [];
@@ -145,44 +144,3 @@ minSlides.push({
     content: []
 });
 
-const presentation: Presentation = {
-    title: "Новая презентация",
-    slides: maxSlides,
-}
-
-
-const editor: Editor = {
-    presentation: presentation,
-    currentSlideId: presentation.slides[0].id,
-    selectedSlides: [presentation.slides[0].id],
-    selectedObjects: []
-};
-
-const defaultTextSettings = {
-    fontSize: 72,
-    fontFamily: "sans-serif",
-    fontStyles: [],
-}
-
-const baseFillStyle: Color = {
-    value: "white",
-    type: "color",
-};
-const baseStrokeWidth = 4;
-const baseStrokeStyle: Color = {
-    value: "black",
-    type: "color",
-};
-const baseSize: Size = {width: 500, height: 600};
-const basePos: Point = {x: 800, y: 300};
-
-
-export {
-    editor,
-    defaultTextSettings,
-    baseFillStyle,
-    baseStrokeWidth,
-    baseStrokeStyle,
-    baseSize,
-    basePos,
-}

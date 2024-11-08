@@ -30,14 +30,11 @@ type SlideProps = {
 
 export default function SlideView({scale, background, content, extraStyles, isSelected, objectSelection}: SlideProps)
 {
-    const onObjectClick: React.MouseEventHandler = event => {
+    const onObjectClick: React.MouseEventHandler = (event) => {
         event.stopPropagation()
         dispatch(setObjectSelection, [(event.target as HTMLDivElement).id])
     }
 
-    const onSlideClick: React.MouseEventHandler = () => {
-        dispatch(setObjectSelection, [])
-    }
 
     const slideStyle: CSSProperties = {
         ...extraStyles,
@@ -69,7 +66,7 @@ export default function SlideView({scale, background, content, extraStyles, isSe
         <div
             style={slideStyle}
             className={styles.slide}
-            onClick={onSlideClick}
+            onClick={() => dispatch(setObjectSelection, [])}
         >
             {content.map(object => {
                 switch (object.type)

@@ -1,6 +1,7 @@
-import {dispatch, Editor} from "../editor.ts";
-import {setSlideBackground} from "../actions/setSlideBackground.ts";
-import {addImage} from "../actions/addImage.ts";
+import {dispatch, Editor} from "../store/editor.ts";
+import {setSlideBackground} from "../store/actions/setSlideBackground.ts";
+import {addImage} from "../store/actions/addImage.ts";
+import {isValidPresentationJson} from "./jsonValidator.ts";
 
 
 const JSON_TYPE: string = "application/json";
@@ -20,8 +21,14 @@ function uploadJsonPresentation(dataFile: File): void
     reader.onload = (event) => {
 
         const jsonData = event.target.result as string;
+        if (!isValidPresentationJson(jsonData))
+        {
+            alert("Invalid json data");
+            return;
+        }
         const newEditor: Editor = JSON.parse(jsonData);
         dispatch(() => newEditor);
+        alert(`${newEditor.presentation.title} was upload successfully`);
     }
     reader.readAsText(dataFile);
 }

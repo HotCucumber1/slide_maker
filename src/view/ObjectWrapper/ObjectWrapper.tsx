@@ -40,7 +40,7 @@ function ObjectWrapper(props: ObjectWrapperProps)
     return (
         <div
             tabIndex={0}
-            className={!props.isSelected ? styles.wrapper_able : ""}
+            className={styles.wrapper_able}
             onKeyDown={onButtonClick}
             onClick={props.onClick}
             id={props.objectId}

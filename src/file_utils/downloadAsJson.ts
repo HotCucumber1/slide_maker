@@ -1,4 +1,4 @@
-import {Editor} from "../editor.ts";
+import {Editor} from "../store/editor.ts";
 
 function downloadAsJson(editor: Editor, filename: string = "my_presentation.json"): void
 {

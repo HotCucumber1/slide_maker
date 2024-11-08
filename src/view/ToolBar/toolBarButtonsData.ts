@@ -1,5 +1,5 @@
 import {Icon} from "../../components/MenuButton/MenuButton.tsx";
-import uploadButtonIcon from "../../assets/icons/download_button_icon.png";
+import uploadButtonIcon from "../../assets/icons/upload_button_icon.png";
 import addTextButtonIcon from "../../assets/icons/add_text_button_icon.png";
 import downloadButtonIcon from "../../assets/icons/download_button_icon.png";
 import addImageButtonIcon from "../../assets/icons/add_image_button_icon.png";

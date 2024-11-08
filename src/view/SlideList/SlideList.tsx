@@ -1,10 +1,8 @@
 import styles from "./SlideList.module.css";
 import {SelectedObjects, SelectedSlides, Slide} from "../../store/objects.ts";
 import SlideView from "../Slide/SlideView.tsx";
-import {dispatch} from "../../store/editor.ts";
-import {setActiveSlide} from "../../store/actions/setActiveSlide.ts";
-import {setSlideSelection} from "../../store/actions/setSlideSelection.ts";
 import * as React from "react";
+import {SlideListElement} from "./SlideListElement.tsx";
 
 
 const SLIDE_SCALE: number = 0.083;
@@ -18,17 +16,12 @@ type SlideListProps = {
 
 function SlideList({slides, selection, objectSelection}: SlideListProps)
 {
-    const onSlideClick: React.MouseEventHandler = event => {
-        dispatch(setSlideSelection, [(event.target as HTMLDivElement).id])
-        dispatch(setActiveSlide, (event.target as HTMLDivElement).id)
-    }
-
-    const slidesList = slides.map(slide => (
+    const slidesList = slides.map((slide, index) => (
         <li key={slide.id}>
-            <div
+            <SlideListElement
+                startPosition={index}
                 className={styles.slidePreviewWrapper}
                 id={slide.id}
-                onClick={onSlideClick}
             >
                 <SlideView
                     scale={SLIDE_SCALE}
@@ -42,7 +35,7 @@ function SlideList({slides, selection, objectSelection}: SlideListProps)
                     objectSelection={objectSelection}
                 >
                 </SlideView>
-            </div>
+            </SlideListElement>
         </li>
     ));
 

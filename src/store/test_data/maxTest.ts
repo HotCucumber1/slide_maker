@@ -17,7 +17,7 @@ import {
     setFontStyle,
     deleteSlideObjects,
     deleteSlides
-} from "./functions";
+} from "../actions";
 
 
 const selectedSlides: SelectedSlides = [];

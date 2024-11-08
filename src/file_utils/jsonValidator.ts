@@ -48,7 +48,7 @@ const slideSchema: object = {
         "background",
         "content",
     ],
-}
+};
 
 const ajv = new Ajv();
 

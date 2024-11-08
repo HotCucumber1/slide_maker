@@ -76,11 +76,11 @@ function ToolBar({fileName}: ToolBarProps)
                     alt="icon"
                 />
                 <input
-                    onBlur={() => dispatch(setPresentationTitle, titleRef.current.value)}
                     ref={titleRef}
+                    onChange={() => dispatch(setPresentationTitle, titleRef.current.value)}
                     onFocus={(event) => event.target.select()}
                     className={styles.fileName}
-                    defaultValue={fileName}
+                    value={fileName}
                 />
             </div>
             <div className={styles.toolArea}>

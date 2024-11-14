@@ -1,4 +1,10 @@
-import {Color, Gradient, Image, SelectedObjects, SlideObject} from "../../store/objects.ts";
+import {
+    Color,
+    Gradient,
+    Image,
+    SelectedObjects,
+    SlideObject,
+} from "../../store/objects.ts";
 import {TextObjectView} from "../TextObject/TextObjectView.tsx";
 import {ImageObjectView} from "../ImageObject/ImageObjectView.tsx";
 import {LabelObjectView} from "../LabelObject/LabelObjectView.tsx";
@@ -28,8 +34,15 @@ type SlideProps = {
 };
 
 
-export default function SlideView({scale, background, content, extraStyles, isSelected, objectSelection}: SlideProps)
-{
+const SlideView = ({
+    scale,
+    background,
+    content,
+    extraStyles,
+    isSelected,
+    objectSelection,
+}: SlideProps) => {
+
     const slideStyle: CSSProperties = {
         ...extraStyles,
         width: `${SLIDE_WIDTH * scale}px`,
@@ -141,4 +154,8 @@ export default function SlideView({scale, background, content, extraStyles, isSe
             })}
         </div>
     )
+}
+
+export {
+    SlideView,
 }

@@ -8,7 +8,7 @@ type Editor = {
     selectedObjects: SelectedObjects,
 };
 
-const documentState = getDocumentState() || editor;
+const documentState = editor//getDocumentState() || editor;
 let _editor: Editor = documentState;
 let editorChangeHandler = null;
 

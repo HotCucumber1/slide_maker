@@ -5,7 +5,7 @@ import {Color, Gradient, Image} from "../objects.ts";
 function setSlideBackground(editor: Editor, newBackground: Color|Image|Gradient): Editor
 {
     const currentSlide = editor.presentation.slides.filter(
-        slide => slide.id === editor.currentSlideId
+        slide => slide.id === editor.selectedSlides[0]
     )[0];
     currentSlide.background = newBackground;
 

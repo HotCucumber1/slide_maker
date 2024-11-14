@@ -4,7 +4,7 @@ import {Color} from "../objects.ts";
 function setFigureColor(editor: Editor, color: Color)
 {
     const currentSlide = editor.presentation.slides.filter(
-        slide => slide.id === editor.currentSlideId
+        slide => slide.id === editor.selectedSlides[0]
     )[0];
 
     const selectedObjects = currentSlide.content

@@ -41,7 +41,7 @@ function addText(editor: Editor, props: AddTextProps): Editor
     };
 
     const currentSlide = editor.presentation.slides.filter(
-        slide => slide.id === editor.currentSlideId
+        slide => slide.id === editor.selectedSlides[0]
     )[0];
     const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
 

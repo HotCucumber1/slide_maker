@@ -1,13 +1,14 @@
 import {Point, Size} from "../../store/objects.ts"
 import {getSlideObjectStyles} from "../../service/getSlideObjectStyles.ts"
 import * as React from "react"
-import {CSSProperties, useEffect, useRef} from "react"
+import {CSSProperties, useCallback, useEffect, useRef, useState} from "react"
 import styles from "./ObjectWrapper.module.css"
 import {dispatch} from "../../store/editor.ts"
 import {deleteSlideObjects} from "../../store/actions/deleteSlideObject.ts"
 import {joinStyles} from "../../service/joinStyles.ts"
 import {WORK_AREA_SCALE} from "../../store/default_data/scale.ts"
 import {setObjectSelection} from "../../store/actions/setObjectSelection.ts";
+import {useObjectDragAndDrop} from "../../hooks/useObjectDragAndDrop.ts";
 
 
 type ObjectWrapperProps = {
@@ -31,6 +32,10 @@ const ObjectWrapper = ({
 }: ObjectWrapperProps) => {
 
     const wrapperRef = useRef(null)
+    const [currentPos, setPos] = useState(pos)
+
+    useObjectDragAndDrop(wrapperRef, isSelected, setPos)
+
 
     const onObjectClick: React.MouseEventHandler = (event) => {
         event.stopPropagation()
@@ -45,9 +50,13 @@ const ObjectWrapper = ({
 
     useEffect(() => {
         const wrapperElement = wrapperRef.current
-        wrapperElement.addEventListener("click", onButtonClick)
+
+        wrapperElement.addEventListener("keydown", onButtonClick)
+        wrapperElement.addEventListener("mousedown", onObjectClick)
+
         return () => {
-            wrapperElement.removeEventListener("click", onButtonClick)
+            wrapperElement.removeEventListener("keydown", onButtonClick)
+            wrapperElement.removeEventListener("mousedown", onObjectClick)
         }
     })
 
@@ -76,7 +85,7 @@ const ObjectWrapper = ({
             onClick={onObjectClick}
             id={objectId}
             style={{
-                ...getSlideObjectStyles(pos, size, scale),
+                ...getSlideObjectStyles(currentPos, size, scale),
                 ...wrapperStyles,
             }}
         >

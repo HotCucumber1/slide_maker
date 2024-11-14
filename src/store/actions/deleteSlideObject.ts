@@ -3,7 +3,7 @@ import {Editor} from "../editor.ts";
 function deleteSlideObjects(editor: Editor): Editor
 {
     const currentSlide = editor.presentation.slides.filter(
-        slide => slide.id === editor.currentSlideId
+        slide => slide.id === editor.selectedSlides[0]
     )[0];
 
     currentSlide.content = currentSlide.content.filter(

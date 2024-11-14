@@ -4,26 +4,30 @@ import {Point} from "../objects.ts";
 function setObjectPosition(editor: Editor, newPosition: Point): Editor
 {
     const currentSlide = editor.presentation.slides.filter(
-        slide => slide.id === editor.currentSlideId
-    )[0];
-    const updatedContent = currentSlide.content.filter(
-        object => editor.selectedObjects.indexOf(object.id) === -1
+        slide => slide.id === editor.selectedSlides[0]
     )[0];
 
-    updatedContent.pos = newPosition;
-    currentSlide.content = [
-        ...currentSlide.content,
-        updatedContent,
-    ];
+    const selectedObject = currentSlide.content.filter(
+        object => editor.selectedObjects.includes(object.id)
+    )[0]
+    const objectIndex = currentSlide.content.indexOf(selectedObject)
+
+    selectedObject.pos = newPosition;
+
+    const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
+
+    currentSlide.content[objectIndex] = selectedObject;
+    const newSlides = editor.presentation.slides.slice();
+    newSlides[currentSlideIndex] = currentSlide;
+
+    console.log('OK')
 
     return {
         ...editor,
+        selectedObjects: [selectedObject.id],
         presentation: {
             ...editor.presentation,
-            slides: [
-                ...editor.presentation.slides,
-                currentSlide,
-            ]
+            slides: newSlides,
         }
     };
 }

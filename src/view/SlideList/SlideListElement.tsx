@@ -2,7 +2,6 @@ import * as React from "react";
 import styles from "./SlideList.module.css";
 import {dispatch} from "../../store/editor.ts";
 import {setSlideSelection} from "../../store/actions/setSlideSelection.ts";
-import {setActiveSlide} from "../../store/actions/setActiveSlide.ts";
 import {useRef, useState} from "react";
 import {useSlideDragAndDrop} from "../../hooks/useSlideDragAndDrop.ts";
 import {setSlidePosition} from "../../store/actions/setSlidePosition.ts";
@@ -26,7 +25,6 @@ function SlideListElement({id, children, startPosition}: SlideListElementProps)
 
     const onSlideClick: React.MouseEventHandler = event => {
         dispatch(setSlideSelection, [(event.target as HTMLDivElement).id]);
-        dispatch(setActiveSlide, (event.target as HTMLDivElement).id);
     }
 
     return (

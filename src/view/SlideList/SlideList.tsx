@@ -1,6 +1,6 @@
 import styles from "./SlideList.module.css";
 import {SelectedObjects, SelectedSlides, Slide} from "../../store/objects.ts";
-import SlideView from "../Slide/SlideView.tsx";
+import {SlideView} from "../Slide/SlideView.tsx";
 import * as React from "react";
 import {SlideListElement} from "./SlideListElement.tsx";
 import {SLIDE_LIST_SCALE} from "../../store/default_data/scale.ts";

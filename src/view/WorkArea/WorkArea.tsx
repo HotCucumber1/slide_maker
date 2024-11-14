@@ -1,4 +1,4 @@
-import SlideView from "..//Slide/SlideView.tsx";
+import {SlideView} from "..//Slide/SlideView.tsx";
 import styles from "./WorkArea.module.css";
 
 import {SelectedObjects, Slide} from "../../store/objects.ts";

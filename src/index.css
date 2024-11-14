@@ -20,4 +20,6 @@ body {
     --font-family: "Inter", sans-serif;
     --slide-border-radius: 20px;
     --slide-preview-border-radius: calc(var(--slide-border-radius) / 2);
+    --resize-handle-size: 10px;
+    --selection-color: #2684FC;
 }

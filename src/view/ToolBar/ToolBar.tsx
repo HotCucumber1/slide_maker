@@ -60,6 +60,7 @@ function ToolBar({fileName}: ToolBarProps)
     const onFileInputChange = async (event) => {
         const file: File = event.target.files[0];
         uploadJsonPresentation(file);
+        event.target.value = null;
     }
 
     const onBackgroundInputChange = async (event) => {

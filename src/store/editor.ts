@@ -4,7 +4,6 @@ import {getDocumentState, saveDocumentState} from "./storage.ts";
 
 type Editor = {
     presentation: Presentation,
-    currentSlideId: string,
     selectedSlides: SelectedSlides,
     selectedObjects: SelectedObjects,
 };

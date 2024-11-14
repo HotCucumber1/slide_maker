@@ -3,9 +3,8 @@ import {SelectedObjects, SelectedSlides, Slide} from "../../store/objects.ts";
 import SlideView from "../Slide/SlideView.tsx";
 import * as React from "react";
 import {SlideListElement} from "./SlideListElement.tsx";
+import {SLIDE_LIST_SCALE} from "../../store/default_data/scale.ts";
 
-
-const SLIDE_SCALE: number = 0.083;
 
 type SlideListProps = {
     slides: Slide[],
@@ -24,7 +23,7 @@ function SlideList({slides, selection, objectSelection}: SlideListProps)
                 id={slide.id}
             >
                 <SlideView
-                    scale={SLIDE_SCALE}
+                    scale={SLIDE_LIST_SCALE}
                     background={slide.background}
                     content={slide.content}
                     extraStyles={{
@@ -47,5 +46,5 @@ function SlideList({slides, selection, objectSelection}: SlideListProps)
 }
 
 export {
-    SlideList,
+    SlideList
 }

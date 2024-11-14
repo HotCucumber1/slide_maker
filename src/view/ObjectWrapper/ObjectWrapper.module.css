@@ -1,3 +1,58 @@
 .wrapper_able {
     cursor: move;
+    position: relative;
+}
+
+.resizeHandle {
+    width: var(--resize-handle-size);
+    height: var(--resize-handle-size);
+    border-radius: 50%;
+    background-color: var(--selection-color);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}
+
+.topLeftHandle {
+    cursor: nwse-resize;
+}
+
+.topHandle {
+    left: 50%;
+    cursor: ns-resize;
+}
+
+.topRightHandle {
+    left: 100%;
+    cursor: nesw-resize;
+}
+
+.rightHandle {
+    top: 50%;
+    left: 100%;
+    cursor: ew-resize;
+}
+
+.bottomRightHandle {
+    top: 100%;
+    left: 100%;
+    cursor: nwse-resize;
+}
+
+.bottomHandle {
+    top: 100%;
+    left: 50%;
+    cursor: ns-resize;
+}
+
+.bottomLeftHandle {
+    top: 100%;
+    left: 0;
+    cursor: nesw-resize;
+}
+
+.leftHandle {
+    top: 50%;
+    left: 0;
+    cursor: ew-resize;
 }

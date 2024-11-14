@@ -24,7 +24,7 @@ function MenuButton({content, onClick, iconStyles}: MenuButtonProps)
             onClick={onClick}
             className={style.menuButton}
         >
-            {content.type === "icon" &&
+                {content.type === "icon" &&
                 <img
                     style={iconStyles}
                     className={style.menuButtonIcon}
@@ -40,5 +40,5 @@ function MenuButton({content, onClick, iconStyles}: MenuButtonProps)
 export {
     MenuButton,
     Icon,
-    Text
+    Text,
 }

@@ -25,7 +25,7 @@ export default function App({editor}: AppProps) {
                 </SlideList>
                 <WorkArea
                     activeSlide={editor.presentation.slides.filter(
-                        slide => slide.id === editor.currentSlideId
+                        slide => slide.id === editor.selectedSlides[0]
                     )[0]}
                     objectSelection={editor.selectedObjects}
                 >

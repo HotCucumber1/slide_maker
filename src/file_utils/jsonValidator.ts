@@ -13,7 +13,7 @@ const editorSchema: object = {
     properties: {
         presentation: { type: OBJECT_TYPE },
         currentSlideId: { type: STRING_TYPE },
-        selectedSlides: { type: ARRAY_TYPE },
+        selectedSlides: { type: ARRAY_TYPE }, // TODO убрать
         selectedObjects: { type: ARRAY_TYPE },
     },
     required: [

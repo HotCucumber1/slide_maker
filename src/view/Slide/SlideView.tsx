@@ -30,12 +30,6 @@ type SlideProps = {
 
 export default function SlideView({scale, background, content, extraStyles, isSelected, objectSelection}: SlideProps)
 {
-    const onObjectClick: React.MouseEventHandler = (event) => {
-        event.stopPropagation()
-        dispatch(setObjectSelection, [(event.target as HTMLDivElement).id])
-    }
-
-
     const slideStyle: CSSProperties = {
         ...extraStyles,
         width: `${SLIDE_WIDTH * scale}px`,
@@ -69,119 +63,82 @@ export default function SlideView({scale, background, content, extraStyles, isSe
             onClick={() => dispatch(setObjectSelection, [])}
         >
             {content.map(object => {
-                switch (object.type)
-                {
-                    case "text":
-                        return (
-                            <ObjectWrapper
-                                objectId={object.id}
-                                pos={object.pos}
-                                size={object.size}
-                                scale={scale}
-                                key={object.id}
-                                onClick={onObjectClick}
-                                isSelected={objectSelection.includes(object.id)}
-                                isAdaptive={true}
-                            >
-                                <TextObjectView
-                                    objectId={object.id}
-                                    text={object.text}
-                                    fontSize={object.fontSize}
-                                    fontFamily={object.fontFamily}
-                                    fontStyles={object.fontStyles}
-                                    color={object.color}
-                                    scale={scale}
-                                >
-                                </TextObjectView>
-                            </ObjectWrapper>
-                        );
-                    case "image":
-                        return (
-                            <ObjectWrapper
-                                objectId={object.id}
-                                pos={object.pos}
-                                size={object.size}
-                                scale={scale}
-                                key={object.id}
-                                onClick={onObjectClick}
-                                isSelected={objectSelection.includes(object.id)}
-                            >
-                                <ImageObjectView
-                                    id={object.id}
-                                    src={object.src}
-                                >
-                                </ImageObjectView>
-                            </ObjectWrapper>
-                        );
-                    case "label":
-                        return (
-                            <ObjectWrapper
-                                objectId={object.id}
-                                pos={object.pos}
-                                size={object.size}
-                                scale={scale}
-                                key={object.id}
-                                onClick={onObjectClick}
-                                isSelected={objectSelection.includes(object.id)}
-                            >
-                                <LabelObjectView
-                                    scale={scale}
-                                    fill={object.fillStyle}
-                                    strokeColor={object.strokeStyle}
-                                    strokeWidth={object.strokeWidth}
-                                >
-                                </LabelObjectView>
-                            </ObjectWrapper>
-                        );
-                    case "ellipse":
-                        return (
-                            <ObjectWrapper
-                                objectId={object.id}
-                                pos={object.pos}
-                                size={object.size}
-                                scale={scale}
-                                key={object.id}
-                                onClick={onObjectClick}
-                                isSelected={objectSelection.includes(object.id)}
-                            >
-                                <EllipseObject
-                                    id={object.id}
-                                    pos={object.pos}
-                                    size={object.size}
-                                    scale={scale}
-                                    fill={object.fillStyle}
-                                    strokeColor={object.strokeStyle}
-                                    strokeWidth={object.strokeWidth}
-                                >
-                                </EllipseObject>
-                            </ObjectWrapper>
-                        );
-                    case "triangle":
-                        return (
-                            <ObjectWrapper
-                                objectId={object.id}
-                                pos={object.pos}
-                                size={object.size}
-                                scale={scale}
-                                key={object.id}
-                                onClick={onObjectClick}
-                                isSelected={objectSelection.includes(object.id)}
-                            >
-                                <TriangleObjectView
-                                    pos={object.pos}
-                                    size={object.size}
-                                    scale={scale}
-                                    fill={object.fillStyle}
-                                    strokeColor={object.strokeStyle}
-                                    strokeWidth={object.strokeWidth}
-                                >
-                                </TriangleObjectView>
-                            </ObjectWrapper>
-                        );
-                    case "path":
-                        break;
-                }}
-            )}
+                return (
+                    <ObjectWrapper
+                        objectId={object.id}
+                        pos={object.pos}
+                        size={object.size}
+                        scale={scale}
+                        key={object.id}
+                        isSelected={objectSelection.includes(object.id)}
+                        isAdaptive={object.type === "text"}
+                    >
+                        {(() => {
+                            switch (object.type)
+                            {
+                                case "text":
+                                    return (
+                                        <TextObjectView
+                                            objectId={object.id}
+                                            text={object.text}
+                                            fontSize={object.fontSize}
+                                            fontFamily={object.fontFamily}
+                                            fontStyles={object.fontStyles}
+                                            color={object.color}
+                                            scale={scale}
+                                        >
+                                        </TextObjectView>
+                                    )
+                                case "image":
+                                    return (
+                                        <ImageObjectView
+                                            id={object.id}
+                                            src={object.src}
+                                        >
+                                        </ImageObjectView>
+                                    )
+                                case "label":
+                                    return (
+                                        <LabelObjectView
+                                            scale={scale}
+                                            fill={object.fillStyle}
+                                            strokeColor={object.strokeStyle}
+                                            strokeWidth={object.strokeWidth}
+                                        >
+                                        </LabelObjectView>
+                                    )
+                                case "ellipse":
+                                    return (
+                                        <EllipseObject
+                                            id={object.id}
+                                            pos={object.pos}
+                                            size={object.size}
+                                            scale={scale}
+                                            fill={object.fillStyle}
+                                            strokeColor={object.strokeStyle}
+                                            strokeWidth={object.strokeWidth}
+                                        >
+                                        </EllipseObject>
+                                    )
+                                case "triangle":
+                                    return (
+                                        <TriangleObjectView
+                                            pos={object.pos}
+                                            size={object.size}
+                                            scale={scale}
+                                            fill={object.fillStyle}
+                                            strokeColor={object.strokeStyle}
+                                            strokeWidth={object.strokeWidth}
+                                        >
+                                        </TriangleObjectView>
+                                    )
+                                case "path":
+                                    break;
+                            }
+                        })()}
+                    </ObjectWrapper>
+                )
+            })}
         </div>
     )
 }

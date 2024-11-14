@@ -1,6 +1,8 @@
-.wrapper_able {
+.wrapper {
     cursor: move;
     position: relative;
+    height: 100%;
+    width: 100%;
 }
 
 .resizeHandle {

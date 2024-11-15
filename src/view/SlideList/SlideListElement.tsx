@@ -2,7 +2,7 @@ import * as React from "react";
 import styles from "./SlideList.module.css";
 import {dispatch} from "../../store/editor.ts";
 import {setSlideSelection} from "../../store/actions/setSlideSelection.ts";
-import {useRef, useState} from "react";
+import {CSSProperties, useRef, useState} from "react"
 import {useSlideDragAndDrop} from "../../hooks/useSlideDragAndDrop.ts";
 import {setSlidePosition} from "../../store/actions/setSlidePosition.ts";
 import {editor} from "../../store/default_data/editor.ts";
@@ -10,11 +10,18 @@ import {editor} from "../../store/default_data/editor.ts";
 type SlideListElementProps = {
     children: React.ReactNode,
     id: string,
-    startPosition: number
+    startPosition: number,
+    isSelected: boolean,
 }
 
-function SlideListElement({id, children, startPosition}: SlideListElementProps)
-{
+const SELECTED_SLIDE_BORDER_STYLE = "2px solid #2684FC";
+
+const SlideListElement = ({
+    id,
+    children,
+    startPosition,
+    isSelected,
+}: SlideListElementProps) => {
     // const slideListElementRef = useRef(startPosition);
     // const [pos, setPos] = useState(startPosition);
     // useSlideDragAndDrop(slideListElementRef, setPos);
@@ -27,10 +34,19 @@ function SlideListElement({id, children, startPosition}: SlideListElementProps)
         dispatch(setSlideSelection, [(event.target as HTMLDivElement).id]);
     }
 
+    const style: CSSProperties = isSelected
+        ? {
+            border: SELECTED_SLIDE_BORDER_STYLE,
+            borderRadius: 'var(--slide-preview-border-radius)',
+            zIndex: 100,
+        }
+        : {}
+
     return (
         <div
             id={id}
             onClick={onSlideClick}
+            style={style}
             className={styles.slidePreviewWrapper}
         >
             {children}

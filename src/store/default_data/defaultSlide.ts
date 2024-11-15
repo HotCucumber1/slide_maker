@@ -10,6 +10,19 @@ const defaultSlide: Slide = {
     content: [],
 };
 
+function createDefaultSlide(): Slide
+{
+    return {
+        id: uuidv4(),
+        background: {
+            value: "white",
+            type: "color",
+        },
+        content: [],
+    }
+}
+
 export {
     defaultSlide,
+    createDefaultSlide,
 }

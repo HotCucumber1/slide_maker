@@ -12,13 +12,11 @@ const editorSchema: object = {
     type: OBJECT_TYPE,
     properties: {
         presentation: { type: OBJECT_TYPE },
-        currentSlideId: { type: STRING_TYPE },
-        selectedSlides: { type: ARRAY_TYPE }, // TODO убрать
+        selectedSlides: { type: ARRAY_TYPE },
         selectedObjects: { type: ARRAY_TYPE },
     },
     required: [
         "presentation",
-        "currentSlideId",
         "selectedSlides",
         "selectedObjects"
     ],

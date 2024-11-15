@@ -20,7 +20,6 @@ import {ObjectWrapper} from "../ObjectWrapper/ObjectWrapper.tsx";
 
 const SLIDE_WIDTH: number = 1920;
 const SLIDE_HEIGHT: number = 1080;
-const SELECTED_SLIDE_BORDER_STYLE = "2px solid #2684FC";
 
 
 type SlideProps = {
@@ -28,7 +27,6 @@ type SlideProps = {
     background: Color|Gradient|Image,
     content: Array<SlideObject>,
     isActive?: boolean,
-    isSelected?: boolean,
     extraStyles?: CSSProperties,
     objectSelection: SelectedObjects,
 };
@@ -39,7 +37,6 @@ const SlideView = ({
     background,
     content,
     extraStyles,
-    isSelected,
     objectSelection,
 }: SlideProps) => {
 
@@ -48,10 +45,6 @@ const SlideView = ({
         width: `${SLIDE_WIDTH * scale}px`,
         height: `${SLIDE_HEIGHT * scale}px`,
     };
-    if (isSelected)
-    {
-        slideStyle.border = SELECTED_SLIDE_BORDER_STYLE;
-    }
 
     switch (background.type)
     {

@@ -13,7 +13,6 @@ import {v4 as uuidv4} from "uuid";
 
 function addLabel(editor: Editor, props: AddFigureProps): Editor
 {
-
     const figureObject: LabelFigure = {
         id: uuidv4(),
         pos: props?.position === undefined ? defaultPos : props.position,

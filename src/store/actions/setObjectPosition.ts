@@ -1,26 +1,24 @@
-import {Editor} from "../editor.ts";
-import {Point} from "../objects.ts";
+import {Editor} from "../editor.ts"
+import {Point} from "../objects.ts"
 
 function setObjectPosition(editor: Editor, newPosition: Point): Editor
 {
     const currentSlide = editor.presentation.slides.filter(
         slide => slide.id === editor.selectedSlides[0]
-    )[0];
+    )[0]
 
     const selectedObject = currentSlide.content.filter(
         object => editor.selectedObjects.includes(object.id)
     )[0]
     const objectIndex = currentSlide.content.indexOf(selectedObject)
 
-    selectedObject.pos = newPosition;
+    selectedObject.pos = newPosition
 
-    const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
+    const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide)
 
-    currentSlide.content[objectIndex] = selectedObject;
-    const newSlides = editor.presentation.slides.slice();
-    newSlides[currentSlideIndex] = currentSlide;
-
-    console.log('OK')
+    currentSlide.content[objectIndex] = selectedObject
+    const newSlides = editor.presentation.slides.slice()
+    newSlides[currentSlideIndex] = currentSlide
 
     return {
         ...editor,
@@ -29,7 +27,7 @@ function setObjectPosition(editor: Editor, newPosition: Point): Editor
             ...editor.presentation,
             slides: newSlides,
         }
-    };
+    }
 }
 
 export {

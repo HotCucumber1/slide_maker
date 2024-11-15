@@ -21,6 +21,7 @@ function SlideList({slides, selection, objectSelection}: SlideListProps)
                 startPosition={index}
                 className={styles.slidePreviewWrapper}
                 id={slide.id}
+                isSelected={selection.includes(slide.id)}
             >
                 <SlideView
                     scale={SLIDE_LIST_SCALE}
@@ -30,7 +31,6 @@ function SlideList({slides, selection, objectSelection}: SlideListProps)
                         borderRadius: 'var(--slide-preview-border-radius)',
                         pointerEvents: "none",
                     }}
-                    isSelected={selection.includes(slide.id)}
                     objectSelection={objectSelection}
                 >
                 </SlideView>

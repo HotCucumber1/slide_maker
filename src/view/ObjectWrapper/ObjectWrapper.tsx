@@ -1,7 +1,12 @@
 import {Point, Size} from "../../store/objects.ts"
 import {getSlideObjectStyles} from "../../service/getSlideObjectStyles.ts"
 import * as React from "react"
-import {CSSProperties, useCallback, useEffect, useRef, useState} from "react"
+import {
+    CSSProperties,
+    useEffect,
+    useRef,
+    useState
+} from "react"
 import styles from "./ObjectWrapper.module.css"
 import {dispatch} from "../../store/editor.ts"
 import {deleteSlideObjects} from "../../store/actions/deleteSlideObject.ts"
@@ -9,6 +14,7 @@ import {joinStyles} from "../../service/joinStyles.ts"
 import {WORK_AREA_SCALE} from "../../store/default_data/scale.ts"
 import {setObjectSelection} from "../../store/actions/setObjectSelection.ts";
 import {useObjectDragAndDrop} from "../../hooks/useObjectDragAndDrop.ts";
+import {setObjectPosition} from "../../store/actions/setObjectPosition.ts"
 
 
 type ObjectWrapperProps = {
@@ -35,7 +41,6 @@ const ObjectWrapper = ({
     const [currentPos, setPos] = useState(pos)
 
     useObjectDragAndDrop(wrapperRef, isSelected, setPos)
-
 
     const onObjectClick: React.MouseEventHandler = (event) => {
         event.stopPropagation()

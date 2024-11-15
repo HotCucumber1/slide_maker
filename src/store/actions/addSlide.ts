@@ -1,11 +1,11 @@
 import {Editor} from "../editor.ts";
-import {defaultSlide} from "../default_data/defaultSlide.ts";
+import {createDefaultSlide} from "../default_data/defaultSlide.ts"
 
 function addSlide(editor: Editor): Editor
 {
-    const newSlide = defaultSlide;
+    const newSlide = createDefaultSlide()
     const selectedSlides = editor.presentation.slides.filter(
-        slide => editor.selectedSlides.indexOf(slide.id) !== -1
+        slide => editor.selectedSlides.includes(slide.id)
     );
 
     const lastSelectedSlide = selectedSlides[selectedSlides.length - 1];
@@ -13,9 +13,11 @@ function addSlide(editor: Editor): Editor
 
     const newSlides = editor.presentation.slides.slice();
     newSlides.splice(lastSelectedSlideIndex + 1, 0, newSlide);
+    const selectedSlide = newSlide.id
 
     return {
         ...editor,
+        selectedSlides: [selectedSlide],
         presentation: {
             ...editor.presentation,
             slides: newSlides,

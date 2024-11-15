@@ -1,34 +1,34 @@
-import {useEffect} from "react"
+import {useEffect, useRef} from "react"
 import {Point} from "../store/objects.ts"
 import {dispatch} from "../store/editor.ts"
 import {setObjectPosition} from "../store/actions/setObjectPosition.ts"
+import {WORK_AREA_SCALE} from "../store/default_data/scale.ts"
 
 const useObjectDragAndDrop = (objectRef, isObjectSelected, setPos) => {
-    let startPos: Point;
-    let newPos: Point;
+    const newPos = useRef<Point|null>(null)
+    const offset = useRef<Point|null>(null)
 
     const changePos = (event) => {
-        const delta: Point = {
-            x: event.pageX - startPos.x,
-            y: event.pageY - startPos.y,
+        const slide = objectRef.current.parentElement
+
+        newPos.current = {
+            x: (event.pageX - slide.getBoundingClientRect().left - offset.current.x) / WORK_AREA_SCALE,
+            y: (event.pageY - slide.getBoundingClientRect().top - offset.current.y) / WORK_AREA_SCALE,
         }
-        newPos = {
-            x: startPos.x + delta.x,
-            y: startPos.y + delta.y,
-        }
-        setPos(newPos)
+        setPos(newPos.current)
     }
 
     const drop = () => {
-        dispatch(setObjectPosition, newPos)
+        dispatch(setObjectPosition, newPos.current)
+
         document.removeEventListener("mousemove", changePos)
         document.removeEventListener("mouseup", drop)
     }
 
     const drag = (event) => {
-        startPos = {
-            x: event.pageX,
-            y: event.pageY,
+        offset.current = {
+            x: event.pageX - objectRef.current.getBoundingClientRect().left,
+            y: event.pageY - objectRef.current.getBoundingClientRect().top,
         }
         document.addEventListener("mousemove", changePos)
         document.addEventListener("mouseup", drop)
@@ -36,8 +36,7 @@ const useObjectDragAndDrop = (objectRef, isObjectSelected, setPos) => {
 
     useEffect(() => {
         const object = objectRef.current
-        if (isObjectSelected)
-        {
+        if (isObjectSelected) {
             object.addEventListener("mousedown", drag)
         }
 

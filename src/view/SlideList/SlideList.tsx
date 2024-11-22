@@ -30,6 +30,7 @@ function SlideList({slides, selection, objectSelection}: SlideListProps)
                     extraStyles={{
                         borderRadius: 'var(--slide-preview-border-radius)',
                         pointerEvents: "none",
+                        clipPath: "inset(0 round var(--slide-preview-border-radius))",
                     }}
                     objectSelection={objectSelection}
                 >

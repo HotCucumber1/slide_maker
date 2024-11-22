@@ -1,4 +1,4 @@
-const SLIDE_LIST_SCALE: number = 0.083;
+const SLIDE_LIST_SCALE: number = 0.12;
 const WORK_AREA_SCALE: number = 0.625;
 
 export {

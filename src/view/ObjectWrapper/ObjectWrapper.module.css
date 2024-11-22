@@ -5,6 +5,10 @@
     width: 100%;
 }
 
+.wrapper > * {
+    user-select: none;
+}
+
 .resizeHandle {
     width: var(--resize-handle-size);
     height: var(--resize-handle-size);
@@ -12,7 +16,6 @@
     background-color: var(--selection-color);
     position: absolute;
     transform: translate(-50%, -50%);
-    z-index: 100;
 }
 
 .topLeftHandle {

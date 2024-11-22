@@ -5,16 +5,15 @@ import {
     CSSProperties,
     useEffect,
     useRef,
-    useState
+    useState,
 } from "react"
 import styles from "./ObjectWrapper.module.css"
 import {dispatch} from "../../store/editor.ts"
 import {deleteSlideObjects} from "../../store/actions/deleteSlideObject.ts"
 import {joinStyles} from "../../service/joinStyles.ts"
 import {WORK_AREA_SCALE} from "../../store/default_data/scale.ts"
-import {setObjectSelection} from "../../store/actions/setObjectSelection.ts";
-import {useObjectDragAndDrop} from "../../hooks/useObjectDragAndDrop.ts";
-import {setObjectPosition} from "../../store/actions/setObjectPosition.ts"
+import {setObjectSelection} from "../../store/actions/setObjectSelection.ts"
+import {useObjectDragAndDrop} from "../../hooks/useObjectDragAndDrop.ts"
 
 
 type ObjectWrapperProps = {
@@ -38,9 +37,19 @@ const ObjectWrapper = ({
 }: ObjectWrapperProps) => {
 
     const wrapperRef = useRef(null)
+
+    const topLeftHandle = useRef(null)
+    const topHandle = useRef(null)
+    const topRightHandle = useRef(null)
+    const rightHandle = useRef(null)
+    const bottomRightHandle = useRef(null)
+    const bottomHandle = useRef(null)
+    const bottomLeftHandle = useRef(null)
+    const leftHandle = useRef(null)
+
     const [currentPos, setPos] = useState(pos)
 
-    useObjectDragAndDrop(wrapperRef, isSelected, setPos)
+    useObjectDragAndDrop(wrapperRef, setPos)
 
     const onObjectClick: React.MouseEventHandler = (event) => {
         event.stopPropagation()
@@ -95,34 +104,42 @@ const ObjectWrapper = ({
             }}
         >
             <div
+                ref={topLeftHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.topLeftHandle)}
             ></div>
             <div
+                ref={topHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.topHandle)}
             ></div>
             <div
+                ref={topRightHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.topRightHandle)}
             ></div>
             <div
+                ref={rightHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.rightHandle)}
             ></div>
             <div
+                ref={bottomRightHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.bottomRightHandle)}
             ></div>
             <div
+                ref={bottomHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.bottomHandle)}
             ></div>
             <div
+                ref={bottomLeftHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.bottomLeftHandle)}
             ></div>
             <div
+                ref={leftHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.leftHandle)}
             ></div>

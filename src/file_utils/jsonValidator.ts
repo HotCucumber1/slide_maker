@@ -76,7 +76,7 @@ function isValidPresentationJson(jsonEditor: string): boolean
     const isPresentationValid: boolean = presentationSerialize(presentation);
 
     const slides: Slide[] = presentation.slides;
-    const areSlidesValid = checkSlidesValid(slides);
+    const areSlidesValid: boolean = checkSlidesValid(slides);
 
     return isEditorValid &&
            isPresentationValid &&

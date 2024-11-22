@@ -1,12 +1,21 @@
 .toolBar {
+    position: relative;
     margin: 0 var(--tool-bar-margin) var(--tool-bar-margin);
     box-shadow: 0 5px 5px var(--light-gray-color);
     border-radius: var(--tool-bar-border-radius);
+    z-index: var(--panel-z-index);
+}
+
+.toolBar > * {
+    user-select: none;
 }
 
 .fileNameArea {
     height: var(--tool-bar-block-height);
     display: flex;
+    background-color: var(--background-color);
+    border-top-right-radius: var(--tool-bar-border-radius);
+    border-top-left-radius: var(--tool-bar-border-radius);
 }
 
 .icon {

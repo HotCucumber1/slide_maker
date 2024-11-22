@@ -19,7 +19,7 @@ const SELECTED_SLIDE_BORDER_STYLE = "2px solid #2684FC";
 const SlideListElement = ({
     id,
     children,
-    startPosition,
+    // startPosition,
     isSelected,
 }: SlideListElementProps) => {
     // const slideListElementRef = useRef(startPosition);
@@ -38,7 +38,7 @@ const SlideListElement = ({
         ? {
             border: SELECTED_SLIDE_BORDER_STYLE,
             borderRadius: 'var(--slide-preview-border-radius)',
-            zIndex: 100,
+            zIndex: 'var(--panel-z-index)',
         }
         : {}
 

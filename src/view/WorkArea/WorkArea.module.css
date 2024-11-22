@@ -1,4 +1,5 @@
 .workArea {
+    overflow: hidden;
     flex-grow: 1;
     padding-top: 50px;
 }

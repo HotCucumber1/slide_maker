@@ -1,7 +1,7 @@
 import {Color, Point, Size} from "../objects.ts";
 
 
-const DEFAULT_FONT_SIZE: number = 24;
+const DEFAULT_FONT_SIZE: number = 72;
 const DEFAULT_TEXT_COLOR: Color = {
     value: "black",
     type: "color",

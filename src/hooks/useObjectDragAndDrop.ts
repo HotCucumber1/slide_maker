@@ -4,22 +4,28 @@ import {dispatch} from "../store/editor.ts"
 import {setObjectPosition} from "../store/actions/setObjectPosition.ts"
 import {WORK_AREA_SCALE} from "../store/default_data/scale.ts"
 
-const useObjectDragAndDrop = (objectRef, isObjectSelected, setPos) => {
-    const newPos = useRef<Point|null>(null)
+const useObjectDragAndDrop = (objectRef, callback) => {
+
+    const currentPos = useRef<Point|null>(null)
     const offset = useRef<Point|null>(null)
 
     const changePos = (event) => {
+        if (!objectRef)
+        {
+            return;
+        }
         const slide = objectRef.current.parentElement
 
-        newPos.current = {
+        const updatedPos: Point = {
             x: (event.pageX - slide.getBoundingClientRect().left - offset.current.x) / WORK_AREA_SCALE,
             y: (event.pageY - slide.getBoundingClientRect().top - offset.current.y) / WORK_AREA_SCALE,
         }
-        setPos(newPos.current)
+        currentPos.current = updatedPos
+        callback(updatedPos)
     }
 
     const drop = () => {
-        dispatch(setObjectPosition, newPos.current)
+        dispatch(setObjectPosition, currentPos.current)
 
         document.removeEventListener("mousemove", changePos)
         document.removeEventListener("mouseup", drop)
@@ -36,10 +42,8 @@ const useObjectDragAndDrop = (objectRef, isObjectSelected, setPos) => {
 
     useEffect(() => {
         const object = objectRef.current
-        if (isObjectSelected) {
-            object.addEventListener("mousedown", drag)
-        }
 
+        object.addEventListener("mousedown", drag)
         return () => {
             object.removeEventListener("mousedown", drag)
         }

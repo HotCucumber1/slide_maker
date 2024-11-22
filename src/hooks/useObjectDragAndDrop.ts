@@ -4,7 +4,7 @@ import {dispatch} from "../store/editor.ts"
 import {setObjectPosition} from "../store/actions/setObjectPosition.ts"
 import {WORK_AREA_SCALE} from "../store/default_data/scale.ts"
 
-const useObjectDragAndDrop = (objectRef, callback) => {
+const useObjectDragAndDrop = (objectRef, setPos): Point|null => {
 
     const currentPos = useRef<Point|null>(null)
     const offset = useRef<Point|null>(null)
@@ -21,12 +21,11 @@ const useObjectDragAndDrop = (objectRef, callback) => {
             y: (event.pageY - slide.getBoundingClientRect().top - offset.current.y) / WORK_AREA_SCALE,
         }
         currentPos.current = updatedPos
-        callback(updatedPos)
+        setPos(updatedPos)
     }
 
     const drop = () => {
         dispatch(setObjectPosition, currentPos.current)
-
         document.removeEventListener("mousemove", changePos)
         document.removeEventListener("mouseup", drop)
     }
@@ -48,6 +47,8 @@ const useObjectDragAndDrop = (objectRef, callback) => {
             object.removeEventListener("mousedown", drag)
         }
     })
+
+    return currentPos.current
 }
 
 export {

@@ -14,6 +14,7 @@ import {joinStyles} from "../../service/joinStyles.ts"
 import {WORK_AREA_SCALE} from "../../store/default_data/scale.ts"
 import {setObjectSelection} from "../../store/actions/setObjectSelection.ts"
 import {useObjectDragAndDrop} from "../../hooks/useObjectDragAndDrop.ts"
+import {setObjectPosition} from "../../store/actions/setObjectPosition.ts"
 
 
 type ObjectWrapperProps = {
@@ -47,9 +48,9 @@ const ObjectWrapper = ({
     const bottomLeftHandle = useRef(null)
     const leftHandle = useRef(null)
 
-    const [currentPos, setPos] = useState(pos)
+    const [, setPos] = useState(pos)
 
-    useObjectDragAndDrop(wrapperRef, setPos)
+    const newPos = useObjectDragAndDrop(wrapperRef, setPos)
 
     const onObjectClick: React.MouseEventHandler = (event) => {
         event.stopPropagation()
@@ -99,7 +100,7 @@ const ObjectWrapper = ({
             onClick={onObjectClick}
             id={objectId}
             style={{
-                ...getSlideObjectStyles(currentPos, size, scale),
+                ...getSlideObjectStyles(newPos === null ? pos : newPos, size, scale),
                 ...wrapperStyles,
             }}
         >

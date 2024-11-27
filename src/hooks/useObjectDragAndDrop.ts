@@ -25,7 +25,6 @@ const useObjectDragAndDrop = (objectRef, setPos): Point|null => {
     }
 
     const drop = () => {
-        dispatch(setObjectPosition, currentPos.current)
         document.removeEventListener("mousemove", changePos)
         document.removeEventListener("mouseup", drop)
     }

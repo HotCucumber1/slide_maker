@@ -52,7 +52,11 @@ function uploadImageFile(dataFile: File, type: "object"|"background"): void
         {
             case "object":
                 img.onload = () => {
-                    dispatch(addImage, {img})
+                    dispatch(addImage, {
+                        src: img.src,
+                        width: img.width,
+                        height: img.height
+                    })
                 };
                 break;
             case "background":

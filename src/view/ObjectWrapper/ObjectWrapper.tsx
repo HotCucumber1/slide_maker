@@ -48,9 +48,14 @@ const ObjectWrapper = ({
     const bottomLeftHandle = useRef(null)
     const leftHandle = useRef(null)
 
-    const [, setPos] = useState(pos)
+    // const [, setPos] = useState(pos)
 
-    const newPos = useObjectDragAndDrop(wrapperRef, setPos)
+    // const newPos = useObjectDragAndDrop(wrapperRef, setPos)
+    // if (newPos !== null)
+    // {
+    //     dispatch(setObjectPosition, newPos)
+    // }
+
 
     const onObjectClick: React.MouseEventHandler = (event) => {
         event.stopPropagation()
@@ -100,7 +105,7 @@ const ObjectWrapper = ({
             onClick={onObjectClick}
             id={objectId}
             style={{
-                ...getSlideObjectStyles(newPos === null ? pos : newPos, size, scale),
+                ...getSlideObjectStyles(pos, size, scale),
                 ...wrapperStyles,
             }}
         >

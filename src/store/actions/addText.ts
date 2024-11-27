@@ -61,4 +61,5 @@ function addText(editor: Editor, props: AddTextProps): Editor
 
 export {
     addText,
+    AddTextProps
 }

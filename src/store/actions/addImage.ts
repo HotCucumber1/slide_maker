@@ -6,19 +6,29 @@ import {v4 as uuidv4} from "uuid";
 
 type AddImageProps = {
     position?: Point,
-    img: HTMLImageElement,
+    src: string,
+    width: number,
+    height: number
 }
 
-function addImage(editor: Editor, {position, img}: AddImageProps): Editor
+function addImage(
+    editor: Editor,
+    {
+        position,
+        src,
+        width,
+        height
+    }: AddImageProps
+): Editor
 {
     const imageObject: ImageObject = {
         id: uuidv4(),
         pos: typeof position === "undefined" ? defaultPos : position,
         size: {
-            width: img.width,
-            height: img.height
+            width: width,
+            height: height
         },
-        src: img.src,
+        src: src,
         type: "image",
     };
     const currentSlide = editor.presentation.slides.filter(
@@ -42,5 +52,6 @@ function addImage(editor: Editor, {position, img}: AddImageProps): Editor
 
 
 export {
-    addImage
+    addImage,
+    AddImageProps,
 }

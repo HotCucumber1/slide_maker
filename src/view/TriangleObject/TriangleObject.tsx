@@ -1,7 +1,7 @@
-import {Color, Gradient, Size} from "../../store/objects.ts";
-import {v4 as uuidv4} from "uuid";
-import {getGradientCoords, GradientCoords} from "../../service/getGradientCoords.ts";
-import styles from "../Object.module.css";
+import {Color, Gradient, Size} from "../../store/objects.ts"
+import {v4 as uuidv4} from "uuid"
+import {getGradientCoords, GradientCoords} from "../../service/getGradientCoords.ts"
+import styles from "../Object.module.css"
 
 type TriangleObjectProps = {
     size: Size,
@@ -12,17 +12,18 @@ type TriangleObjectProps = {
 };
 
 
-function TriangleObjectView(props: TriangleObjectProps)
-{
-    let colorsLength: number = 1;
+const TriangleObjectView = (
+    props: TriangleObjectProps
+) => {
+    let colorsLength: number = 1
 
-    let gradientCoords: GradientCoords;
+    let gradientCoords: GradientCoords
     if (props.fill.type === "gradient")
     {
-        colorsLength = props.fill.colors.length;
-        gradientCoords = getGradientCoords(props.fill.angle);
+        colorsLength = props.fill.colors.length
+        gradientCoords = getGradientCoords(props.fill.angle)
     }
-    const gradId = uuidv4();
+    const gradId = uuidv4()
 
     return (
         <svg
@@ -57,9 +58,9 @@ function TriangleObjectView(props: TriangleObjectProps)
                 points={`${props.size.width * props.scale / 2},0 
                          0,${props.size.height * props.scale} 
                          ${props.size.width * props.scale},${props.size.height * props.scale}`}
-                fill={props.fill.type === "color" ?
-                    props.fill.value :
-                    `url(#${gradId})`
+                fill={props.fill.type === "color"
+                    ? props.fill.value
+                    : `url(#${gradId})`
                 }
                 stroke={props.strokeColor.value}
                 strokeWidth={props.strokeWidth * props.scale}

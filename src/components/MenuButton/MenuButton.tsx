@@ -1,5 +1,5 @@
 import style from "./MenuButton.module.css"
-import {CSSProperties} from "react";
+import {CSSProperties} from "react"
 
 type Icon = {
     src: object,
@@ -17,14 +17,18 @@ type MenuButtonProps = {
     iconStyles?: CSSProperties
 }
 
-function MenuButton({content, onClick, iconStyles}: MenuButtonProps)
-{
+const MenuButton = ({
+    content,
+    onClick,
+    iconStyles
+}: MenuButtonProps) => {
+
     return (
         <button
             onClick={onClick}
             className={style.menuButton}
         >
-                {content.type === "icon" &&
+            {content.type === "icon" &&
                 <img
                     style={iconStyles}
                     className={style.menuButtonIcon}

@@ -5,8 +5,9 @@ type ImageObjectProps = {
 };
 
 
-function ImageObjectView({src}: ImageObjectProps)
-{
+const ImageObjectView = ({
+    src
+}: ImageObjectProps) => {
     return (
         <img
             className={styles.object}
@@ -18,5 +19,5 @@ function ImageObjectView({src}: ImageObjectProps)
 
 
 export {
-    ImageObjectView
+    ImageObjectView,
 }

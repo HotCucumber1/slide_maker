@@ -1,9 +1,7 @@
-import {CSSProperties} from "react";
-import {Color, FontStyle} from "../../store/objects.ts";
-import styles from "./TextObjectView.module.css";
-import * as React from "react";
-import {dispatch} from "../../store/editor.ts";
-import {setText} from "../../store/actions/setText.ts";
+import {CSSProperties} from "react"
+import {Color, FontStyle} from "../../store/objects.ts"
+import styles from "./TextObjectView.module.css"
+import {useAppActions} from "../../hooks/useAppActions.ts"
 
 type TextObjectProps = {
     scale: number,
@@ -16,10 +14,14 @@ type TextObjectProps = {
 };
 
 
-function TextObjectView(props: TextObjectProps)
-{
+const TextObjectView = (
+    props: TextObjectProps
+) => {
+    const {
+        setText,
+    } = useAppActions()
     const onTextChange: React.FormEventHandler = (event) => {
-        dispatch(setText, (event.target as HTMLDivElement).textContent)
+        setText((event.target as HTMLDivElement).textContent)
     }
 
     const objectStyle: CSSProperties = {
@@ -46,9 +48,7 @@ function TextObjectView(props: TextObjectProps)
             contentEditable
             id={props.objectId}
             className={styles.textObject}
-            style={{
-                ...objectStyle,
-            }}
+            style={objectStyle}
             onBlur={onTextChange}
             dangerouslySetInnerHTML={{
                 __html: props.text

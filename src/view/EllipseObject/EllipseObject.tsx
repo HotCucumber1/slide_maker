@@ -1,7 +1,11 @@
-import {Color, Gradient, Size} from "../../store/objects.ts";
-import {getGradientCoords, GradientCoords} from "../../service/getGradientCoords.ts";
-import {v4 as uuidv4} from "uuid";
-import styles from "../Object.module.css";
+import {
+    Color,
+    Gradient,
+    Size
+} from "../../store/objects.ts"
+import {getGradientCoords, GradientCoords} from "../../service/getGradientCoords.ts"
+import {v4 as uuidv4} from "uuid"
+import styles from "../Object.module.css"
 
 type EllipseObjectProps = {
     size: Size,
@@ -12,20 +16,21 @@ type EllipseObjectProps = {
 }
 
 
-function EllipseObject(props: EllipseObjectProps)
-{
-    let colorsLength: number = 1;
+const EllipseObject = (
+    props: EllipseObjectProps
+) => {
+    let colorsLength: number = 1
 
-    const rx: number = props.size.width / 2;
-    const ry: number = props.size.height / 2;
+    const rx: number = props.size.width / 2
+    const ry: number = props.size.height / 2
 
-    let gradientCoords: GradientCoords;
+    let gradientCoords: GradientCoords
     if (props.fill.type === "gradient")
     {
-        colorsLength = props.fill.colors.length;
-        gradientCoords = getGradientCoords(props.fill.angle);
+        colorsLength = props.fill.colors.length
+        gradientCoords = getGradientCoords(props.fill.angle)
     }
-    const gradId = uuidv4();
+    const gradId = uuidv4()
 
     return (
         <svg
@@ -61,10 +66,10 @@ function EllipseObject(props: EllipseObjectProps)
                 cy={ry * props.scale}
                 rx={rx * props.scale - props.strokeWidth}
                 ry={ry * props.scale - props.strokeWidth}
-                fill={props.fill.type === "color" ?
-                        props.fill.value :
-                        `url(#${gradId})`
-                    }
+                fill={props.fill.type === "color"
+                    ? props.fill.value
+                    : `url(#${gradId})`
+                }
                 stroke={props.strokeColor.value}
                 strokeWidth={props.strokeWidth * props.scale}
             />
@@ -73,5 +78,5 @@ function EllipseObject(props: EllipseObjectProps)
 }
 
 export {
-    EllipseObject
+    EllipseObject,
 }

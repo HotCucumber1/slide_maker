@@ -1,27 +1,28 @@
-import {Color, Gradient} from "../../store/objects.ts";
-import {getGradientCoords, GradientCoords} from "../../service/getGradientCoords.ts";
-import {v4 as uuidv4} from "uuid";
-import styles from "../Object.module.css";
+import {Color, Gradient} from "../../store/objects.ts"
+import {getGradientCoords, GradientCoords} from "../../service/getGradientCoords.ts"
+import {v4 as uuidv4} from "uuid"
+import styles from "../Object.module.css"
 
 type FigureObjectProps = {
     scale: number,
     fill: Color|Gradient,
     strokeColor: Color,
     strokeWidth: number,
-};
+}
 
 
-function LabelObjectView(props: FigureObjectProps)
-{
-    let colorsLength: number = 1;
+const LabelObjectView = (
+    props: FigureObjectProps
+) => {
+    let colorsLength: number = 1
 
-    let gradientCoords: GradientCoords;
+    let gradientCoords: GradientCoords
     if (props.fill.type === "gradient")
     {
-        colorsLength = props.fill.colors.length;
-        gradientCoords = getGradientCoords(props.fill.angle);
+        colorsLength = props.fill.colors.length
+        gradientCoords = getGradientCoords(props.fill.angle)
     }
-    const gradId = uuidv4();
+    const gradId = uuidv4()
 
     return (
         <svg
@@ -56,9 +57,9 @@ function LabelObjectView(props: FigureObjectProps)
                 y="0"
                 width="100%"
                 height="100%"
-                fill={props.fill.type === "color" ?
-                    props.fill.value :
-                    `url(#${gradId})`
+                fill={props.fill.type === "color"
+                    ? props.fill.value
+                    : `url(#${gradId})`
                 }
                 stroke={props.strokeColor.value}
                 strokeWidth={props.strokeWidth * props.scale}>

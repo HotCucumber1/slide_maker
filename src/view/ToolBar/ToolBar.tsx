@@ -4,7 +4,7 @@ import {defaultTextSettings} from "../../store/default_data/defaultObjectSetting
 import * as ButtonData from "./toolBarButtonsData.ts"
 import {downloadAsJson} from "../../file_utils/downloadAsJson.ts"
 import {uploadImageFile, uploadJsonPresentation} from "../../file_utils/uploadFile.ts"
-import {useRef} from "react"
+import { useRef } from "react"
 import icon from "../../assets/icons/icon.png"
 import {useAppSelector} from "../../hooks/useAppSelector.ts"
 import {useAppActions} from "../../hooks/useAppActions.ts"
@@ -30,7 +30,9 @@ function ToolBar()
         addText,
         addLabel,
         addTriangle,
-        addEllipse
+        addEllipse,
+        addImage,
+        setEditor,
     } = useAppActions()
 
     const onButtonClick = (inputElement) => {
@@ -56,18 +58,18 @@ function ToolBar()
 
     const onImageInputChange = async (event) => {
         const file: File = event.target.files[0];
-        uploadImageFile(file, "object");
+        uploadImageFile(file, "object", addImage);
     }
 
     const onFileInputChange = async (event) => {
         const file: File = event.target.files[0];
-        uploadJsonPresentation(file);
+        uploadJsonPresentation(file, setEditor);
         event.target.value = null;
     }
 
     const onBackgroundInputChange = async (event) => {
         const file: File = event.target.files[0];
-        uploadImageFile(file, "background");
+        uploadImageFile(file, "background", setSlideBackground);
     }
 
     return (

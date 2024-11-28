@@ -65,6 +65,8 @@ const editorReducer = (editor: Editor = defaultEditor, action: EditorAction): Ed
             return setFontStyle(editor, action.payload)
         case ActionType.SET_PRESENTATION_TITLE:
             return setPresentationTitle(editor, action.payload)
+        case ActionType.SET_EDITOR:
+            return action.payload
         default:
             return editor
     }

@@ -11,6 +11,7 @@ import {
 import {AddImageProps} from "../actions/addImage.ts"
 import {AddFigureProps} from "../actions/addFigureProps.ts"
 import {AddTextProps} from "../actions/addText.ts"
+import {Editor} from "../editor.ts"
 
 enum ActionType {
     ADD_ELLIPSE = "ADD_ELLIPSE",
@@ -34,6 +35,7 @@ enum ActionType {
     SET_SLIDE_SELECTION = "SET_SLIDE_SELECTION",
     SET_SLIDE_POSITION = "SET_SLIDE_POSITION",
     SET_TEXT = "SET_TEXT",
+    SET_EDITOR = "SET_EDITOR",
 }
 
 type AddEllipseAction = {
@@ -138,6 +140,11 @@ type SetTextAction = {
     payload: string,
 }
 
+type SetEditor = {
+    type: ActionType.SET_EDITOR,
+    payload: Editor
+}
+
 type EditorAction =
     AddEllipseAction
     |AddImageAction
@@ -158,6 +165,7 @@ type EditorAction =
     |SetFontSizeAction
     |SetFontFamilyAction
     |SetFigureColorAction
+    |SetEditor
     |DeleteSlideAction
     |DeleteSlideObjectAction
 

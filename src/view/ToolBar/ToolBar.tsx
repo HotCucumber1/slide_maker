@@ -19,8 +19,8 @@ function ToolBar()
     const titleRef = useRef(null);
 
     const editor = useAppSelector(state => state.editor)
-    const title = useAppSelector(state => state.titleEditor.presentation.title)
-    const selectedObjects = useAppSelector(state => state.objectSelectionEditor.selectedObjects)
+    const title = editor.presentation.title
+    const selectedObjects = editor.selectedObjects
     const {
         addSlide,
         setPresentationTitle,

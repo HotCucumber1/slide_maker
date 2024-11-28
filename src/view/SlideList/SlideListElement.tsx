@@ -1,11 +1,8 @@
-import * as React from "react";
-import styles from "./SlideList.module.css";
-import {dispatch} from "../../store/editor.ts";
-import {setSlideSelection} from "../../store/actions/setSlideSelection.ts";
+import styles from "./SlideList.module.css"
 import {CSSProperties, useRef, useState} from "react"
-import {useSlideDragAndDrop} from "../../hooks/useSlideDragAndDrop.ts";
-import {setSlidePosition} from "../../store/actions/setSlidePosition.ts";
-import {defaultEditor} from "../../store/default_data/defaultEditor.ts";
+import {useSlideDragAndDrop} from "../../hooks/useSlideDragAndDrop.ts"
+import {defaultEditor} from "../../store/default_data/defaultEditor.ts"
+import {useAppActions} from "../../hooks/useAppActions.ts"
 
 type SlideListElementProps = {
     children: React.ReactNode,
@@ -30,8 +27,10 @@ const SlideListElement = ({
     //     setSlidePosition(defaultEditor, pos);
     // }
 
+    const { setSlideSelection } = useAppActions()
+
     const onSlideClick: React.MouseEventHandler = event => {
-        dispatch(setSlideSelection, [(event.target as HTMLDivElement).id]);
+        setSlideSelection([(event.target as HTMLDivElement).id])
     }
 
     const style: CSSProperties = isSelected

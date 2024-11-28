@@ -10,12 +10,7 @@ export default function App() {
         <>
             <ToolBar></ToolBar>
             <div className={styles.slideArea}>
-                <SlideList
-                    slides={editor.presentation.slides}
-                    selection={editor.selectedSlides}
-                    objectSelection={editor.selectedObjects}
-                >
-                </SlideList>
+                <SlideList></SlideList>
                 <WorkArea
                     activeSlide={editor.presentation.slides.filter(
                         slide => slide.id === editor.selectedSlides[0]

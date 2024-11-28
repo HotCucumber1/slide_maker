@@ -1,6 +1,5 @@
 import {Point, Size} from "../../store/objects.ts"
 import {getSlideObjectStyles} from "../../service/getSlideObjectStyles.ts"
-import * as React from "react"
 import {
     CSSProperties,
     useEffect,
@@ -8,13 +7,10 @@ import {
     useState,
 } from "react"
 import styles from "./ObjectWrapper.module.css"
-import {dispatch} from "../../store/editor.ts"
-import {deleteSlideObjects} from "../../store/actions/deleteSlideObject.ts"
 import {joinStyles} from "../../service/joinStyles.ts"
 import {WORK_AREA_SCALE} from "../../store/default_data/scale.ts"
-import {setObjectSelection} from "../../store/actions/setObjectSelection.ts"
 import {useObjectDragAndDrop} from "../../hooks/useObjectDragAndDrop.ts"
-import {setObjectPosition} from "../../store/actions/setObjectPosition.ts"
+import {useAppActions} from "../../hooks/useAppActions.ts"
 
 
 type ObjectWrapperProps = {
@@ -56,15 +52,21 @@ const ObjectWrapper = ({
     //     dispatch(setObjectPosition, newPos)
     // }
 
+    const {
+        setObjectSelection,
+        deleteSlideObjects,
+    } = useAppActions()
+
 
     const onObjectClick: React.MouseEventHandler = (event) => {
         event.stopPropagation()
-        dispatch(setObjectSelection, [(event.target as HTMLDivElement).id])
+        setObjectSelection([(event.target as HTMLDivElement).id])
     }
 
     const onButtonClick: React.KeyboardEventHandler = (event) => {
-        if (event.key === "Delete") {
-            dispatch(deleteSlideObjects, (event.target as HTMLDivElement).children)
+        if (event.key === "Delete")
+        {
+            deleteSlideObjects()
         }
     }
 

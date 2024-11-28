@@ -61,7 +61,7 @@ const deleteSlides = (): EditorAction => {
     }
 }
 
-const deleteSlideObject = (): EditorAction => {
+const deleteSlideObjects = (): EditorAction => {
     return {
         type: ActionType.DELETE_SLIDE_OBJECT,
     }
@@ -167,7 +167,7 @@ export default {
     addText,
     addTriangle,
     deleteSlides,
-    deleteSlideObject,
+    deleteSlideObjects,
     setFigureColor,
     setFontFamily,
     setFontSize,

@@ -12,7 +12,8 @@ type AppProps = {
 }
 
 
-export default function App({editor}: AppProps) {
+export default function App() {
+
     return (
         <>
             <ToolBar></ToolBar>

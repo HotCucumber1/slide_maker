@@ -1,171 +1,158 @@
+import {ActionType, EditorAction} from "./actions.ts"
 import {
-    ActionType,
-    ADD_ELLIPSE_ACTION,
-    ADD_IMAGE_ACTION,
-    ADD_LABEL_ACTION,
-    ADD_SLIDE_ACTION,
-    ADD_TEXT_ACTION,
-    ADD_TRIANGLE_ACTION,
-    DELETE_SLIDE_ACTION,
-    DELETE_SLIDE_OBJECT_ACTION,
-    SET_FIGURE_COLOR_ACTION,
-    SET_FONT_FAMILY_ACTION,
-    SET_FONT_SIZE_ACTION,
-    SET_FONT_STYLE_ACTION,
-    SET_OBJECT_POSITION_ACTION,
-    SET_OBJECT_SELECTION_ACTION,
-    SET_OBJECT_SIZE_ACTION,
-    SET_PRESENTATION_BACKGROUND_ACTION,
-    SET_PRESENTATION_TITLE_ACTION,
-    SET_SLIDE_BACKGROUND_ACTION,
-    SET_SLIDE_POSITION_ACTION,
-    SET_SLIDE_SELECTION_ACTION,
-    SET_TEXT_ACTION,
-} from "./actions.ts"
+    Color,
+    FontStyle,
+    Gradient,
+    Image,
+    Point,
+    SelectedObjects,
+    SelectedSlides,
+    Size
+} from "../objects.ts"
 import {AddFigureProps} from "../actions/addFigureProps.ts"
 import {AddImageProps} from "../actions/addImage.ts"
 import {AddTextProps} from "../actions/addText.ts"
-import {Color, FontStyle, Gradient, Image, Point, SelectedObjects, SelectedSlides, Size, Slide} from "../objects.ts"
 
-const addEllipse = (props: AddFigureProps): ADD_ELLIPSE_ACTION => {
+
+const addEllipse = (props: AddFigureProps): EditorAction => {
     return {
         type: ActionType.ADD_ELLIPSE,
         payload: props
     }
 }
 
-const addImage = (props: AddImageProps): ADD_IMAGE_ACTION => {
+const addImage = (props: AddImageProps): EditorAction => {
     return {
         type: ActionType.ADD_IMAGE,
         payload: props
     }
 }
 
-const addLabel = (props: AddFigureProps): ADD_LABEL_ACTION => {
+const addLabel = (props: AddFigureProps): EditorAction => {
     return {
         type: ActionType.ADD_LABEL,
         payload: props
     }
 }
 
-const addSlide = (): ADD_SLIDE_ACTION => {
+const addSlide = (): EditorAction => {
     return {
         type: ActionType.ADD_SLIDE
     }
 }
 
-const addText = (props: AddTextProps): ADD_TEXT_ACTION => {
+const addText = (props: AddTextProps): EditorAction => {
     return {
         type: ActionType.ADD_TEXT,
         payload: props
     }
 }
 
-const addTriangle = (props: AddFigureProps): ADD_TRIANGLE_ACTION => {
+const addTriangle = (props: AddFigureProps): EditorAction => {
     return {
         type: ActionType.ADD_TRIANGLE,
         payload: props
     }
 }
 
-const deleteSlides = (slideId: string): DELETE_SLIDE_ACTION => {
+const deleteSlides = (slideId: string): EditorAction => {
     return {
         type: ActionType.DELETE_SLIDE,
         payload: slideId
     }
 }
 
-const deleteSlideObject = (): DELETE_SLIDE_OBJECT_ACTION => {
+const deleteSlideObject = (): EditorAction => {
     return {
         type: ActionType.DELETE_SLIDE_OBJECT,
     }
 }
 
-const setFigureColor = (color: Color): SET_FIGURE_COLOR_ACTION => {
+const setFigureColor = (color: Color): EditorAction => {
     return {
         type: ActionType.SET_FIGURE_COLOR,
         payload: color,
     }
 }
 
-const setFontFamily = (newFontFamily: string): SET_FONT_FAMILY_ACTION => {
+const setFontFamily = (newFontFamily: string): EditorAction => {
     return {
         type: ActionType.SET_FONT_FAMILY,
         payload: newFontFamily,
     }
 }
 
-const setFontSize = (newSize: number): SET_FONT_SIZE_ACTION => {
+const setFontSize = (newSize: number): EditorAction => {
     return {
         type: ActionType.SET_FONT_SIZE,
         payload: newSize,
     }
 }
 
-const setFontStyle = (newFontStyles: FontStyle): SET_FONT_STYLE_ACTION => {
+const setFontStyle = (newFontStyles: FontStyle): EditorAction => {
     return {
         type: ActionType.SET_FONT_STYLE,
         payload: newFontStyles,
     }
 }
 
-const setObjectPosition = (newPosition: Point): SET_OBJECT_POSITION_ACTION => {
+const setObjectPosition = (newPosition: Point): EditorAction => {
     return {
         type: ActionType.SET_OBJECT_POSITION,
         payload: newPosition,
     }
 }
 
-const setObjectSelection = (newSelection: SelectedObjects): SET_OBJECT_SELECTION_ACTION => {
+const setObjectSelection = (newSelection: SelectedObjects): EditorAction => {
     return {
         type: ActionType.SET_OBJECT_SELECTION,
         payload: newSelection,
     }
 }
 
-const setObjectSize = (newSize: Size): SET_OBJECT_SIZE_ACTION => {
+const setObjectSize = (newSize: Size): EditorAction => {
     return {
         type: ActionType.SET_OBJECT_SIZE,
         payload: newSize,
     }
 }
 
-const setPresentationBackground = (newBackground: Color|Image|Gradient): SET_PRESENTATION_BACKGROUND_ACTION => {
+const setPresentationBackground = (newBackground: Color|Image|Gradient): EditorAction => {
     return {
         type: ActionType.SET_PRESENTATION_BACKGROUND,
         payload: newBackground,
     }
 }
 
-const setPresentationTitle = (newTitle: string): SET_PRESENTATION_TITLE_ACTION => {
+const setPresentationTitle = (newTitle: string): EditorAction => {
     return {
         type: ActionType.SET_PRESENTATION_TITLE,
         payload: newTitle,
     }
 }
 
-const setSlideBackground = (newBackground: Color|Image|Gradient): SET_SLIDE_BACKGROUND_ACTION => {
+const setSlideBackground = (newBackground: Color|Image|Gradient): EditorAction => {
     return {
         type: ActionType.SET_SLIDE_BACKGROUND,
         payload: newBackground,
     }
 }
 
-const setSlidePosition = (newPosition: number): SET_SLIDE_POSITION_ACTION => {
+const setSlidePosition = (newPosition: number): EditorAction => {
     return {
         type: ActionType.SET_SLIDE_POSITION,
         payload: newPosition,
     }
 }
 
-const setSlideSelection = (newSelection: SelectedSlides): SET_SLIDE_SELECTION_ACTION => {
+const setSlideSelection = (newSelection: SelectedSlides): EditorAction => {
     return {
         type: ActionType.SET_SLIDE_SELECTION,
         payload: newSelection,
     }
 }
 
-const setText = (newText: string): SET_TEXT_ACTION => {
+const setText = (newText: string): EditorAction => {
     return {
         type: ActionType.SET_TEXT,
         payload: newText,

@@ -36,155 +36,133 @@ enum ActionType {
     SET_TEXT = "SET_TEXT",
 }
 
-type ADD_ELLIPSE_ACTION = {
-    type: "ADD_ELLIPSE",
+type AddEllipseAction = {
+    type: ActionType.ADD_ELLIPSE,
     payload: AddFigureProps,
 }
 
-type ADD_IMAGE_ACTION = {
-    type: "ADD_IMAGE",
+type AddImageAction = {
+    type: ActionType.ADD_IMAGE,
     payload: AddImageProps,
 }
 
-type ADD_LABEL_ACTION = {
-    type: "ADD_LABEL",
+type AddLabelAction = {
+    type: ActionType.ADD_LABEL,
     payload: AddFigureProps,
 }
 
-type ADD_SLIDE_ACTION = {
-    type: "ADD_SLIDE",
-    payload: number
+type AddSlideAction = {
+    type: ActionType.ADD_SLIDE,
 }
 
-type ADD_TEXT_ACTION = {
-    type: "ADD_TEXT",
+type AddTextAction = {
+    type: ActionType.ADD_TEXT,
     payload: AddTextProps,
 }
 
-type ADD_TRIANGLE_ACTION = {
-    type: "ADD_TRIANGLE",
+type AddTriangleAction = {
+    type: ActionType.ADD_TRIANGLE,
     payload: AddFigureProps,
 }
 
-type DELETE_SLIDE_ACTION = {
-    type: "DELETE_SLIDE",
+type DeleteSlideAction = {
+    type: ActionType.DELETE_SLIDE,
     payload: string
 }
 
-type DELETE_SLIDE_OBJECT_ACTION = {
-    type: "DELETE_SLIDE_OBJECT",
+type DeleteSlideObjectAction = {
+    type: ActionType.DELETE_SLIDE_OBJECT,
 }
 
-type SET_FIGURE_COLOR_ACTION = {
-    type: "SET_FIGURE_COLOR",
+type SetFigureColorAction = {
+    type: ActionType.SET_FIGURE_COLOR,
     payload: Color,
 }
 
-type SET_FONT_FAMILY_ACTION = {
-    type: "SET_FONT_FAMILY",
+type SetFontFamilyAction = {
+    type: ActionType.SET_FONT_FAMILY,
     payload: string,
 }
 
-type SET_FONT_SIZE_ACTION = {
-    type: "SET_FONT_SIZE",
+type SetFontSizeAction = {
+    type: ActionType.SET_FONT_SIZE,
     payload: number,
 }
 
-type SET_FONT_STYLE_ACTION = {
-    type: "SET_FONT_STYLE",
+type SetFontStyleAction = {
+    type: ActionType.SET_FONT_STYLE,
     payload: FontStyle,
 }
 
-type SET_OBJECT_POSITION_ACTION = {
-    type: "SET_OBJECT_POSITION",
+type SetObjectPositionAction = {
+    type: ActionType.SET_OBJECT_POSITION,
     payload: Point,
 }
 
-type SET_OBJECT_SELECTION_ACTION = {
-    type: "SET_OBJECT_SELECTION",
+type SetObjectSelectionAction = {
+    type: ActionType.SET_OBJECT_SELECTION,
     payload: SelectedObjects,
 }
 
-type SET_OBJECT_SIZE_ACTION = {
-    type: "SET_OBJECT_SIZE",
+type SetObjectSizeAction = {
+    type: ActionType.SET_OBJECT_SIZE,
     payload: Size,
 }
 
-type SET_PRESENTATION_BACKGROUND_ACTION = {
-    type: "SET_PRESENTATION_BACKGROUND",
+type SetPresentationBackgroundAction = {
+    type: ActionType.SET_PRESENTATION_BACKGROUND,
     payload: Color|Image|Gradient,
 }
 
-type SET_PRESENTATION_TITLE_ACTION = {
-    type: "SET_PRESENTATION_TITLE",
+type SetPresentationTitleAction = {
+    type: ActionType.SET_PRESENTATION_TITLE,
     payload: string,
 }
 
-type SET_SLIDE_BACKGROUND_ACTION = {
-    type: "SET_SLIDE_BACKGROUND",
+type SetSlideBackgroundAction = {
+    type: ActionType.SET_SLIDE_BACKGROUND,
     payload: Color|Image|Gradient,
 }
 
-type SET_SLIDE_POSITION_ACTION = {
-    type: "SET_SLIDE_POSITION",
+type SetSlidePositionAction = {
+    type: ActionType.SET_SLIDE_POSITION,
     payload: number,
 }
 
-type SET_SLIDE_SELECTION_ACTION = {
-    type: "SET_SLIDE_SELECTION",
+type SetSlideSelectionAction = {
+    type: ActionType.SET_SLIDE_SELECTION,
     payload: SelectedSlides,
 }
 
-type SET_TEXT_ACTION = {
-    type: "SET_TEXT",
+type SetTextAction = {
+    type: ActionType.SET_TEXT,
     payload: string,
 }
 
 type EditorAction =
-    ADD_ELLIPSE_ACTION
-    |ADD_IMAGE_ACTION
-    |ADD_LABEL_ACTION
-    |ADD_TEXT_ACTION
-    |ADD_TRIANGLE_ACTION
-    |ADD_SLIDE_ACTION
-    |SET_TEXT_ACTION
-    |SET_SLIDE_POSITION_ACTION
-    |SET_SLIDE_BACKGROUND_ACTION
-    |SET_SLIDE_SELECTION_ACTION
-    |SET_PRESENTATION_TITLE_ACTION
-    |SET_PRESENTATION_BACKGROUND_ACTION
-    |SET_OBJECT_SIZE_ACTION
-    |SET_OBJECT_POSITION_ACTION
-    |SET_OBJECT_SELECTION_ACTION
-    |SET_FONT_STYLE_ACTION
-    |SET_FONT_SIZE_ACTION
-    |SET_FONT_FAMILY_ACTION
-    |SET_FIGURE_COLOR_ACTION
-    |DELETE_SLIDE_ACTION
-    |DELETE_SLIDE_OBJECT_ACTION
+    AddEllipseAction
+    |AddImageAction
+    |AddLabelAction
+    |AddTextAction
+    |AddTriangleAction
+    |AddSlideAction
+    |SetTextAction
+    |SetSlidePositionAction
+    |SetSlideBackgroundAction
+    |SetSlideSelectionAction
+    |SetPresentationTitleAction
+    |SetPresentationBackgroundAction
+    |SetObjectSizeAction
+    |SetObjectPositionAction
+    |SetObjectSelectionAction
+    |SetFontStyleAction
+    |SetFontSizeAction
+    |SetFontFamilyAction
+    |SetFigureColorAction
+    |DeleteSlideAction
+    |DeleteSlideObjectAction
 
 export {
-    ADD_ELLIPSE_ACTION,
-    ADD_IMAGE_ACTION,
-    ADD_LABEL_ACTION,
-    ADD_TEXT_ACTION,
-    ADD_TRIANGLE_ACTION,
-    ADD_SLIDE_ACTION,
-    SET_TEXT_ACTION,
-    SET_SLIDE_POSITION_ACTION,
-    SET_SLIDE_BACKGROUND_ACTION,
-    SET_SLIDE_SELECTION_ACTION,
-    SET_PRESENTATION_TITLE_ACTION,
-    SET_PRESENTATION_BACKGROUND_ACTION,
-    SET_OBJECT_SIZE_ACTION,
-    SET_OBJECT_POSITION_ACTION,
-    SET_OBJECT_SELECTION_ACTION,
-    SET_FONT_STYLE_ACTION,
-    SET_FONT_SIZE_ACTION,
-    SET_FONT_FAMILY_ACTION,
-    SET_FIGURE_COLOR_ACTION,
-    DELETE_SLIDE_ACTION,
-    DELETE_SLIDE_OBJECT_ACTION,
-    type ActionType,
+    ActionType,
     type EditorAction,
 }

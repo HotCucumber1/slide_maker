@@ -4,14 +4,17 @@ import {defaultTextSettings} from "../../store/default_data/defaultObjectSetting
 import * as ButtonData from "./toolBarButtonsData.ts"
 import {downloadAsJson} from "../../file_utils/downloadAsJson.ts"
 import {uploadImageFile, uploadJsonPresentation} from "../../file_utils/uploadFile.ts"
-import { useRef } from "react"
+import {useRef, useState} from "react"
 import icon from "../../assets/icons/icon.png"
 import {useAppSelector} from "../../hooks/useAppSelector.ts"
 import {useAppActions} from "../../hooks/useAppActions.ts"
+import {ErrorToast} from "../../components/ErrorToast/ErrorToast.tsx"
 
 
 function ToolBar()
 {
+    const [showToast, setShowToast] = useState(false)
+
     const imageFileInputRef = useRef(null);
     const backgroundFileInputRef = useRef(null);
     const colorInputRef = useRef(null);
@@ -58,18 +61,24 @@ function ToolBar()
 
     const onImageInputChange = async (event) => {
         const file: File = event.target.files[0];
-        uploadImageFile(file, "object", addImage);
+        if (uploadImageFile(file, "object", addImage)) {
+            setShowToast(true)
+        }
     }
 
     const onFileInputChange = async (event) => {
         const file: File = event.target.files[0];
-        uploadJsonPresentation(file, setEditor);
+        if (!uploadJsonPresentation(file, setEditor)) {
+            setShowToast(true)
+        }
         event.target.value = null;
     }
 
     const onBackgroundInputChange = async (event) => {
         const file: File = event.target.files[0];
-        uploadImageFile(file, "background", setSlideBackground);
+        if (!uploadImageFile(file, "background", setSlideBackground)) {
+            setShowToast(true)
+        }
     }
 
     return (
@@ -203,6 +212,14 @@ function ToolBar()
                 <div className={styles.toolBarSeparator}>
                 </div>
             </div>
+            {showToast &&
+                <ErrorToast
+                    message={"Выберите корректный тип файла"}
+                    onClose={() => setShowToast(false)}
+                    duration={3000}
+                >
+                </ErrorToast>
+            }
         </div>
     )
 }

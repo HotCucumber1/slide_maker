@@ -5,10 +5,10 @@ import {isValidPresentationJson} from "./jsonValidator.ts"
 const JSON_TYPE = "application/json"
 const IMAGE_TYPES = ["image/svg", "image/png", "image/jpeg", "image/jpg"]
 
-function uploadJsonPresentation(dataFile: File, saveEditor): void
+function uploadJsonPresentation(dataFile: File, saveEditor): boolean
 {
     if (!dataFile || dataFile.type !== JSON_TYPE) {
-        return
+        return false
     }
 
     const reader = new FileReader()
@@ -18,19 +18,20 @@ function uploadJsonPresentation(dataFile: File, saveEditor): void
         if (!isValidPresentationJson(jsonData))
         {
             alert("Invalid json data")
-            return
+            return false
         }
         const newEditor: Editor = JSON.parse(jsonData)
         saveEditor(newEditor)
         alert(`${newEditor.presentation.title} was upload successfully`)
     }
     reader.readAsText(dataFile)
+    return true
 }
 
-function uploadImageFile(dataFile: File, type: "object"|"background", addContent): void
+function uploadImageFile(dataFile: File, type: "object"|"background", addContent): boolean
 {
     if (!dataFile || !IMAGE_TYPES.includes(dataFile.type)) {
-        return
+        return false
     }
 
     const reader = new FileReader()
@@ -53,6 +54,7 @@ function uploadImageFile(dataFile: File, type: "object"|"background", addContent
         }
     }
     reader.readAsDataURL(dataFile)
+    return true
 }
 
 export {

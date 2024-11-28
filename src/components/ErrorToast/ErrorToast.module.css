@@ -1,0 +1,27 @@
+.toast {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 25px;
+    background-color: var(--error-color);
+    border-radius: 5px;
+    border-bottom: 2px solid #E86961;
+    padding: 15px 50px;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 400;
+    font-family: Inter, sans-serif;
+    color: #2E2E2E;
+    z-index: var(--panel-z-index);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fadeIn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fadeOut {
+    opacity: 0;
+    transform: translateY(25px);
+}

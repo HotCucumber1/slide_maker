@@ -15,7 +15,7 @@ const saveToLocalStorage: Middleware = (storeState) => (next) => (action) => {
     return result
 }
 
-const documentState = getDocumentState() || defaultEditor;
+const documentState = getDocumentState() || defaultEditor
 const store = createStore(
     editorReducer,
     documentState,

@@ -1,5 +1,5 @@
 import {Presentation, SelectedObjects, SelectedSlides} from "./objects.ts";
-import {editor} from "./default_data/editor.ts";
+import {defaultEditor} from "./default_data/defaultEditor.ts";
 import {getDocumentState, saveDocumentState} from "./storage.ts";
 
 type Editor = {
@@ -8,7 +8,7 @@ type Editor = {
     selectedObjects: SelectedObjects,
 };
 
-const documentState = getDocumentState() || editor;
+const documentState = getDocumentState() || defaultEditor;
 let _editor: Editor = documentState;
 let editorChangeHandler = null;
 

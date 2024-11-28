@@ -15,7 +15,7 @@ type AppProps = {
 export default function App({editor}: AppProps) {
     return (
         <>
-            <ToolBar fileName={editor.presentation.title}></ToolBar>
+            <ToolBar></ToolBar>
             <div className={styles.slideArea}>
                 <SlideList
                     slides={editor.presentation.slides}

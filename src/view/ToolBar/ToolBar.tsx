@@ -3,7 +3,6 @@ import {dispatch, getEditor} from "../../store/editor.ts";
 import {addSlide} from "../../store/actions/addSlide.ts";
 import {MenuButton} from "../../components/MenuButton/MenuButton.tsx";
 import {defaultTextSettings} from "../../store/default_data/defaultObjectSettings.ts";
-import {setPresentationTitle} from "../../store/actions/setPresentationTitle.ts";
 import {deleteSlides} from "../../store/actions/deleteSlide.ts";
 import {addText} from "../../store/actions/addText.ts";
 import {addLabel} from "../../store/actions/addLabel.ts";
@@ -16,13 +15,11 @@ import {downloadAsJson} from "../../file_utils/downloadAsJson.ts";
 import {uploadImageFile, uploadJsonPresentation} from "../../file_utils/uploadFile.ts";
 import {useRef} from "react";
 import icon from "../../assets/icons/icon.png";
+import {useAppSelector} from "../../hooks/useAppSelector.ts"
+import {useAppActions} from "../../hooks/useAppActions.ts"
 
 
-type ToolBarProps = {
-    fileName: string,
-}
-
-function ToolBar({fileName}: ToolBarProps)
+function ToolBar()
 {
     const imageFileInputRef = useRef(null);
     const backgroundFileInputRef = useRef(null);
@@ -30,6 +27,8 @@ function ToolBar({fileName}: ToolBarProps)
     const uploadFileInputRef = useRef(null);
     const titleRef = useRef(null);
 
+    const title = useAppSelector(state => state.title)
+    const { setPresentationTitle } = useAppActions()
 
     const onButtonClick = (inputElement) => {
         inputElement.current.click();
@@ -78,10 +77,10 @@ function ToolBar({fileName}: ToolBarProps)
                 />
                 <input
                     ref={titleRef}
-                    onChange={() => dispatch(setPresentationTitle, titleRef.current.value)}
+                    onChange={() => setPresentationTitle(titleRef.current.value)}
                     onFocus={(event) => event.target.select()}
                     className={styles.fileName}
-                    value={fileName}
+                    value={title}
                 />
             </div>
             <div className={styles.toolArea}>

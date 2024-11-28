@@ -5,7 +5,7 @@ import {setSlideSelection} from "../../store/actions/setSlideSelection.ts";
 import {CSSProperties, useRef, useState} from "react"
 import {useSlideDragAndDrop} from "../../hooks/useSlideDragAndDrop.ts";
 import {setSlidePosition} from "../../store/actions/setSlidePosition.ts";
-import {editor} from "../../store/default_data/editor.ts";
+import {defaultEditor} from "../../store/default_data/defaultEditor.ts";
 
 type SlideListElementProps = {
     children: React.ReactNode,
@@ -27,7 +27,7 @@ const SlideListElement = ({
     // useSlideDragAndDrop(slideListElementRef, setPos);
     // if (pos !== startPosition)
     // {
-    //     setSlidePosition(editor, pos);
+    //     setSlidePosition(defaultEditor, pos);
     // }
 
     const onSlideClick: React.MouseEventHandler = event => {

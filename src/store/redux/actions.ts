@@ -53,6 +53,7 @@ type ADD_LABEL_ACTION = {
 
 type ADD_SLIDE_ACTION = {
     type: "ADD_SLIDE",
+    payload: number
 }
 
 type ADD_TEXT_ACTION = {
@@ -67,6 +68,7 @@ type ADD_TRIANGLE_ACTION = {
 
 type DELETE_SLIDE_ACTION = {
     type: "DELETE_SLIDE",
+    payload: string
 }
 
 type DELETE_SLIDE_OBJECT_ACTION = {
@@ -138,7 +140,7 @@ type SET_TEXT_ACTION = {
     payload: string,
 }
 
-type Action =
+type EditorAction =
     ADD_ELLIPSE_ACTION
     |ADD_IMAGE_ACTION
     |ADD_LABEL_ACTION
@@ -161,7 +163,7 @@ type Action =
     |DELETE_SLIDE_ACTION
     |DELETE_SLIDE_OBJECT_ACTION
 
-export type {
+export {
     ADD_ELLIPSE_ACTION,
     ADD_IMAGE_ACTION,
     ADD_LABEL_ACTION,
@@ -183,6 +185,6 @@ export type {
     SET_FIGURE_COLOR_ACTION,
     DELETE_SLIDE_ACTION,
     DELETE_SLIDE_OBJECT_ACTION,
-    ActionType,
-    Action
+    type ActionType,
+    type EditorAction,
 }

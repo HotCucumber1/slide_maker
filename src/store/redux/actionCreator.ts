@@ -25,7 +25,7 @@ import {
 import {AddFigureProps} from "../actions/addFigureProps.ts"
 import {AddImageProps} from "../actions/addImage.ts"
 import {AddTextProps} from "../actions/addText.ts"
-import {Color, FontStyle, Gradient, Image, Point, SelectedObjects, SelectedSlides, Size} from "../objects.ts"
+import {Color, FontStyle, Gradient, Image, Point, SelectedObjects, SelectedSlides, Size, Slide} from "../objects.ts"
 
 const addEllipse = (props: AddFigureProps): ADD_ELLIPSE_ACTION => {
     return {
@@ -50,7 +50,7 @@ const addLabel = (props: AddFigureProps): ADD_LABEL_ACTION => {
 
 const addSlide = (): ADD_SLIDE_ACTION => {
     return {
-        type: ActionType.ADD_SLIDE,
+        type: ActionType.ADD_SLIDE
     }
 }
 
@@ -68,9 +68,10 @@ const addTriangle = (props: AddFigureProps): ADD_TRIANGLE_ACTION => {
     }
 }
 
-const deleteSlides = (): DELETE_SLIDE_ACTION => {
+const deleteSlides = (slideId: string): DELETE_SLIDE_ACTION => {
     return {
         type: ActionType.DELETE_SLIDE,
+        payload: slideId
     }
 }
 
@@ -171,7 +172,8 @@ const setText = (newText: string): SET_TEXT_ACTION => {
     }
 }
 
-export {
+
+export default {
     addEllipse,
     addImage,
     addLabel,

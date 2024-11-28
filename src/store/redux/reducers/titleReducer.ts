@@ -1,11 +1,16 @@
 import {EditorAction, ActionType} from "../actions.ts"
+import {Editor} from "../../editor.ts"
+import {defaultEditor} from "../../default_data/defaultEditor.ts"
+import {setPresentationTitle} from "../../actions/setPresentationTitle.ts"
 
-const titleReducer = (state = "Новая презентация", action: EditorAction): string => {
-    if (action.type === ActionType.SET_PRESENTATION_TITLE)
+const titleReducer = (editor: Editor = defaultEditor, action: EditorAction): Editor => {
+    switch (action.type)
     {
-        return action.payload
+        case ActionType.SET_PRESENTATION_TITLE:
+            return setPresentationTitle(editor, action.payload)
+        default:
+            return editor
     }
-    return state
 }
 
 export {

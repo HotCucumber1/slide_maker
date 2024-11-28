@@ -1,19 +1,11 @@
 import {ToolBar} from "./view/ToolBar/ToolBar.tsx";
 import {SlideList} from "./view/SlideList/SlideList.tsx";
 import WorkArea from "./view/WorkArea/WorkArea.tsx";
-
 import styles from "./App.module.css";
-import {Editor} from "./store/editor.ts";
 import * as React from "react";
 
 
-type AppProps = {
-    editor: Editor,
-}
-
-
 export default function App() {
-
     return (
         <>
             <ToolBar></ToolBar>

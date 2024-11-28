@@ -8,7 +8,7 @@ import {addTriangle} from "../../actions/addTriangle.ts"
 import {setFigureColor} from "../../actions/setFigureColor.ts"
 
 const figureReducer = (editor: Editor = defaultEditor, action: EditorAction): Editor => {
-    switch (action.type)
+    switch (action?.type)
     {
         case ActionType.ADD_ELLIPSE:
             return addEllipse(editor, action.payload)

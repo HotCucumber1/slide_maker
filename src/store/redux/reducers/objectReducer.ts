@@ -13,8 +13,6 @@ const slideObjectReducer = (editor: Editor = defaultEditor, action: EditorAction
             return setObjectPosition(editor, action.payload)
         case ActionType.SET_OBJECT_SIZE:
             return setObjectSize(editor, action.payload)
-        case ActionType.SET_OBJECT_SELECTION:
-            return setObjectSelection(editor, action.payload)
         case ActionType.DELETE_SLIDE_OBJECT:
             return deleteSlideObjects(editor)
         default:

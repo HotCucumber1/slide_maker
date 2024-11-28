@@ -14,7 +14,7 @@ import {AddImageProps} from "../actions/addImage.ts"
 import {AddTextProps} from "../actions/addText.ts"
 
 
-const addEllipse = (props: AddFigureProps): EditorAction => {
+const addEllipse = (props?: AddFigureProps): EditorAction => {
     return {
         type: ActionType.ADD_ELLIPSE,
         payload: props
@@ -28,7 +28,7 @@ const addImage = (props: AddImageProps): EditorAction => {
     }
 }
 
-const addLabel = (props: AddFigureProps): EditorAction => {
+const addLabel = (props?: AddFigureProps): EditorAction => {
     return {
         type: ActionType.ADD_LABEL,
         payload: props
@@ -48,17 +48,16 @@ const addText = (props: AddTextProps): EditorAction => {
     }
 }
 
-const addTriangle = (props: AddFigureProps): EditorAction => {
+const addTriangle = (props?: AddFigureProps): EditorAction => {
     return {
         type: ActionType.ADD_TRIANGLE,
         payload: props
     }
 }
 
-const deleteSlides = (slideId: string): EditorAction => {
+const deleteSlides = (): EditorAction => {
     return {
         type: ActionType.DELETE_SLIDE,
-        payload: slideId
     }
 }
 

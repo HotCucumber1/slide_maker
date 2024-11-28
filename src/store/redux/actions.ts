@@ -38,7 +38,7 @@ enum ActionType {
 
 type AddEllipseAction = {
     type: ActionType.ADD_ELLIPSE,
-    payload: AddFigureProps,
+    payload?: AddFigureProps,
 }
 
 type AddImageAction = {
@@ -48,7 +48,7 @@ type AddImageAction = {
 
 type AddLabelAction = {
     type: ActionType.ADD_LABEL,
-    payload: AddFigureProps,
+    payload?: AddFigureProps,
 }
 
 type AddSlideAction = {
@@ -62,12 +62,11 @@ type AddTextAction = {
 
 type AddTriangleAction = {
     type: ActionType.ADD_TRIANGLE,
-    payload: AddFigureProps,
+    payload?: AddFigureProps,
 }
 
 type DeleteSlideAction = {
     type: ActionType.DELETE_SLIDE,
-    payload: string
 }
 
 type DeleteSlideObjectAction = {

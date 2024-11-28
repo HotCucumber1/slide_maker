@@ -1,20 +1,11 @@
-import styles from "./ToolBar.module.css";
-import {dispatch, getEditor} from "../../store/editor.ts";
-import {addSlide} from "../../store/actions/addSlide.ts";
-import {MenuButton} from "../../components/MenuButton/MenuButton.tsx";
-import {defaultTextSettings} from "../../store/default_data/defaultObjectSettings.ts";
-import {deleteSlides} from "../../store/actions/deleteSlide.ts";
-import {addText} from "../../store/actions/addText.ts";
-import {addLabel} from "../../store/actions/addLabel.ts";
-import {addEllipse} from "../../store/actions/addEllipse.ts";
-import {addTriangle} from "../../store/actions/addTriangle.ts";
-import {setSlideBackground} from "../../store/actions/setSlideBackground.ts";
-import * as ButtonData from "./toolBarButtonsData.ts";
-import {setFigureColor} from "../../store/actions/setFigureColor.ts";
-import {downloadAsJson} from "../../file_utils/downloadAsJson.ts";
-import {uploadImageFile, uploadJsonPresentation} from "../../file_utils/uploadFile.ts";
-import {useRef} from "react";
-import icon from "../../assets/icons/icon.png";
+import styles from "./ToolBar.module.css"
+import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
+import {defaultTextSettings} from "../../store/default_data/defaultObjectSettings.ts"
+import * as ButtonData from "./toolBarButtonsData.ts"
+import {downloadAsJson} from "../../file_utils/downloadAsJson.ts"
+import {uploadImageFile, uploadJsonPresentation} from "../../file_utils/uploadFile.ts"
+import {useRef} from "react"
+import icon from "../../assets/icons/icon.png"
 import {useAppSelector} from "../../hooks/useAppSelector.ts"
 import {useAppActions} from "../../hooks/useAppActions.ts"
 
@@ -27,24 +18,36 @@ function ToolBar()
     const uploadFileInputRef = useRef(null);
     const titleRef = useRef(null);
 
-    const title = useAppSelector(state => state.title)
-    const { setPresentationTitle } = useAppActions()
+    const editor = useAppSelector(state => state.editor)
+    const title = useAppSelector(state => state.titleEditor.presentation.title)
+    const selectedObjects = useAppSelector(state => state.objectSelectionEditor.selectedObjects)
+    const {
+        addSlide,
+        setPresentationTitle,
+        setFigureColor,
+        setSlideBackground,
+        deleteSlides,
+        addText,
+        addLabel,
+        addTriangle,
+        addEllipse
+    } = useAppActions()
 
     const onButtonClick = (inputElement) => {
         inputElement.current.click();
     }
 
     const onColorChange = (event) => {
-        if (getEditor().selectedObjects.length > 0)
+        if (selectedObjects.length > 0)
         {
-            dispatch(setFigureColor, {
+            setFigureColor({
                 value: (event.target as HTMLInputElement).value,
                 type: "color",
             });
         }
         else
         {
-            dispatch(setSlideBackground, {
+            setSlideBackground({
                 value: (event.target as HTMLInputElement).value,
                 type: "color",
             });
@@ -113,9 +116,9 @@ function ToolBar()
                 <MenuButton
                     content={ButtonData.downloadButtonContent}
                     onClick={() => downloadAsJson(
-                        getEditor(),
-                        getEditor().presentation.title)
-                    }
+                        editor,
+                        title
+                    )}
                 />
                 <MenuButton
                     content={ButtonData.uploadButtonContent}
@@ -127,11 +130,11 @@ function ToolBar()
                 <span className={styles.slideActionsText}>Слайд</span>
                 <MenuButton
                     content={ButtonData.addSlideButtonContent}
-                    onClick={() => dispatch(addSlide)}
+                    onClick={() => addSlide()}
                 />
                 <MenuButton
                     content={ButtonData.deleteSlideButtonContent}
-                    onClick={() => dispatch(deleteSlides)}
+                    onClick={() => deleteSlides()}
                 />
                 <MenuButton
                     content={ButtonData.setColorButtonContent}
@@ -160,7 +163,7 @@ function ToolBar()
                 <span className={styles.slideActionsText}>Добавить объект</span>
                 <MenuButton
                     content={ButtonData.addTextButtonContent}
-                    onClick={() => dispatch(addText, defaultTextSettings)}
+                    onClick={() => addText(defaultTextSettings)}
                 />
                 <MenuButton
                     content={ButtonData.addImageButtonContent}
@@ -172,7 +175,7 @@ function ToolBar()
                 />
                 <MenuButton
                     content={ButtonData.addLabelButtonContent}
-                    onClick={() => dispatch(addLabel)}
+                    onClick={() => addLabel()}
                     iconStyles={{
                         marginTop: "1px",
                         height: "45%",
@@ -180,7 +183,7 @@ function ToolBar()
                 />
                 <MenuButton
                     content={ButtonData.addTriangleButtonContent}
-                    onClick={() => dispatch(addTriangle)}
+                    onClick={() => addTriangle()}
                     iconStyles={{
                         marginTop: "1px",
                         height: "56%",
@@ -188,7 +191,7 @@ function ToolBar()
                 />
                 <MenuButton
                     content={ButtonData.addCircleButtonContent}
-                    onClick={() => dispatch(addEllipse)}
+                    onClick={() => addEllipse()}
                     iconStyles={{
                         marginTop: "1px",
                         height: "50%",

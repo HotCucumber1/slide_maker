@@ -4,7 +4,6 @@ import {setSlidePosition} from "../../actions/setSlidePosition.ts"
 import {setSlideBackground} from "../../actions/setSlideBackground.ts"
 import {Editor} from "../../editor.ts"
 import {deleteSlides} from "../../actions/deleteSlide.ts"
-import {setSlideSelection} from "../../actions/setSlideSelection.ts"
 import {defaultEditor} from "../../default_data/defaultEditor.ts"
 
 const slideReducer = (editor: Editor = defaultEditor, action: EditorAction): Editor => {
@@ -18,8 +17,6 @@ const slideReducer = (editor: Editor = defaultEditor, action: EditorAction): Edi
             return setSlidePosition(editor, action.payload)
         case ActionType.SET_SLIDE_BACKGROUND:
             return setSlideBackground(editor, action.payload)
-        case ActionType.SET_SLIDE_SELECTION:
-            return setSlideSelection(editor, action.payload)
         default:
             return editor
     }

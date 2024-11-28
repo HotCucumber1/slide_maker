@@ -46,7 +46,8 @@ function addImage(
         presentation: {
             ...editor.presentation,
             slides: newSlides,
-        }
+        },
+        selectedObjects: [imageObject.id]
     };
 }
 

@@ -1,8 +1,8 @@
-import {rootReducer} from "../store/redux/reducers/rootReducer.ts"
 import {TypedUseSelectorHook, useSelector} from "react-redux"
+import {editorReducer} from "../store/redux/editorReducer.ts"
 
 
-type RootState = ReturnType<typeof rootReducer>
+type RootState = ReturnType<typeof editorReducer>
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 export {

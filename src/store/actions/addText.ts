@@ -55,7 +55,7 @@ function addText(editor: Editor, props: AddTextProps): Editor
         presentation: {
             ...editor.presentation,
             slides: newSlides,
-        }
+        },
     };
 }
 

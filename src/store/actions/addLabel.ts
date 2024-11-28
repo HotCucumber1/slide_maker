@@ -11,7 +11,7 @@ import {
 import {v4 as uuidv4} from "uuid";
 
 
-function addLabel(editor: Editor, props: AddFigureProps): Editor
+function addLabel(editor: Editor, props?: AddFigureProps): Editor
 {
     const figureObject: LabelFigure = {
         id: uuidv4(),
@@ -37,7 +37,8 @@ function addLabel(editor: Editor, props: AddFigureProps): Editor
         presentation: {
             ...editor.presentation,
             slides: newSlides
-        }
+        },
+        selectedObjects: [figureObject.id]
     };
 }
 

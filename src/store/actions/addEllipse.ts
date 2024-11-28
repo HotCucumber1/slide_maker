@@ -10,7 +10,7 @@ import {
 } from "../default_data/defaultObjectSettings.ts";
 import {v4 as uuidv4} from "uuid";
 
-function addEllipse(editor: Editor, props: AddFigureProps): Editor
+function addEllipse(editor: Editor, props?: AddFigureProps): Editor
 {
 
     const newEllipse: EllipseFigure = {
@@ -37,7 +37,8 @@ function addEllipse(editor: Editor, props: AddFigureProps): Editor
         presentation: {
             ...editor.presentation,
             slides: newSlides
-        }
+        },
+        selectedObjects: [newEllipse.id],
     };
 }
 

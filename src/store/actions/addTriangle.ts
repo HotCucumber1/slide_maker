@@ -9,7 +9,7 @@ import {
     defaultStrokeStyle} from "../default_data/defaultObjectSettings.ts";
 import {v4 as uuidv4} from "uuid";
 
-function addTriangle(editor: Editor, props: AddFigureProps): Editor
+function addTriangle(editor: Editor, props?: AddFigureProps): Editor
 {
     const newTriangle: TriangleFigure = {
         id: uuidv4(),
@@ -35,7 +35,8 @@ function addTriangle(editor: Editor, props: AddFigureProps): Editor
         presentation: {
             ...editor.presentation,
             slides: newSlides
-        }
+        },
+        selectedObjects: [newTriangle.id]
     };
 }
 

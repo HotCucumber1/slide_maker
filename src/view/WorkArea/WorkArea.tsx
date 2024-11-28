@@ -5,7 +5,7 @@ import {useAppSelector} from "../../hooks/useAppSelector.ts"
 
 
 const WorkArea = () => {
-    const editor = useAppSelector(state => state.editor)
+    const editor = useAppSelector((editor => editor))
     const activeSlide = editor.presentation.slides.filter(
         slide => slide.id === editor.selectedSlides[0]
     )[0]

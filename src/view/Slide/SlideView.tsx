@@ -36,7 +36,7 @@ const SlideView = ({
     extraStyles,
 }: SlideProps) => {
 
-    const objectSelection = useAppSelector(state => state.objectSelectionEditor.selectedObjects)
+    const objectSelection = useAppSelector(editor => editor.selectedObjects)
     const { setObjectSelection } = useAppActions()
 
     const slideStyle: CSSProperties = {

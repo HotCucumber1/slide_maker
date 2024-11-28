@@ -18,7 +18,7 @@ function ToolBar()
     const uploadFileInputRef = useRef(null);
     const titleRef = useRef(null);
 
-    const editor = useAppSelector(state => state.editor)
+    const editor = useAppSelector((editor => editor))
     const title = editor.presentation.title
     const selectedObjects = editor.selectedObjects
     const {

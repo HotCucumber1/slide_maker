@@ -7,7 +7,7 @@ import {useAppSelector} from "../../hooks/useAppSelector.ts"
 
 function SlideList()
 {
-    const editor = useAppSelector(state => state.editor)
+    const editor = useAppSelector((editor => editor))
     const slides = editor.presentation.slides
     const selection = editor.selectedSlides
 

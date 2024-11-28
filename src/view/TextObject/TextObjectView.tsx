@@ -2,6 +2,7 @@ import {CSSProperties} from "react"
 import {Color, FontStyle} from "../../store/objects.ts"
 import styles from "./TextObjectView.module.css"
 import {useAppActions} from "../../hooks/useAppActions.ts"
+import {WORK_AREA_SCALE} from "../../store/default_data/scale.ts"
 
 type TextObjectProps = {
     scale: number,
@@ -29,19 +30,20 @@ const TextObjectView = (
         fontFamily: props.fontFamily,
         color: props.color.value,
         lineHeight: `${(props.fontSize + 8) * props.scale}px`,
+        padding: `${props.scale * 10}px`
     };
 
-    if (props.fontStyles.includes("underline"))
-    {
-        objectStyle.textDecoration = "underline";
+    if (props.scale === WORK_AREA_SCALE) {
+        objectStyle.outline = "1px solid #DADADA"
     }
-    if (props.fontStyles.includes("italic"))
-    {
-        objectStyle.fontStyle = "italic";
+    if (props.fontStyles.includes("underline")) {
+        objectStyle.textDecoration = "underline"
     }
-    if (props.fontStyles.includes("bold"))
-    {
-        objectStyle.fontWeight = "bold";
+    if (props.fontStyles.includes("italic")) {
+        objectStyle.fontStyle = "italic"
+    }
+    if (props.fontStyles.includes("bold")) {
+        objectStyle.fontWeight = "bold"
     }
     return (
         <div

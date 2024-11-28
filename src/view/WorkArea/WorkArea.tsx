@@ -1,30 +1,27 @@
-import {SlideView} from "..//Slide/SlideView.tsx";
+import {SlideView} from "../Slide/SlideView.tsx";
 import styles from "./WorkArea.module.css";
-
-import {SelectedObjects, Slide} from "../../store/objects.ts";
 import {WORK_AREA_SCALE} from "../../store/default_data/scale.ts";
+import {useAppSelector} from "../../hooks/useAppSelector.ts"
 
 
-type WorkAreaProps = {
-    activeSlide?: Slide,
-    objectSelection: SelectedObjects,
-}
+const WorkArea = () => {
+    const editor = useAppSelector(state => state.editor)
+    const activeSlide = editor.presentation.slides.filter(
+        slide => slide.id === editor.selectedSlides[0]
+    )[0]
 
-export default function WorkArea({activeSlide, objectSelection}: WorkAreaProps)
-{
-    if (activeSlide === undefined)
-    {
-        return;
-    }
     return (
         <div className={styles.workArea}>
             <SlideView
                 scale={WORK_AREA_SCALE}
                 background={activeSlide.background}
                 content={activeSlide.content}
-                objectSelection={objectSelection}
             >
             </SlideView>
         </div>
     )
+}
+
+export {
+    WorkArea,
 }

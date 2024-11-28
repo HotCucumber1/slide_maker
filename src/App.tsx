@@ -1,8 +1,7 @@
-import {ToolBar} from "./view/ToolBar/ToolBar.tsx";
-import {SlideList} from "./view/SlideList/SlideList.tsx";
-import WorkArea from "./view/WorkArea/WorkArea.tsx";
-import styles from "./App.module.css";
-import * as React from "react";
+import {ToolBar} from "./view/ToolBar/ToolBar.tsx"
+import {SlideList} from "./view/SlideList/SlideList.tsx"
+import {WorkArea} from "./view/WorkArea/WorkArea.tsx"
+import styles from "./App.module.css"
 
 
 export default function App() {
@@ -11,13 +10,7 @@ export default function App() {
             <ToolBar></ToolBar>
             <div className={styles.slideArea}>
                 <SlideList></SlideList>
-                <WorkArea
-                    activeSlide={editor.presentation.slides.filter(
-                        slide => slide.id === editor.selectedSlides[0]
-                    )[0]}
-                    objectSelection={editor.selectedObjects}
-                >
-                </WorkArea>
+                <WorkArea></WorkArea>
             </div>
         </>
     )

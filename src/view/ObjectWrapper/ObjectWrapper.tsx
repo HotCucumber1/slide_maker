@@ -11,6 +11,7 @@ import {joinStyles} from "../../service/joinStyles.ts"
 import {WORK_AREA_SCALE} from "../../store/default_data/scale.ts"
 import {useObjectDragAndDrop} from "../../hooks/useObjectDragAndDrop.ts"
 import {useAppActions} from "../../hooks/useAppActions.ts"
+import {useResize} from "../../hooks/useResize.ts"
 
 
 type ObjectWrapperProps = {
@@ -44,6 +45,7 @@ const ObjectWrapper = ({
     const leftHandle = useRef(null)
 
     const [currentPos, setPos] = useState(pos)
+    // const [currentSize, setSize] = useState(size)
     const [isDragging, setIsDragging] = useState(false)
 
     useObjectDragAndDrop(
@@ -52,6 +54,13 @@ const ObjectWrapper = ({
         () => setIsDragging(true),
         () => setIsDragging(false)
     )
+    // useResize(
+    //     wrapperRef,
+    //     setSize,
+    //     setPos,
+    //     () => setIsDragging(true),
+    //     () => setIsDragging(false)
+    // )
 
     const {
         setObjectSelection,
@@ -64,8 +73,7 @@ const ObjectWrapper = ({
     }
 
     const onButtonClick: React.KeyboardEventHandler = (event) => {
-        if (event.key === "Delete")
-        {
+        if (event.key === "Delete") {
             deleteSlideObjects()
         }
     }
@@ -87,14 +95,12 @@ const ObjectWrapper = ({
         display: "none",
     }
 
-    if (isSelected && scale === WORK_AREA_SCALE)
-    {
+    if (isSelected && scale === WORK_AREA_SCALE) {
         wrapperStyles.outline = `${4 * scale}px solid #2684FC`
         wrapperStyles.zIndex = 100
         handleStyles.display = "block"
     }
-    if (isAdaptive)
-    {
+    if (isAdaptive) {
         wrapperStyles.height = "fit-content"
     }
 
@@ -110,47 +116,56 @@ const ObjectWrapper = ({
                 ...getSlideObjectStyles(isDragging
                     ? currentPos
                     : pos,
-                    size, scale
+                    size,
+                    scale
                 ),
                 ...wrapperStyles,
             }}
         >
             <div
+                data-handle="top-left"
                 ref={topLeftHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.topLeftHandle)}
             ></div>
             <div
+                data-handle="top"
                 ref={topHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.topHandle)}
             ></div>
             <div
+                data-handle="top-right"
                 ref={topRightHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.topRightHandle)}
             ></div>
             <div
+                data-handle="right"
                 ref={rightHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.rightHandle)}
             ></div>
             <div
+                data-handle="bottom-right"
                 ref={bottomRightHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.bottomRightHandle)}
             ></div>
             <div
+                data-handle="bottomt"
                 ref={bottomHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.bottomHandle)}
             ></div>
             <div
+                data-handle="bottom-left"
                 ref={bottomLeftHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.bottomLeftHandle)}
             ></div>
             <div
+                data-handle="left"
                 ref={leftHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.leftHandle)}

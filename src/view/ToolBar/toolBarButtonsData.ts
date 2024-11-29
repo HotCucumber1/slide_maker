@@ -1,4 +1,6 @@
 import {Icon} from "../../components/MenuButton/MenuButton.tsx";
+import undoButtonIcon from "../../assets/icons/undo.png";
+import redoButtonIcon from "../../assets/icons/redo.png";
 import uploadButtonIcon from "../../assets/icons/upload_button_icon.png";
 import addTextButtonIcon from "../../assets/icons/add_text_button_icon.png";
 import downloadButtonIcon from "../../assets/icons/download_button_icon.png";
@@ -68,11 +70,22 @@ const setBackgroundImageButtonContent: Icon = {
     src: setBackgroundImageButtonIcon,
 }
 
-
 const addFigureButtonContent: Icon = {
     type: "icon",
     src: addFigureButtonIcon,
 }
+
+const undoActionButtonContent: Icon = {
+    type: "icon",
+    src: undoButtonIcon,
+}
+
+const redoActionButtonContent: Icon = {
+    type: "icon",
+    src: redoButtonIcon,
+}
+
+
 
 export {
     uploadButtonContent,
@@ -87,4 +100,6 @@ export {
     setBackgroundImageButtonContent,
     setColorButtonContent,
     deleteSlideButtonContent,
+    undoActionButtonContent,
+    redoActionButtonContent
 }

@@ -4,11 +4,12 @@ import {defaultTextSettings} from "../../store/default_data/defaultObjectSetting
 import * as ButtonData from "./toolBarButtonsData.ts"
 import {downloadAsJson} from "../../file_utils/downloadAsJson.ts"
 import {uploadImageFile, uploadJsonPresentation} from "../../file_utils/uploadFile.ts"
-import {useRef, useState} from "react"
+import React, {useRef, useState} from "react"
 import icon from "../../assets/icons/icon.png"
 import {useAppSelector} from "../../hooks/useAppSelector.ts"
 import {useAppActions} from "../../hooks/useAppActions.ts"
 import {ErrorToast} from "../../components/ErrorToast/ErrorToast.tsx"
+import {HistoryContext} from "../../hooks/historyContext.ts"
 
 
 function ToolBar()
@@ -37,6 +38,7 @@ function ToolBar()
         addImage,
         setEditor,
     } = useAppActions()
+    const history = React.useContext(HistoryContext)
 
     const onButtonClick = (inputElement) => {
         inputElement.current.click();
@@ -81,6 +83,20 @@ function ToolBar()
         }
     }
 
+    const onUndo = () => {
+        const newEditor = history.undo()
+        if (newEditor) {
+            setEditor(newEditor)
+        }
+    }
+
+    const onRedo = () => {
+        const newEditor = history.redo()
+        if (newEditor) {
+            setEditor(newEditor)
+        }
+    }
+
     return (
         <div className={styles.toolBar}>
             <div className={styles.fileNameArea}>
@@ -122,6 +138,18 @@ function ToolBar()
                     onChange={onFileInputChange}
                     accept="application/json"
                 />
+
+                <span className={styles.slideActionsText}>Действие</span>
+                <MenuButton
+                    content={ButtonData.undoActionButtonContent}
+                    onClick={onUndo}
+                />
+                <MenuButton
+                    content={ButtonData.redoActionButtonContent}
+                    onClick={onRedo}
+                />
+                <div className={styles.toolBarSeparator}>
+                </div>
 
                 <span className={styles.slideActionsText}>Файл</span>
                 <MenuButton

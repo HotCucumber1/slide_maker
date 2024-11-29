@@ -17,7 +17,6 @@ const ErrorToast = ({
     onClose,
     duration
 }: ErrorToastProps) => {
-
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {

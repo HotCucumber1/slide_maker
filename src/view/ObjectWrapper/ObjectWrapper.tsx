@@ -32,7 +32,6 @@ const ObjectWrapper = ({
     isSelected,
     isAdaptive,
 }: ObjectWrapperProps) => {
-
     const wrapperRef = useRef(null)
 
     const topLeftHandle = useRef(null)
@@ -44,19 +43,20 @@ const ObjectWrapper = ({
     const bottomLeftHandle = useRef(null)
     const leftHandle = useRef(null)
 
-    // const [, setPos] = useState(pos)
+    const [currentPos, setPos] = useState(pos)
+    const [isDragging, setIsDragging] = useState(false)
 
-    // const newPos = useObjectDragAndDrop(wrapperRef, setPos)
-    // if (newPos !== null)
-    // {
-    //     dispatch(setObjectPosition, newPos)
-    // }
+    useObjectDragAndDrop(
+        wrapperRef,
+        setPos,
+        () => setIsDragging(true),
+        () => setIsDragging(false)
+    )
 
     const {
         setObjectSelection,
         deleteSlideObjects,
     } = useAppActions()
-
 
     const onObjectClick: React.MouseEventHandler = (event) => {
         event.stopPropagation()
@@ -107,7 +107,11 @@ const ObjectWrapper = ({
             onClick={onObjectClick}
             id={objectId}
             style={{
-                ...getSlideObjectStyles(pos, size, scale),
+                ...getSlideObjectStyles(isDragging
+                    ? currentPos
+                    : pos,
+                    size, scale
+                ),
                 ...wrapperStyles,
             }}
         >

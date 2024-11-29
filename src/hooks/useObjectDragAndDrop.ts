@@ -6,6 +6,7 @@ import {useAppActions} from "./useAppActions.ts"
 const useObjectDragAndDrop = (
     objectRef,
     setPos,
+    isSelected,
     onDragStart,
     onDragEnd
 ): void => {
@@ -16,7 +17,7 @@ const useObjectDragAndDrop = (
 
     useEffect(() => {
         const object = objectRef.current
-        if (!objectRef.current.isSelected) {
+        if (!isSelected) {
             return
         }
 

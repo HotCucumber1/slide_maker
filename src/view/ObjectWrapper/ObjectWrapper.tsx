@@ -51,6 +51,7 @@ const ObjectWrapper = ({
     useObjectDragAndDrop(
         wrapperRef,
         setPos,
+        isSelected,
         () => setIsDragging(true),
         () => setIsDragging(false)
     )

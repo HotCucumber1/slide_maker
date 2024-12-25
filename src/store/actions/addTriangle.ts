@@ -1,45 +1,54 @@
-import {Editor} from "../editor.ts";
-import {TriangleFigure} from "../objects.ts";
-import {AddFigureProps} from "./addFigureProps.ts";
+import { Editor } from "../editor.ts";
+import { TriangleFigure } from "../objects.ts";
+import { AddFigureProps } from "./addFigureProps.ts";
 import {
     defaultPos,
     defaultSize,
     defaultFillStyle,
     defaultStrokeWidth,
-    defaultStrokeStyle} from "../default_data/defaultObjectSettings.ts";
-import {v4 as uuidv4} from "uuid";
+    defaultStrokeStyle
+} from "../default_data/defaultObjectSettings.ts";
+import { v4 as uuidv4 } from "uuid";
 
-function addTriangle(editor: Editor, props?: AddFigureProps): Editor
-{
+function addTriangle(editor: Editor, props?: AddFigureProps): Editor {
     const newTriangle: TriangleFigure = {
         id: uuidv4(),
-        pos: props?.position === undefined ? defaultPos : props.position,
-        size: props?.size === undefined ? defaultSize : props.size,
-        fillStyle: props?.fillStyle === undefined ? defaultFillStyle : props.fillStyle,
-        strokeWidth: props?.strokeWidth === undefined ? defaultStrokeWidth : props.strokeWidth,
-        strokeStyle:  props?.strokeStyle === undefined ? defaultStrokeStyle : props.strokeStyle,
+        pos: props?.position ?? defaultPos,
+        size: props?.size ?? defaultSize,
+        fillStyle: props?.fillStyle ?? defaultFillStyle,
+        strokeWidth: props?.strokeWidth ?? defaultStrokeWidth,
+        strokeStyle: props?.strokeStyle ?? defaultStrokeStyle,
         type: "triangle",
     };
 
-    const currentSlide = editor.presentation.slides.filter(
+    const currentSlideIndex = editor.presentation.slides.findIndex(
         slide => slide.id === editor.selectedSlides[0]
-    )[0];
-    const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
+    );
 
-    currentSlide.content.push(newTriangle);
-    const newSlides = editor.presentation.slides.slice();
-    newSlides[currentSlideIndex] = currentSlide;
+    if (currentSlideIndex === -1) {
+        return editor;
+    }
+
+    const newSlides = editor.presentation.slides.map((slide, index) => {
+        if (index === currentSlideIndex) {
+            return {
+                ...slide,
+                content: [...slide.content, newTriangle],
+            };
+        }
+        return slide;
+    });
 
     return {
         ...editor,
         presentation: {
             ...editor.presentation,
-            slides: newSlides
+            slides: newSlides,
         },
-        selectedObjects: [newTriangle.id]
+        selectedObjects: [newTriangle.id],
     };
 }
 
 export {
     addTriangle,
-}
+};

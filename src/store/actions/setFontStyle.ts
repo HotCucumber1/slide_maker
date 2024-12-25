@@ -1,37 +1,40 @@
 import {Editor} from "../editor.ts";
 import {FontStyle} from "../objects.ts";
 
-function setFontStyle(editor: Editor, newFontStyles: FontStyle): Editor
-{
-    const currentSlide = editor.presentation.slides.filter(
+function setFontStyle(editor: Editor, newFontStyles: FontStyle): Editor {
+    const currentSlideIndex = editor.presentation.slides.findIndex(
         slide => slide.id === editor.selectedSlides[0]
-    )[0];
-    const updatedContent = currentSlide.content.filter(
-        object => editor.selectedObjects.indexOf(object.id) === -1
-    )[0];
+    );
 
-    if (updatedContent.type !== "text")
-    {
-        return editor;
-    }
+    if (currentSlideIndex === -1) return editor; // Если слайд не найден
 
-    updatedContent.fontStyles = newFontStyles;
-    currentSlide.content = [
-        ...currentSlide.content,
-        updatedContent,
-    ];
+    const currentSlide = editor.presentation.slides[currentSlideIndex];
+
+    const updatedContent = currentSlide.content.map(object => {
+        if (editor.selectedObjects.includes(object.id) && object.type === "text") {
+            return {
+                ...object,
+                fontStyles: newFontStyles,
+            };
+        }
+        return object;
+    });
+
+    const updatedSlides = [...editor.presentation.slides];
+    updatedSlides[currentSlideIndex] = {
+        ...currentSlide,
+        content: updatedContent,
+    };
 
     return {
         ...editor,
         presentation: {
             ...editor.presentation,
-            slides: [
-                ...editor.presentation.slides,
-                currentSlide,
-            ]
-        }
+            slides: updatedSlides,
+        },
     };
 }
+
 
 export {
     setFontStyle,

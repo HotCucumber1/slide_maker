@@ -1,11 +1,11 @@
 import React from "react"
-import {History} from "../service/history.ts"
+import {HistoryType} from "../service/history.ts"
 
-const defaultHistory: History = {
+const defaultHistory: HistoryType = {
     undo: () => undefined,
     redo: () => undefined,
 }
-const HistoryContext: React.Context<History> = React.createContext(defaultHistory)
+const HistoryContext: React.Context<HistoryType> = React.createContext(defaultHistory)
 
 export {
     HistoryContext,

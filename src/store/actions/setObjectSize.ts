@@ -1,33 +1,45 @@
 import {Editor} from "../editor.ts";
-import {Size} from "../objects.ts";
+import {Size} from "../objects.ts"
 
-function setObjectSize(editor: Editor, newSize: Size): Editor
-{
-    const currentSlide = editor.presentation.slides.filter(
+function setObjectSize(editor: Editor, newSize: Size): Editor {
+
+    const currentSlide = editor.presentation.slides.find(
         slide => slide.id === editor.selectedSlides[0]
-    )[0];
-    const selectedObject = currentSlide.content.filter(
+    );
+
+    if (!currentSlide) {
+        return editor;
+    }
+
+    const selectedObject = currentSlide.content.find(
         object => editor.selectedObjects.includes(object.id)
-    )[0]
-    const objectIndex = currentSlide.content.indexOf(selectedObject)
+    );
+
+    if (!selectedObject) {
+        return editor;
+    }
 
     selectedObject.size = newSize;
 
-    const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide)
+    const updatedContent = currentSlide.content.map(
+        object => object.id === selectedObject.id ? selectedObject : object
+    )
+    const updatedSlide = { ...currentSlide, content: updatedContent };
 
-    currentSlide.content[objectIndex] = selectedObject
-    const newSlides = editor.presentation.slides.slice()
-    newSlides[currentSlideIndex] = currentSlide
+    const updatedSlides = editor.presentation.slides.map(
+        slide => slide.id === currentSlide.id ? updatedSlide : slide
+    );
 
     return {
         ...editor,
         selectedObjects: [selectedObject.id],
         presentation: {
             ...editor.presentation,
-            slides: newSlides,
+            slides: updatedSlides,
         }
-    }
+    };
 }
+
 
 export {
     setObjectSize,

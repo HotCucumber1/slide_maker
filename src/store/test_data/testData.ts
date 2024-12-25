@@ -117,7 +117,7 @@ maxSlides.push({
             fontSize: 72,
             fontFamily: "Montserrat",
             fontStyles: ["italic", "underline"],
-            color: {
+            fillStyle: {
                 value: "black",
                 type: "color",
             },

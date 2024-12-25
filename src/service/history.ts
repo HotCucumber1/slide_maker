@@ -1,7 +1,7 @@
 import { Store } from "redux";
 import { Editor } from "../store/editor.ts";
 
-type History = {
+type HistoryType = {
     undo: () => Editor | undefined,
     redo: () => Editor | undefined,
 }
@@ -11,7 +11,7 @@ function getLastItem(stack: Editor[]): Editor {
 }
 
 
-function initHistory(store: Store<Editor>): History
+function initHistory(store: Store<Editor>): HistoryType
 {
     const undoStack: Editor[] = []
     let redoStack: Editor[] = []
@@ -56,6 +56,6 @@ function initHistory(store: Store<Editor>): History
 }
 
 export {
-    History,
+    type HistoryType,
     initHistory
 }

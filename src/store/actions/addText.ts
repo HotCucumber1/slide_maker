@@ -1,53 +1,61 @@
-import {v4 as uuidv4} from "uuid";
-import {Color, FontStyle, Point, Size, TextObject} from "../objects.ts";
-import {Editor} from "../editor.ts";
+import { v4 as uuidv4 } from "uuid";
+import { Color, FontStyle, Point, Size, TextObject } from "../objects.ts";
+import { Editor } from "../editor.ts";
 
 type AddTextProps = {
-    fontSize: number,
-    fontFamily: string,
-    fontStyles: FontStyle,
-    size?: Size,
-    color?: Color,
-    position?: Point,
-}
+    fontSize: number;
+    fontFamily: string;
+    fontStyles: FontStyle;
+    size?: Size;
+    color?: Color;
+    position?: Point;
+};
 
-function addText(editor: Editor, props: AddTextProps): Editor
-{
+function addText(editor: Editor, props: AddTextProps): Editor {
     const defaultPosition: Point = {
         x: 500,
         y: 500,
-    }
+    };
     const defaultColor: Color = {
         value: "black",
-        type: "color"
+        type: "color",
     };
     const defaultTextPadding: number = 5;
+
     const defaultSize: Size = {
         height: props.fontSize + 2 * defaultTextPadding,
-        width: 700
+        width: 700,
     };
-    const defaultText: string = "";
 
     const textObject: TextObject = {
         id: uuidv4(),
-        pos: typeof props.position === "undefined" ? defaultPosition : props.position,
-        text: defaultText,
-        size: typeof props.size === "undefined" ? defaultSize : props.size,
+        pos: props.position ?? defaultPosition,
+        text: "",
+        size: props.size ?? defaultSize,
         fontSize: props.fontSize,
         fontFamily: props.fontFamily,
         fontStyles: props.fontStyles,
-        color: typeof props.color === "undefined" ? defaultColor : props.color,
+        color: props.color ?? defaultColor,
         type: "text",
     };
 
-    const currentSlide = editor.presentation.slides.filter(
+    const currentSlideIndex = editor.presentation.slides.findIndex(
         slide => slide.id === editor.selectedSlides[0]
-    )[0];
-    const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
+    );
 
-    currentSlide.content.push(textObject);
-    const newSlides = editor.presentation.slides.slice();
-    newSlides[currentSlideIndex] = currentSlide;
+    if (currentSlideIndex === -1) {
+        return editor;
+    }
+
+    const newSlides = editor.presentation.slides.map((slide, index) => {
+        if (index === currentSlideIndex) {
+            return {
+                ...slide,
+                content: [...slide.content, textObject],
+            };
+        }
+        return slide;
+    });
 
     return {
         ...editor,
@@ -61,5 +69,5 @@ function addText(editor: Editor, props: AddTextProps): Editor
 
 export {
     addText,
-    AddTextProps
-}
+    AddTextProps,
+};

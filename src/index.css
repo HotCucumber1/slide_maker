@@ -14,6 +14,7 @@ body {
 
 :root {
     --light-gray-color: #DADADA;
+    --gray-color: #505050;
     --error-color: #FFEBEA;
     --tool-bar-margin: 15px;
     --tool-bar-border-radius: 15px;

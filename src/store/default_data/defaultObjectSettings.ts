@@ -1,6 +1,8 @@
 import {Color, Point, Size} from "../objects.ts";
 
 
+const MIN_FONT_SIZE: number = 10;
+const MAX_FONT_SIZE: number = 100;
 const DEFAULT_FONT_SIZE: number = 72;
 const DEFAULT_TEXT_COLOR: Color = {
     value: "black",
@@ -24,6 +26,11 @@ const DEFAULT_FILL_STYLE: Color = {
 };
 const DEFAULT_STROKE_WIDTH: number = 4;
 
+const ARIAL = "Arial"
+const TIMES_NEW_ROMAN = "Times New Roman"
+const COURIER_NEW = "Courier New"
+const VERDANA = "Verdana"
+const MONTSERRAT = "Montserrat"
 
 
 const defaultTextSettings = {
@@ -32,7 +39,17 @@ const defaultTextSettings = {
     fontFamily: DEFAULT_FONT_FAMILY,
     fontStyles: [],
     size: DEFAULT_TEXT_SIZE,
+    minFontSize: MIN_FONT_SIZE,
+    maxFontSize: MAX_FONT_SIZE,
 };
+
+const FONTS = [
+    ARIAL,
+    TIMES_NEW_ROMAN,
+    COURIER_NEW,
+    VERDANA,
+    MONTSERRAT,
+]
 
 const defaultSize: Size = {
     width: DEFAULT_OBJECT_WIDTH,
@@ -57,4 +74,5 @@ export {
     defaultFillStyle,
     defaultSize,
     defaultPos,
+    FONTS
 }

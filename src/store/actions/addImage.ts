@@ -1,15 +1,14 @@
-import {Editor} from "../editor.ts";
-import {ImageObject, Point} from "../objects.ts";
-import {defaultPos} from "../default_data/defaultObjectSettings.ts";
-import {v4 as uuidv4} from "uuid";
-
+import { Editor } from "../editor.ts";
+import { ImageObject, Point } from "../objects.ts";
+import { defaultPos } from "../default_data/defaultObjectSettings.ts";
+import { v4 as uuidv4 } from "uuid";
 
 type AddImageProps = {
-    position?: Point,
-    src: string,
-    width: number,
-    height: number
-}
+    position?: Point;
+    src: string;
+    width: number;
+    height: number;
+};
 
 function addImage(
     editor: Editor,
@@ -19,27 +18,27 @@ function addImage(
         width,
         height
     }: AddImageProps
-): Editor
-{
+): Editor {
     const imageObject: ImageObject = {
         id: uuidv4(),
-        pos: typeof position === "undefined" ? defaultPos : position,
+        pos: position ?? defaultPos,
         size: {
-            width: width,
-            height: height
+            width,
+            height,
         },
-        src: src,
+        src,
         type: "image",
     };
-    const currentSlide = editor.presentation.slides.filter(
-        slide => slide.id === editor.selectedSlides[0]
-    )[0];
 
-    const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
-
-    currentSlide.content.push(imageObject);
-    const newSlides = editor.presentation.slides.slice();
-    newSlides[currentSlideIndex] = currentSlide;
+    const newSlides = editor.presentation.slides.map(slide => {
+        if (slide.id === editor.selectedSlides[0]) {
+            return {
+                ...slide,
+                content: [...slide.content, imageObject],
+            };
+        }
+        return slide;
+    });
 
     return {
         ...editor,
@@ -47,12 +46,11 @@ function addImage(
             ...editor.presentation,
             slides: newSlides,
         },
-        selectedObjects: [imageObject.id]
+        selectedObjects: [imageObject.id],
     };
 }
-
 
 export {
     addImage,
     AddImageProps,
-}
+};

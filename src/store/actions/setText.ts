@@ -1,38 +1,52 @@
 import {Editor} from "../editor.ts";
-import {SlideObject} from "../objects.ts";
+import {Slide, SlideObject, TextObject} from "../objects.ts"
 
-function setText(editor: Editor, newText: string): Editor
-{
-    const currentSlide = editor.presentation.slides.filter(
+function setText(editor: Editor, newText: string): Editor {
+    const currentSlide = editor.presentation.slides.find(
         slide => slide.id === editor.selectedSlides[0]
-    )[0];
-    const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
+    );
 
-    const updatedContent: SlideObject = currentSlide.content.filter(
-        object => editor.selectedObjects.indexOf(object.id) !== -1
-    )[0];
-
-    const updatedContentIndex = currentSlide.content.indexOf(updatedContent);
-
-    if (currentSlide.content[updatedContentIndex].type !== "text")
-    {
+    if (!currentSlide) {
         return editor;
     }
 
+    const updatedContentIndex = currentSlide.content.findIndex(
+        object => editor.selectedObjects.includes(object.id)
+    );
 
-    currentSlide.content[updatedContentIndex].text = newText;
+    if (updatedContentIndex === -1 || currentSlide.content[updatedContentIndex].type !== "text") {
+        return editor;
+    }
 
-    const newSlides = editor.presentation.slides.slice();
-    newSlides[currentSlideIndex] = currentSlide;
+    const updatedContent: TextObject = {
+        ...currentSlide.content[updatedContentIndex],
+        text: newText,
+    };
+
+    const updatedContentList: SlideObject[] = [
+        ...currentSlide.content.slice(0, updatedContentIndex),
+        updatedContent,
+        ...currentSlide.content.slice(updatedContentIndex + 1),
+    ];
+
+    const newSlides: Slide[] = [
+        ...editor.presentation.slides.slice(0, editor.presentation.slides.indexOf(currentSlide)),
+        {
+            ...currentSlide,
+            content: updatedContentList,
+        },
+        ...editor.presentation.slides.slice(editor.presentation.slides.indexOf(currentSlide) + 1),
+    ];
 
     return {
         ...editor,
         presentation: {
             ...editor.presentation,
             slides: newSlides,
-        }
+        },
     };
 }
+
 
 export {
     setText,

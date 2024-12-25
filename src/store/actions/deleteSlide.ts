@@ -1,29 +1,30 @@
-import {Editor} from "../editor.ts";
+import { Editor } from "../editor.ts";
 
-function deleteSlides(editor: Editor): Editor
-{
-    const lastSelectedSlideId = editor.selectedSlides[editor.selectedSlides.length - 1];
-    let newActiveSlidePos = editor.presentation.slides
-                                                    .map((slide) => slide.id)
-                                                    .indexOf(lastSelectedSlideId) + 1;
+function deleteSlides(editor: Editor): Editor {
+    const selectedSlides = editor.selectedSlides;
 
-    if (newActiveSlidePos > editor.presentation.slides.length - 1)
-    {
-        const firstSelectedSlideId = editor.selectedSlides[editor.selectedSlides.length - 1];
-        newActiveSlidePos = editor.presentation.slides
-                                            .map((slide) => slide.id)
-                                            .indexOf(firstSelectedSlideId) - 1;
+    if (selectedSlides.length === 0) {
+        return editor;
     }
 
-    let selection = [];
-    if (newActiveSlidePos >= 0)
-    {
-        const newActiveSlideId = editor.presentation.slides[newActiveSlidePos].id;
-        selection = [newActiveSlideId];
+    const lastSelectedSlideId = selectedSlides[selectedSlides.length - 1];
+
+    const lastSelectedSlideIndex = editor.presentation.slides.findIndex(
+        slide => slide.id === lastSelectedSlideId
+    );
+
+    let newActiveSlidePos = lastSelectedSlideIndex + 1;
+
+    if (newActiveSlidePos >= editor.presentation.slides.length) {
+        newActiveSlidePos = lastSelectedSlideIndex - 1;
     }
+
+    const selection = newActiveSlidePos >= 0 && newActiveSlidePos < editor.presentation.slides.length
+        ? [editor.presentation.slides[newActiveSlidePos].id]
+        : [];
 
     const newSlides = editor.presentation.slides.filter(
-        slide => editor.selectedSlides.indexOf(slide.id) === -1
+        slide => !selectedSlides.includes(slide.id)
     );
 
     return {
@@ -32,10 +33,10 @@ function deleteSlides(editor: Editor): Editor
         presentation: {
             ...editor.presentation,
             slides: newSlides,
-        }
+        },
     };
 }
 
 export {
     deleteSlides,
-}
+};

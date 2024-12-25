@@ -1,40 +1,46 @@
-import {Editor} from "../editor.ts";
-import {Color} from "../objects.ts";
+import { Editor } from "../editor.ts";
+import { Color, Slide, SlideObject } from "../objects.ts";
 
-function setFigureColor(editor: Editor, color: Color)
-{
-    const currentSlide = editor.presentation.slides.filter(
+function setFigureColor(editor: Editor, color: Color): Editor {
+    const currentSlideIndex = editor.presentation.slides.findIndex(
         slide => slide.id === editor.selectedSlides[0]
-    )[0];
+    );
 
-    const selectedObjects = currentSlide.content
-        .filter(
-            object => editor.selectedObjects.includes(object.id)
-        )
-        .filter(
-            object => object.type === "label" || object.type === "triangle" || object.type === "ellipse"
-        );
+    if (currentSlideIndex === -1) {
+        return editor;
+    }
 
-    selectedObjects.forEach(figure => {
-        figure.fillStyle = color;
-        const objectIndex = currentSlide.content.indexOf(figure);
-        currentSlide.content[objectIndex] = figure;
+    const currentSlide = editor.presentation.slides[currentSlideIndex];
+
+    const updatedContent: SlideObject[] = currentSlide.content.map(object => {
+        if (editor.selectedObjects.includes(object.id) && (object.type !== "image" && object.type !== "text")) {
+            return {
+                ...object,
+                fillStyle: color,
+            };
+        }
+        return object;
     });
 
-    const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide);
-
-    const newSlides = editor.presentation.slides.slice();
-    newSlides[currentSlideIndex] = currentSlide;
+    const newSlides: Slide[] = editor.presentation.slides.map((slide, index) => {
+        if (index === currentSlideIndex) {
+            return {
+                ...slide,
+                content: updatedContent
+            };
+        }
+        return slide;
+    });
 
     return {
         ...editor,
         presentation: {
             ...editor.presentation,
-            slides: newSlides
-        }
+            slides: newSlides,
+        },
     };
 }
 
 export {
     setFigureColor,
-}
+};

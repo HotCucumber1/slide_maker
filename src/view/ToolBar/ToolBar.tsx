@@ -1,100 +1,35 @@
 import styles from "./ToolBar.module.css"
-import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
-import {defaultTextSettings} from "../../store/default_data/defaultObjectSettings.ts"
-import * as ButtonData from "./toolBarButtonsData.ts"
-import {downloadAsJson} from "../../file_utils/downloadAsJson.ts"
-import {uploadImageFile, uploadJsonPresentation} from "../../file_utils/uploadFile.ts"
-import React, {useRef, useState} from "react"
+import
+    React, {
+    useRef,
+    useState
+} from "react"
 import icon from "../../assets/icons/icon.png"
 import {useAppSelector} from "../../hooks/useAppSelector.ts"
 import {useAppActions} from "../../hooks/useAppActions.ts"
 import {ErrorToast} from "../../components/ErrorToast/ErrorToast.tsx"
-import {HistoryContext} from "../../hooks/historyContext.ts"
-
+import {HistoryTools} from "./HistoryTools.tsx"
+import {FileTools} from "./FileTools.tsx"
+import {PdfTools} from "./PdfTools.tsx"
+import {SlideTools} from "./SlideTools.tsx"
+import {ObjectTools} from "./ObjectTools.tsx"
+import {TextTools} from "./TextTools.tsx"
 
 function ToolBar()
 {
     const [showToast, setShowToast] = useState(false)
 
-    const imageFileInputRef = useRef(null);
-    const backgroundFileInputRef = useRef(null);
-    const colorInputRef = useRef(null);
-    const uploadFileInputRef = useRef(null);
-    const titleRef = useRef(null);
+    const [textTools, setTextTools] = useState(false)
+    const [figureTools, setFigureTools] = useState(false)
+
+    const titleRef = useRef(null)
 
     const editor = useAppSelector((editor => editor))
     const title = editor.presentation.title
-    const selectedObjects = editor.selectedObjects
-    const {
-        addSlide,
-        setPresentationTitle,
-        setFigureColor,
-        setSlideBackground,
-        deleteSlides,
-        addText,
-        addLabel,
-        addTriangle,
-        addEllipse,
-        addImage,
-        setEditor,
-    } = useAppActions()
-    const history = React.useContext(HistoryContext)
+    const { setPresentationTitle } = useAppActions()
 
     const onButtonClick = (inputElement) => {
-        inputElement.current.click();
-    }
-
-    const onColorChange = (event) => {
-        if (selectedObjects.length > 0)
-        {
-            setFigureColor({
-                value: (event.target as HTMLInputElement).value,
-                type: "color",
-            });
-        }
-        else
-        {
-            setSlideBackground({
-                value: (event.target as HTMLInputElement).value,
-                type: "color",
-            });
-        }
-    }
-
-    const onImageInputChange = async (event) => {
-        const file: File = event.target.files[0];
-        if (uploadImageFile(file, "object", addImage)) {
-            setShowToast(true)
-        }
-    }
-
-    const onFileInputChange = async (event) => {
-        const file: File = event.target.files[0];
-        if (!uploadJsonPresentation(file, setEditor)) {
-            setShowToast(true)
-        }
-        event.target.value = null;
-    }
-
-    const onBackgroundInputChange = async (event) => {
-        const file: File = event.target.files[0];
-        if (!uploadImageFile(file, "background", setSlideBackground)) {
-            setShowToast(true)
-        }
-    }
-
-    const onUndo = () => {
-        const newEditor = history.undo()
-        if (newEditor) {
-            setEditor(newEditor)
-        }
-    }
-
-    const onRedo = () => {
-        const newEditor = history.redo()
-        if (newEditor) {
-            setEditor(newEditor)
-        }
+        inputElement.current.click()
     }
 
     return (
@@ -114,132 +49,42 @@ function ToolBar()
                 />
             </div>
             <div className={styles.toolArea}>
-                <input
-                    className={styles.fileInput}
-                    ref={imageFileInputRef}
-                    type="file"
-                    id="imageFileInput"
-                    onChange={onImageInputChange}
-                    accept="image/"
-                />
-                <input
-                    className={styles.fileInput}
-                    ref={backgroundFileInputRef}
-                    type="file"
-                    id="bgFileInput"
-                    onChange={onBackgroundInputChange}
-                    accept="image/"
-                />
-                <input
-                    className={styles.fileInput}
-                    ref={uploadFileInputRef}
-                    type="file"
-                    id="jsonFileInput"
-                    onChange={onFileInputChange}
-                    accept="application/json"
-                />
-
-                <span className={styles.slideActionsText}>Действие</span>
-                <MenuButton
-                    content={ButtonData.undoActionButtonContent}
-                    onClick={onUndo}
-                />
-                <MenuButton
-                    content={ButtonData.redoActionButtonContent}
-                    onClick={onRedo}
-                />
+                <HistoryTools></HistoryTools>
                 <div className={styles.toolBarSeparator}>
                 </div>
 
-                <span className={styles.slideActionsText}>Файл</span>
-                <MenuButton
-                    content={ButtonData.downloadButtonContent}
-                    onClick={() => downloadAsJson(
-                        editor,
-                        title
-                    )}
-                />
-                <MenuButton
-                    content={ButtonData.uploadButtonContent}
-                    onClick={() => onButtonClick(uploadFileInputRef)}
-                />
+                <FileTools
+                    onClick={onButtonClick}
+                    setError={setShowToast}
+                ></FileTools>
                 <div className={styles.toolBarSeparator}>
                 </div>
 
-                <span className={styles.slideActionsText}>Слайд</span>
-                <MenuButton
-                    content={ButtonData.addSlideButtonContent}
-                    onClick={() => addSlide()}
-                />
-                <MenuButton
-                    content={ButtonData.deleteSlideButtonContent}
-                    onClick={() => deleteSlides()}
-                />
-                <MenuButton
-                    content={ButtonData.setColorButtonContent}
-                    onClick={() => onButtonClick(colorInputRef)}
-                    iconStyles={{
-                        height: "50%",
-                    }}
-                />
-                <input
-                    className={styles.colorInput}
-                    type="color"
-                    id="colorInput"
-                    onChange={onColorChange}
-                    ref={colorInputRef}
-                />
-                <MenuButton
-                    content={ButtonData.setBackgroundImageButtonContent}
-                    onClick={() => onButtonClick(backgroundFileInputRef)}
-                    iconStyles={{
-                        height: "60%",
-                    }}
-                />
+                <PdfTools></PdfTools>
                 <div className={styles.toolBarSeparator}>
                 </div>
 
-                <span className={styles.slideActionsText}>Добавить объект</span>
-                <MenuButton
-                    content={ButtonData.addTextButtonContent}
-                    onClick={() => addText(defaultTextSettings)}
-                />
-                <MenuButton
-                    content={ButtonData.addImageButtonContent}
-                    onClick={() => onButtonClick(imageFileInputRef)}
-                    iconStyles={{
-                        marginTop: "2px",
-                        height: "50%",
-                    }}
-                />
-                <MenuButton
-                    content={ButtonData.addLabelButtonContent}
-                    onClick={() => addLabel()}
-                    iconStyles={{
-                        marginTop: "1px",
-                        height: "45%",
-                    }}
-                />
-                <MenuButton
-                    content={ButtonData.addTriangleButtonContent}
-                    onClick={() => addTriangle()}
-                    iconStyles={{
-                        marginTop: "1px",
-                        height: "56%",
-                    }}
-                />
-                <MenuButton
-                    content={ButtonData.addCircleButtonContent}
-                    onClick={() => addEllipse()}
-                    iconStyles={{
-                        marginTop: "1px",
-                        height: "50%",
-                    }}
-                />
-
+                <SlideTools
+                    onClick={onButtonClick}
+                    setError={setShowToast}
+                ></SlideTools>
                 <div className={styles.toolBarSeparator}>
                 </div>
+
+                <ObjectTools
+                    isText={textTools}
+                    showText={setTextTools}
+                    isObject={figureTools}
+                    showObject={setFigureTools}
+                    onClick={onButtonClick}
+                    setError={setShowToast}
+                ></ObjectTools>
+                <div className={styles.toolBarSeparator}>
+                </div>
+
+                {textTools && <TextTools></TextTools>}
             </div>
+
             {showToast &&
                 <ErrorToast
                     message={"Выберите корректный тип файла"}

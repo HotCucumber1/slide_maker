@@ -10,7 +10,7 @@ import {LabelObjectView} from "../LabelObject/LabelObjectView.tsx"
 import {EllipseObject} from "../EllipseObject/EllipseObject.tsx"
 import {TriangleObjectView} from "../TriangleObject/TriangleObject.tsx"
 import styles from "./SlideView.module.css"
-import {CSSProperties} from "react"
+import {CSSProperties, useEffect} from "react"
 import {ObjectWrapper} from "../ObjectWrapper/ObjectWrapper.tsx"
 import {useAppSelector} from "../../hooks/useAppSelector.ts"
 import {useAppActions} from "../../hooks/useAppActions.ts"
@@ -24,8 +24,8 @@ type SlideProps = {
     scale: number,
     background: Color|Gradient|Image,
     content: Array<SlideObject>,
-    isActive?: boolean,
     extraStyles?: CSSProperties,
+    onRenderComplete: () => void
 };
 
 
@@ -34,10 +34,17 @@ const SlideView = ({
     background,
     content,
     extraStyles,
+    onRenderComplete
 }: SlideProps) => {
 
     const objectSelection = useAppSelector(editor => editor.selectedObjects)
     const { setObjectSelection } = useAppActions()
+
+    useEffect(() => {
+        if (onRenderComplete) {
+            onRenderComplete();
+        }
+    }, [onRenderComplete]);
 
     const slideStyle: CSSProperties = {
         ...extraStyles,

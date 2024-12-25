@@ -1,86 +1,107 @@
-import Ajv from "ajv";
-import {Editor} from "../store/editor.ts";
-import {Presentation, Slide} from "../store/objects.ts";
+import Ajv from "ajv"
+import {Editor} from "../store/editor.ts"
 
+const OBJECT_TYPE: string = "object"
+const STRING_TYPE: string = "string"
+const ARRAY_TYPE: string = "array"
+const NUMBER_TYPE: string = "number";
 
-const OBJECT_TYPE: string = "object";
-const STRING_TYPE: string = "string";
-const ARRAY_TYPE: string = "array";
+const backgroundSchema = {
+    type: OBJECT_TYPE,
+    properties: {
+        value: { type: STRING_TYPE },
+        type: { type: STRING_TYPE },
+    },
+    required: [
+        "type",
+        "value",
+    ],
+}
 
+const slideContentSchema = {
+    type: OBJECT_TYPE,
+    properties: {
+        $id: { type: STRING_TYPE },
+        pos: {
+            type: OBJECT_TYPE,
+            properties: {
+                x: { type: NUMBER_TYPE },
+                y: { type: NUMBER_TYPE }
+            }
+        },
+        size: {
+            type: OBJECT_TYPE,
+            properties: {
+                x: { type: NUMBER_TYPE },
+                y: { type: NUMBER_TYPE }
+            }}
+        ,
+    },
+    required: [
+        "type",
+        "id",
+        "size",
+        "pos",
+    ],
+}
+
+const slideSchema = {
+    type: OBJECT_TYPE,
+    properties: {
+        $id: { type: STRING_TYPE },
+        background: backgroundSchema,
+        content: {
+            type: ARRAY_TYPE,
+            items: slideContentSchema,
+        }
+    }
+}
+
+const presentationSchema = {
+    type: OBJECT_TYPE,
+    properties: {
+        title: { type: STRING_TYPE },
+        slides: {
+            type: ARRAY_TYPE,
+            items: slideSchema,
+        },
+    },
+    required: [
+        "title",
+        "slides",
+    ],
+}
 
 const editorSchema: object = {
     type: OBJECT_TYPE,
     properties: {
-        presentation: { type: OBJECT_TYPE },
-        selectedSlides: { type: ARRAY_TYPE },
-        selectedObjects: { type: ARRAY_TYPE },
+        presentation: presentationSchema,
+        selectedSlides: {
+            type: ARRAY_TYPE,
+            items: {
+                type: STRING_TYPE,
+            }
+        },
+        selectedObjects: {
+            type: ARRAY_TYPE,
+            items: {
+                type: STRING_TYPE,
+            }
+        },
     },
     required: [
         "presentation",
         "selectedSlides",
         "selectedObjects"
     ],
-};
-
-const presentationSchema: object = {
-    type: OBJECT_TYPE,
-    properties: {
-        title: { type: STRING_TYPE },
-        slides: { type: ARRAY_TYPE },
-    },
-    required: [
-        "title",
-        "slides",
-    ],
-};
-
-const slideSchema: object = {
-    type: OBJECT_TYPE,
-    properties: {
-        id: { type: STRING_TYPE },
-        background: { type: OBJECT_TYPE },
-        content: { type: ARRAY_TYPE },
-    },
-    required: [
-        "id",
-        "background",
-        "content",
-    ],
-};
-
-const ajv = new Ajv();
-
-const editorSerialize = ajv.compile(editorSchema);
-const presentationSerialize = ajv.compile(presentationSchema);
-const slideSerialize = ajv.compile(slideSchema);
-
-
-function checkSlidesValid(slides: Slide[]): boolean
-{
-    slides.forEach((slide: Slide) => {
-        if (!slideSerialize(slide))
-        {
-            return false;
-        }
-    });
-    return true;
 }
 
+const ajv = new Ajv()
+const editorSerialize = ajv.compile(editorSchema)
 
-function isValidPresentationJson(jsonEditor: string): boolean
-{
+function isValidPresentationJson(jsonEditor: string): boolean {
     const editor: Editor = JSON.parse(jsonEditor);
-    const isEditorValid: boolean = editorSerialize(editor);
-
-    const presentation: Presentation = editor.presentation;
-    const isPresentationValid: boolean = presentationSerialize(presentation);
-
-    const slides: Slide[] = presentation.slides;
-    const areSlidesValid: boolean = checkSlidesValid(slides);
-
-    return isEditorValid &&
-           isPresentationValid &&
-           areSlidesValid;
+    return editorSerialize(editor);
 }
 
 export {

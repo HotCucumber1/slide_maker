@@ -14,6 +14,7 @@ import {PdfTools} from "./PdfTools.tsx"
 import {SlideTools} from "./SlideTools.tsx"
 import {ObjectTools} from "./ObjectTools.tsx"
 import {TextTools} from "./TextTools.tsx"
+import {ImageTools} from "./ImageTools.tsx"
 
 function ToolBar()
 {
@@ -79,6 +80,9 @@ function ToolBar()
                     onClick={onButtonClick}
                     setError={setShowToast}
                 ></ObjectTools>
+                <div className={styles.toolBarSeparator}>
+                </div>
+                <ImageTools></ImageTools>
                 <div className={styles.toolBarSeparator}>
                 </div>
 

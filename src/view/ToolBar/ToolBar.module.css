@@ -77,6 +77,55 @@
     color: var(--gray-color);
 }
 
-.fontFamilyDropDownList {
+.imageField {
+    position: relative;
+}
 
+.gallery {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    top: 50px;
+    left: 0;
+    border-radius: 10px;
+    width: 360px;
+    height: 360px;
+    overflow-y: scroll;
+    background-color: #EDF2FA;
+    box-shadow: 0 5px 5px var(--light-gray-color);
+    padding: 10px;
+}
+
+.galleryImage {
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+}
+
+.galleryImage:hover {
+    box-shadow: 0 5px 5px var(--gray-color);
+}
+
+.galleryImage:active {
+    transform: scale(0.96);
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }

@@ -36,6 +36,7 @@ enum ActionType {
     SET_SLIDE_POSITION = "SET_SLIDE_POSITION",
     SET_TEXT = "SET_TEXT",
     SET_EDITOR = "SET_EDITOR",
+    IMPORT_IMAGE = "IMPORT_IMAGE"
 }
 
 type AddEllipseAction = {
@@ -145,6 +146,10 @@ type SetEditor = {
     payload: Editor
 }
 
+type ImportImage = {
+    type: ActionType.IMPORT_IMAGE
+}
+
 type EditorAction =
     AddEllipseAction
     |AddImageAction
@@ -168,6 +173,7 @@ type EditorAction =
     |SetEditor
     |DeleteSlideAction
     |DeleteSlideObjectAction
+    |ImportImage
 
 export {
     ActionType,

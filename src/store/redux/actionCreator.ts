@@ -157,6 +157,12 @@ const setEditor = (newEditor: Editor): EditorAction => {
     }
 }
 
+const importImage = (): EditorAction => {
+    return {
+        type: ActionType.IMPORT_IMAGE
+    }
+}
+
 
 export default {
     addEllipse,
@@ -181,4 +187,5 @@ export default {
     setSlideBackground,
     setSlidePosition,
     setEditor,
+    importImage,
 }

@@ -60,7 +60,7 @@ function FontFamilyField() {
 
     const changeFontFamily = (event) => {
         setFontFamilyStyle(event.target.value)
-        setFontFamily(fontFamilyStyle)
+        setFontFamily(event.target.value)
     }
 
     return (
@@ -68,6 +68,7 @@ function FontFamilyField() {
             <select
                 onChange={changeFontFamily}
                 className={styles.setFontInput}
+                value={fontFamilyStyle}
             >
                 {FONTS.map(font =>
                     <option

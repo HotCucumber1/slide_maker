@@ -2,8 +2,6 @@ import * as ButtonData from "./toolBarButtonsData.ts"
 import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
 import
     React, {
-    forwardRef,
-    MutableRefObject,
     useRef,
     useState,
 } from "react"
@@ -20,13 +18,12 @@ type GalleryProps = {
     photos: Photo[],
     loader: boolean,
     keyWord: string,
-    ref: MutableRefObject<null>
+    setGallery: (value: boolean) => void
 }
 
-const Gallery = forwardRef(
-    ({photos, loader, keyWord}: GalleryProps, ref) =>
-{
+const Gallery = ({photos, loader, keyWord, setGallery}: GalleryProps) => {
     const { addImage } = useAppActions()
+    const galleryRef = useRef(null)
 
     const onClick = (photo: Photo) => {
         addImage({
@@ -34,13 +31,13 @@ const Gallery = forwardRef(
             width: photo.width * 0.2,
             src: photo.urls.regular,
         })
-
+        setGallery(false)
     }
 
     return (
         <div
             className={styles.gallery}
-            ref={ref}
+            ref={galleryRef}
         >
             <div className={styles.galleryHead}>
                 <p>Картинки по запросу "
@@ -51,25 +48,28 @@ const Gallery = forwardRef(
             <div className={styles.galleryImageBlock}>
                 {loader
                     ? <div className={styles.spinner}/>
-                    : photos.map((photo) => (
-                        <img
-                            key={photo.id}
-                            src={photo.urls.thumb}
-                            alt={photo.description || "Photo"}
-                            className={styles.galleryImage}
-                            onClick={() => onClick}
-                        />)
-                    )
+                    : photos.length > 0
+                        ? photos.map((photo) => (
+                            <img
+                                key={photo.id}
+                                src={photo.urls.thumb}
+                                alt={photo.description || "Photo"}
+                                className={styles.galleryImage}
+                                onClick={() => onClick(photo)}
+                            />)
+                        )
+                        : <span className={styles.imagesNotFound}>
+                            По запросу "{keyWord}" ничего не найдено
+                        </span>
                 }
             </div>
         </div>
     )
-})
+}
 
 
 function ImagesField() {
     const imgNameRef = useRef(null)
-    const galleryRef = useRef(null);
     const [gallery, setGallery] = useState(false)
     const [photos, setPhotos] = useState<Photo[]>([])
     const [loader, setLoader] = useState(false)
@@ -141,8 +141,8 @@ function ImagesField() {
                 <Gallery
                     photos={photos}
                     loader={loader}
-                    ref={galleryRef}
                     keyWord={imgNameRef.current.value}
+                    setGallery={setGallery}
                 >
                 </Gallery>
             }

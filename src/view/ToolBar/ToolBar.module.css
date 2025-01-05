@@ -127,6 +127,13 @@
     color: var(--gray-color);
 }
 
+.imagesNotFound {
+    font-family: var(--font-family);
+    font-size: 24px;
+    color: var(--gray-color);
+    font-style: italic;
+}
+
 .galleryKeyWord {
     font-style: italic;
 }

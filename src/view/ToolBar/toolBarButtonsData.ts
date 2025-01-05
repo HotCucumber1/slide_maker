@@ -1,6 +1,7 @@
 import {Icon, Text} from "../../components/MenuButton/MenuButton.tsx";
 import undoButtonIcon from "../../assets/icons/undo.png";
 import redoButtonIcon from "../../assets/icons/redo.png";
+import closeButtonIcon from "../../assets/icons/close_button_icon.png";
 import setFontSizeButtonIcon from "../../assets/icons/font_size_icon.png";
 import uploadButtonIcon from "../../assets/icons/upload_button_icon.png";
 import addTextButtonIcon from "../../assets/icons/add_text_button_icon.png";
@@ -96,6 +97,11 @@ const findImageButtonContent: Text = {
     value: "Найти"
 }
 
+const closeButtonContet: Icon = {
+    type: "icon",
+    src: closeButtonIcon,
+}
+
 
 
 export {
@@ -114,5 +120,6 @@ export {
     undoActionButtonContent,
     redoActionButtonContent,
     fontSizeButtonContent,
-    findImageButtonContent
+    findImageButtonContent,
+    closeButtonContet,
 }

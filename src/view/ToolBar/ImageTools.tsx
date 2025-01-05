@@ -12,6 +12,8 @@ import {
 } from "../../api/apiData.ts"
 import styles from "./ToolBar.module.css"
 import {useAppActions} from "../../hooks/useAppActions.ts"
+import {closeButtonContet} from "./toolBarButtonsData.ts"
+import {display} from "html2canvas/dist/types/css/property-descriptors/display"
 
 
 type GalleryProps = {
@@ -40,9 +42,15 @@ const Gallery = ({photos, loader, keyWord, setGallery}: GalleryProps) => {
             ref={galleryRef}
         >
             <div className={styles.galleryHead}>
-                <p>Картинки по запросу "
+                <span>Картинки по запросу "
                     <span className={styles.galleryKeyWord}>{keyWord}</span>"
-                </p>
+                </span>
+                <MenuButton
+                    content={closeButtonContet}
+                    onClick={() => setGallery(false)}
+                    className={styles.galleryCloseButton}
+                >
+                </MenuButton>
             </div>
 
             <div className={styles.galleryImageBlock}>

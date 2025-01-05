@@ -108,14 +108,14 @@
 
 .gallery {
     position: absolute;
-    top: 400%;
+    top: 500%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
-    width: 500px;
-    height: 500px;
+    width: 800px;
+    height: 800px;
     background-color: #EDF2FA;
-    box-shadow: 0 5px 5px var(--light-gray-color);
+    box-shadow: 0 5px 5px var(--gray-color);
     padding: 10px;
     overflow-y: scroll;
 }
@@ -125,6 +125,11 @@
     font-family: var(--font-family);
     font-size: 20px;
     color: var(--gray-color);
+}
+
+.galleryCloseButton {
+    max-height: 30px;
+    float: right;
 }
 
 .imagesNotFound {

@@ -1,5 +1,6 @@
 import style from "./MenuButton.module.css"
 import {CSSProperties} from "react"
+import {joinStyles} from "../../service/joinStyles.ts"
 
 type Icon = {
     src: object,
@@ -14,19 +15,21 @@ type Text = {
 type MenuButtonProps = {
     content: Icon|Text,
     onClick: (event) => void,
-    styles?: CSSProperties
+    styles?: CSSProperties,
+    className?: string
 }
 
 const MenuButton = ({
     content,
     onClick,
-    styles
+    styles,
+    className
 }: MenuButtonProps) => {
 
     return (
         <button
             onClick={onClick}
-            className={style.menuButton}
+            className={joinStyles(style.menuButton, className)}
             style={content.type === "text"
                 ? styles
                 : {}

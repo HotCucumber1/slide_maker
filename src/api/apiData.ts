@@ -1,7 +1,7 @@
 const ACCESS_TOKEN = "LnpCz9Dq2Vx_jynAdUOlWubdeYuf_cGodNpt5511azg"
 const BASE_URL = "https://api.unsplash.com"
 
-type UnsplashPhoto = {
+type Photo = {
     id: string;
     description: string | null;
     urls: {
@@ -20,5 +20,5 @@ type UnsplashPhoto = {
 export {
     ACCESS_TOKEN,
     BASE_URL,
-    type UnsplashPhoto,
+    type Photo,
 }

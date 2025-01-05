@@ -1,54 +1,80 @@
 import * as ButtonData from "./toolBarButtonsData.ts"
 import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
-import React, {useRef, useState} from "react"
+import
+    React, {
+    forwardRef,
+    MutableRefObject,
+    useRef,
+    useState,
+} from "react"
 import {
     ACCESS_TOKEN,
-    BASE_URL, UnsplashPhoto,
+    BASE_URL,
+    Photo,
 } from "../../api/apiData.ts"
 import styles from "./ToolBar.module.css"
 import {useAppActions} from "../../hooks/useAppActions.ts"
 
+
 type GalleryProps = {
-    photos: UnsplashPhoto[],
-    loader: boolean
+    photos: Photo[],
+    loader: boolean,
+    keyWord: string,
+    ref: MutableRefObject<null>
 }
 
-function Gallery({photos, loader}: GalleryProps)
+const Gallery = forwardRef(
+    ({photos, loader, keyWord}: GalleryProps, ref) =>
 {
     const { addImage } = useAppActions()
 
+    const onClick = (photo: Photo) => {
+        addImage({
+            height: photo.height * 0.2,
+            width: photo.width * 0.2,
+            src: photo.urls.regular,
+        })
+
+    }
+
     return (
-        <div className={styles.gallery}>
-            {loader
-                ? <div className={styles.spinner}/>
-                : photos.map(
-                    (photo) => (
+        <div
+            className={styles.gallery}
+            ref={ref}
+        >
+            <div className={styles.galleryHead}>
+                <p>Картинки по запросу "
+                    <span className={styles.galleryKeyWord}>{keyWord}</span>"
+                </p>
+            </div>
+
+            <div className={styles.galleryImageBlock}>
+                {loader
+                    ? <div className={styles.spinner}/>
+                    : photos.map((photo) => (
                         <img
                             key={photo.id}
                             src={photo.urls.thumb}
                             alt={photo.description || "Photo"}
                             className={styles.galleryImage}
-                            onClick={() => addImage({
-                                height: photo.height * 0.2,
-                                width: photo.width * 0.2,
-                                src: photo.urls.regular,
-                            })}
-                        />
+                            onClick={() => onClick}
+                        />)
                     )
-                )
-            }
+                }
+            </div>
         </div>
     )
-}
+})
 
 
 function ImagesField() {
     const imgNameRef = useRef(null)
+    const galleryRef = useRef(null);
     const [gallery, setGallery] = useState(false)
-    const [photos, setPhotos] = useState<UnsplashPhoto[]>([])
-    const [loader, setLoader] = useState(true)
-    async function fetchUnsplash(query: string, params?: Record<string, string>) {
+    const [photos, setPhotos] = useState<Photo[]>([])
+    const [loader, setLoader] = useState(false)
 
+    async function fetchUnsplash(query: string, params?: Record<string, string>) {
         const url = new URL(`${BASE_URL}/${query}`);
         if (params) {
             Object.entries(params).forEach(
@@ -60,7 +86,6 @@ function ImagesField() {
                 Authorization: `Client-ID ${ACCESS_TOKEN}`,
             },
         });
-
         if (!response.ok) {
             throw new Error(`An error has occurred! Status: ${response.status}`);
         }
@@ -81,38 +106,51 @@ function ImagesField() {
         if (imgNameRef.current.value === "") {
             return
         }
+        setLoader(true)
         searchPhotos(keyWord)
-            .then(photos => {
-                setLoader(false);
-                setPhotos(photos)
-                setGallery(true)
-            })
-            .catch(console.error)
+            .then(
+                photos => {
+                    setPhotos(photos)
+                    setGallery(true)
+                })
+            .catch(
+                console.error
+            )
+            .finally(
+                () => setLoader(false)
+            )
     }
 
     return (
-        <div className={styles.imageField}>
-            <div>
+        <div className={styles.imageBlock}>
+            <div className={styles.imageField}>
                 <input
                     ref={imgNameRef}
+                    className={styles.inputField}
                 />
-                <button
+                <MenuButton
                     onClick={fetchPhotos}
-                >Найти
-                </button>
+                    content={ButtonData.findImageButtonContent}
+                    styles={{
+                        color: "#505050",
+                        paddingInline: "10px"
+                    }}
+                >Найти</MenuButton>
             </div>
             {gallery &&
                 <Gallery
                     photos={photos}
                     loader={loader}
-                ></Gallery>
+                    ref={galleryRef}
+                    keyWord={imgNameRef.current.value}
+                >
+                </Gallery>
             }
         </div>
     )
 }
 
 function ImageTools() {
-
     const [showImportImage, setShowImportImage] = useState(false)
 
     return (
@@ -120,14 +158,12 @@ function ImageTools() {
             <MenuButton
                 content={ButtonData.addImageButtonContent}
                 onClick={() => setShowImportImage(!showImportImage)}
-                iconStyles={{
+                styles={{
                     marginTop: "2px",
                     height: "50%",
                 }}
             />
-            {showImportImage &&
-                <ImagesField/>
-            }
+            {showImportImage && <ImagesField/> }
         </>
     )
 }

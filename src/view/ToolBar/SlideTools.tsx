@@ -76,7 +76,7 @@ function SlideTools({onClick, setError}: SlideToolsProps) {
             <MenuButton
                 content={ButtonData.setColorButtonContent}
                 onClick={() => onClick(colorInputRef)}
-                iconStyles={{
+                styles={{
                     height: "50%",
                 }}
             />
@@ -90,7 +90,7 @@ function SlideTools({onClick, setError}: SlideToolsProps) {
             <MenuButton
                 content={ButtonData.setBackgroundImageButtonContent}
                 onClick={() => onClick(backgroundFileInputRef)}
-                iconStyles={{
+                styles={{
                     height: "60%",
                 }}
             />

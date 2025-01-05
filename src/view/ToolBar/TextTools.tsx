@@ -1,10 +1,10 @@
 import styles from "./ToolBar.module.css"
 import {useAppActions} from "../../hooks/useAppActions.ts"
 import {defaultTextSettings, FONTS} from "../../store/default_data/defaultObjectSettings.ts"
-import React, {useRef, useState} from "react"
-import {useAppSelector} from "../../hooks/useAppSelector.ts"
+import React, {useMemo, useRef, useState} from "react"
 import * as ButtonData from "./toolBarButtonsData.ts"
 import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
+import {useAppSelector} from "../../hooks/useAppSelector.ts"
 
 
 type FontSizeFieldProps = {
@@ -19,7 +19,7 @@ function FontSizeField({fontSize, onChange}: FontSizeFieldProps) {
                 onChange={onChange}
                 defaultValue={fontSize}
                 type={"number"}
-                className={styles.setFontInput}
+                className={styles.inputField}
                 min={defaultTextSettings.minFontSize}
                 max={defaultTextSettings.maxFontSize}
             />
@@ -46,7 +46,7 @@ function TextColorField() {
             <MenuButton
                 content={ButtonData.setColorButtonContent}
                 onClick={() => onButtonClick(colorInputRef)}
-                iconStyles={{
+                styles={{
                     height: "50%",
                 }}
             />
@@ -62,12 +62,28 @@ function FontFamilyField() {
         setFontFamilyStyle(event.target.value)
         setFontFamily(event.target.value)
     }
+    //
+    // const activeSlide = useMemo(() => {
+    //     return editor.presentation.slides.find(
+    //         (slide) => slide.id === editor.selectedSlides[0]
+    //     );
+    // }, [editor.presentation.slides, editor.selectedSlides]);
+    //
+    // const activeObject = useMemo(() => {
+    //     return activeSlide?.content.find((object) =>
+    //         editor.selectedObjects.includes(object.id)
+    //     );
+    // }, [activeSlide, editor.selectedObjects]);
+    //
+    // if (activeObject.type === "text") {
+    //     setFontFamily(activeObject.fontFamily)
+    // }
 
     return (
         <>
             <select
                 onChange={changeFontFamily}
-                className={styles.setFontInput}
+                className={styles.inputField}
                 value={fontFamilyStyle}
             >
                 {FONTS.map(font =>
@@ -106,7 +122,7 @@ function TextTools() {
     // }
 
     return (
-        <>
+        <div className={styles.textTools}>
             <FontSizeField
                 onChange={() => setFontSize(fontSize)}
                 fontSize={fontSize}
@@ -114,7 +130,7 @@ function TextTools() {
 
             <FontFamilyField></FontFamilyField>
             <TextColorField></TextColorField>
-        </>
+        </div>
     )
 }
 

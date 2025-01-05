@@ -1,4 +1,4 @@
-import {Icon} from "../../components/MenuButton/MenuButton.tsx";
+import {Icon, Text} from "../../components/MenuButton/MenuButton.tsx";
 import undoButtonIcon from "../../assets/icons/undo.png";
 import redoButtonIcon from "../../assets/icons/redo.png";
 import setFontSizeButtonIcon from "../../assets/icons/font_size_icon.png";
@@ -91,6 +91,11 @@ const fontSizeButtonContent: Icon = {
     src: setFontSizeButtonIcon
 }
 
+const findImageButtonContent: Text = {
+    type: "text",
+    value: "Найти"
+}
+
 
 
 export {
@@ -108,5 +113,6 @@ export {
     deleteSlideButtonContent,
     undoActionButtonContent,
     redoActionButtonContent,
-    fontSizeButtonContent
+    fontSizeButtonContent,
+    findImageButtonContent
 }

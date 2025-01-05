@@ -14,23 +14,27 @@ type Text = {
 type MenuButtonProps = {
     content: Icon|Text,
     onClick: (event) => void,
-    iconStyles?: CSSProperties
+    styles?: CSSProperties
 }
 
 const MenuButton = ({
     content,
     onClick,
-    iconStyles
+    styles
 }: MenuButtonProps) => {
 
     return (
         <button
             onClick={onClick}
             className={style.menuButton}
+            style={content.type === "text"
+                ? styles
+                : {}
+            }
         >
             {content.type === "icon" &&
                 <img
-                    style={iconStyles}
+                    style={styles}
                     className={style.menuButtonIcon}
                     src={content.src}
                     alt="Add slide button"

@@ -1,5 +1,14 @@
 import {ActionType, EditorAction} from "./actions.ts"
-import {Color, FontStyle, Gradient, Image, Point, SelectedObjects, SelectedSlides, Size} from "../objects.ts"
+import {
+    Color,
+    FontStyle,
+    Gradient,
+    Image,
+    Point,
+    SelectedObjects,
+    SelectedSlides,
+    Size
+} from "../objects.ts"
 import {AddFigureProps} from "../actions/addFigureProps.ts"
 import {AddImageProps} from "../actions/addImage.ts"
 import {AddTextProps} from "../actions/addText.ts"

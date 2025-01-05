@@ -66,7 +66,7 @@ function ObjectTools({
             <MenuButton
                 content={ButtonData.addImageButtonContent}
                 onClick={() => onClick(imageFileInputRef)}
-                iconStyles={{
+                styles={{
                     marginTop: "2px",
                     height: "50%",
                 }}
@@ -77,7 +77,7 @@ function ObjectTools({
                     addLabel()
                     showObject(!isObject)
                 }}
-                iconStyles={{
+                styles={{
                     marginTop: "1px",
                     height: "45%",
                 }}
@@ -88,7 +88,7 @@ function ObjectTools({
                     addTriangle()
                     showObject(!isObject)
                 }}
-                iconStyles={{
+                styles={{
                     marginTop: "1px",
                     height: "56%",
                 }}
@@ -99,7 +99,7 @@ function ObjectTools({
                     addEllipse()
                     showObject(!isObject)
                 }}
-                iconStyles={{
+                styles={{
                     marginTop: "1px",
                     height: "50%",
                 }}

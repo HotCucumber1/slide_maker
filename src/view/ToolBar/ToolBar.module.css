@@ -67,7 +67,7 @@
     margin-top: 20px;
 }
 
-.setFontInput {
+.inputField {
     border-radius: 5px;
     background-color: transparent;
     margin-block: 11px;
@@ -75,33 +75,75 @@
     outline: #505050A0 solid 1px;
     text-align: center;
     color: var(--gray-color);
+    line-height: 20px;
+    display: block;
+}
+
+.imageBlock{
+    display: flex;
+    column-gap: 20px;
 }
 
 .imageField {
-    position: relative;
+    display: flex;
+    column-gap: 10px;
+    margin-inline: 10px;
+}
+
+.imageButton {
+    border: none;
+    font-family: Inter, sans-serif;
+    background-color: transparent;
+    color: #505050;
+    margin-block: 11px;
+}
+
+.imageButton:hover {
+    border: none;
+    font-family: Inter, sans-serif;
+    background-color: transparent;
+    color: #505050;
+    margin-block: 11px;
 }
 
 .gallery {
     position: absolute;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    top: 50px;
-    left: 0;
+    top: 400%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border-radius: 10px;
-    width: 360px;
-    height: 360px;
-    overflow-y: scroll;
+    width: 500px;
+    height: 500px;
     background-color: #EDF2FA;
     box-shadow: 0 5px 5px var(--light-gray-color);
     padding: 10px;
+    overflow-y: scroll;
+}
+
+.galleryHead {
+    margin-bottom: 10px;
+    font-family: var(--font-family);
+    font-size: 20px;
+    color: var(--gray-color);
+}
+
+.galleryKeyWord {
+    font-style: italic;
+}
+
+.galleryImageBlock {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
 }
 
 .galleryImage {
     display: block;
-    width: 100px;
-    height: 100px;
+    width: 31%;
+    aspect-ratio: 1 / 1;
     background-size: cover;
+    border-radius: 5px;
 }
 
 .galleryImage:hover {
@@ -110,6 +152,11 @@
 
 .galleryImage:active {
     transform: scale(0.96);
+}
+
+.textTools {
+    display: flex;
+    column-gap: 10px;
 }
 
 .spinner {

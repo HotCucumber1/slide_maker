@@ -1,8 +1,10 @@
 import styles from "./ToolBar.module.css"
 import
     React, {
+    useEffect,
+    useMemo,
     useRef,
-    useState
+    useState,
 } from "react"
 import icon from "../../assets/icons/icon.png"
 import {useAppSelector} from "../../hooks/useAppSelector.ts"
@@ -32,6 +34,28 @@ function ToolBar()
     const onButtonClick = (inputElement) => {
         inputElement.current.click()
     }
+
+    const activeSlide = useMemo(() => {
+        return editor.presentation.slides.find(
+            (slide) => slide.id === editor.selectedSlides[0]
+        );
+    }, [editor.presentation.slides, editor.selectedSlides]);
+
+    const activeObject = useMemo(() => {
+        return activeSlide?.content.find((object) =>
+            editor.selectedObjects.includes(object.id)
+        );
+    }, [activeSlide, editor.selectedObjects]);
+
+    useEffect(() => {
+        if (activeObject?.type === "text") {
+            setFigureTools(false);
+            setTextTools(true);
+        } else {
+            setFigureTools(false);
+            setTextTools(false);
+        }
+    }, [activeObject]);
 
     return (
         <div className={styles.toolBar}>

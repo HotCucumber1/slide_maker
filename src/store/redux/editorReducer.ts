@@ -1,6 +1,9 @@
 import {Editor} from "../editor.ts"
 import {defaultEditor} from "../default_data/defaultEditor.ts"
-import {ActionType, EditorAction} from "./actions.ts"
+import {
+    ActionType,
+    EditorAction
+} from "./actions.ts"
 import {addEllipse} from "../actions/addEllipse.ts"
 import {addImage} from "../actions/addImage.ts"
 import {addLabel} from "../actions/addLabel.ts"

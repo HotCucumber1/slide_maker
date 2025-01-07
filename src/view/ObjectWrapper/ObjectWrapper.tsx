@@ -45,7 +45,7 @@ const ObjectWrapper = ({
     const leftHandle = useRef(null)
 
     const [currentPos, setPos] = useState(pos)
-    // const [currentSize, setSize] = useState(size)
+    const [currentSize, setSize] = useState(size)
     const [isDragging, setIsDragging] = useState(false)
 
     useObjectDragAndDrop(
@@ -55,13 +55,7 @@ const ObjectWrapper = ({
         () => setIsDragging(true),
         () => setIsDragging(false)
     )
-    // useResize(
-    //     wrapperRef,
-    //     setSize,
-    //     setPos,
-    //     () => setIsDragging(true),
-    //     () => setIsDragging(false)
-    // )
+    const { onResizeStart } = useResize(size, wrapperRef, setSize);
 
     const {
         setObjectSelection,
@@ -114,10 +108,9 @@ const ObjectWrapper = ({
             onClick={onObjectClick}
             id={objectId}
             style={{
-                ...getSlideObjectStyles(isDragging
-                    ? currentPos
-                    : pos,
-                    size,
+                ...getSlideObjectStyles(
+                    isDragging ? currentPos : pos,
+                    currentSize,
                     scale
                 ),
                 ...wrapperStyles,
@@ -146,6 +139,10 @@ const ObjectWrapper = ({
                 ref={rightHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.rightHandle)}
+                onMouseDown={(event) => {
+                    event.stopPropagation()
+                    onResizeStart(event, "right")
+                }}
             ></div>
             <div
                 data-handle="bottom-right"
@@ -154,7 +151,7 @@ const ObjectWrapper = ({
                 className={joinStyles(styles.resizeHandle, styles.bottomRightHandle)}
             ></div>
             <div
-                data-handle="bottomt"
+                data-handle="bottom"
                 ref={bottomHandle}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.bottomHandle)}

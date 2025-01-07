@@ -1,7 +1,11 @@
 import {CSSProperties} from "react";
 import {Point, Size} from "../store/objects.ts";
 
-function getSlideObjectStyles(pos: Point, size: Size, scale: number): CSSProperties
+function getSlideObjectStyles(
+    pos: Point,
+    size: Size,
+    scale: number
+): CSSProperties
 {
     return {
         position: "absolute",

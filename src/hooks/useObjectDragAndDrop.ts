@@ -38,9 +38,6 @@ const useObjectDragAndDrop = (
     }
 
     const changePos = (event) => {
-        // if (!objectRef) {
-        //     return
-        // }
         const slide = objectRef.current.parentElement
 
         const updatedPos: Point = {

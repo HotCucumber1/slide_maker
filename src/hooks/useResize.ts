@@ -1,82 +1,93 @@
-import {useEffect, useRef} from "react"
+import {
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+} from "react"
+import {WORK_AREA_SCALE} from "../store/default_data/scale.ts"
 import {Point, Size} from "../store/objects.ts"
 import {useAppActions} from "./useAppActions.ts"
-import {WORK_AREA_SCALE} from "../store/default_data/scale.ts"
 
-const useResize = (
-    objectRef,
-    setSize,
-    setPos,
-    onDragStart,
-    onDragEnd,
-) => {
+type ResizeHandle = "top-left" | "top" | "top-right" | "right" | "bottom-right" | "bottom" | "bottom-left" | "left"
+
+
+function useResize(initialSize: Size, objectRef, setCurrentSize) {
+    const [isResizing, setIsResizing] = useState(false)
+    const [resizeStart, setResizeStart] = useState<Point|null>(null)
+    const [resizeHandle, setResizeHandle] = useState<ResizeHandle|null>(null)
+
+    const currentSize = useRef<Size>(initialSize)
+
     const {
-        setObjectPosition,
-        setObjectSize
+        setObjectSize,
+        setObjectPosition
     } = useAppActions()
 
-    const resizingHandle = useRef(null)
-    const currentPos = useRef<Point|null>(null)
-    const currentSize = useRef<Size|null>(null)
-    const startSize: Size = {
-        width: objectRef.current?.width,
-        height: objectRef.current?.height
-    }
+    const onResizeStart = useCallback((event, handlePoint: ResizeHandle) => {
+        event.preventDefault()
+        setResizeStart({
+            x: event.clientX,
+            y: event.clientY
+        })
+        setResizeHandle(handlePoint)
+        setIsResizing(true)
+    }, [])
 
-    // const rect = objectRef.current.getBoundingClientRect()
-    // const parentRect = objectRef.current.parentElement.getBoundingClientRect()
+    const onResize = useCallback(event => {
+        if (!isResizing || !resizeStart) {
+            return
+        }
 
-    let updatedSize: Size = startSize
+        const dx = event.clientX - resizeStart.x
+        const dy = event.clientY - resizeStart.y
+
+        let newWidth = currentSize.current.width
+        let newHeight = currentSize.current.height
+
+        if (resizeHandle?.includes("right")) {
+            newWidth += dx;
+        }
+        if (resizeHandle?.includes("bottom")) {
+            newHeight += dy;
+        }
+        if (resizeHandle?.includes("left")) {
+            newWidth += dx;
+        }
+        if (resizeHandle?.includes("top")) {
+            newHeight += dy;
+        }
+        currentSize.current = {
+            width: Math.max(newWidth, 10),
+            height: Math.max(newHeight, 10),
+        }
+        setCurrentSize(currentSize.current)
+
+        }, [isResizing, resizeStart, resizeHandle, setCurrentSize])
+
+    const onResizeEnd = useCallback(() => {
+        setIsResizing(false)
+        setResizeStart(null)
+        setResizeHandle(null)
+        setObjectSize(currentSize.current)
+    }, [setObjectSize])
 
     useEffect(() => {
-        const object = objectRef.current;
-        object.addEventListener("mousedown", handleMouseDown)
+        if (isResizing) {
+            document.addEventListener("mousemove", onResize)
+            document.addEventListener("mouseup", onResizeEnd)
+        }
+        else {
+            document.removeEventListener("mousemove", onResize)
+            document.removeEventListener("mouseup", onResizeEnd)
+        }
 
         return () => {
-            object.removeEventListener("mousedown", handleMouseDown)
+            document.removeEventListener("mousemove", onResize)
+            document.removeEventListener("mouseup", onResizeEnd)
         }
-    }, [objectRef, setSize, setPos])
+    }, [isResizing, onResize, onResizeEnd])
 
-    const handleMouseDown = (event) => {
-        const handle = event.target.dataset.handle
-        if (!handle) {
-            return
-        }
-        onDragStart()
-        resizingHandle.current = handle
-        document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("mouseup", handleMouseUp);
-    }
-
-    const handleMouseMove = (event) => {
-        if (!resizingHandle.current || !objectRef.current) {
-            return
-        }
-        const slide = objectRef.current.parentElement
-        switch (resizingHandle.current) {
-            case "bottom-right":
-                updatedSize = {
-
-                }
-                break
-            default:
-                break
-        }
-
-        setSize({
-            width: Math.max(updatedSize.width, 10),
-            height: Math.max(updatedSize.height, 10),
-        })
-        // setPos(updatedPos)
-    }
-
-    const handleMouseUp = () => {
-        setObjectSize(updatedSize)
-        // setObjectPosition(updatedPos)
-        onDragEnd()
-        document.removeEventListener("mousemove", handleMouseMove)
-        document.removeEventListener("mouseup", handleMouseUp)
-    }
+    return { onResizeStart }
 }
 
 export {

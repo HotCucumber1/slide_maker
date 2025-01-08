@@ -1,5 +1,4 @@
 import {
-    MutableRefObject,
     useCallback,
     useEffect,
     useRef,
@@ -11,18 +10,19 @@ import {useAppActions} from "./useAppActions.ts"
 
 type ResizeHandle = "top-left" | "top" | "top-right" | "right" | "bottom-right" | "bottom" | "bottom-left" | "left"
 
-
 function useResize(
     initialSize: Size,
-    objectRef,
-    setCurrentSize: (s: Size) => void,
-    setCurrentPos: (p: Point) => void,
+    initialPosition: Point,
+    setCurrentSize: (size: Size) => void,
+    setCurrentPos: (point: Point) => void,
 ) {
+
     const [isResizing, setIsResizing] = useState(false)
-    const resizeStart = useRef<Point|null>(null)
     const [resizeHandle, setResizeHandle] = useState<ResizeHandle|null>(null)
 
+    const resizeStart = useRef<Point|null>(null)
     const currentSize = useRef(initialSize)
+    const currentPos = useRef(initialPosition)
 
     const {
         setObjectSize,
@@ -30,7 +30,6 @@ function useResize(
     } = useAppActions()
 
     const onResizeStart = useCallback((event, handlePoint: ResizeHandle) => {
-        // event.preventDefault()
         resizeStart.current = {
             x: event.clientX,
             y: event.clientY
@@ -43,20 +42,22 @@ function useResize(
         if (!isResizing || !resizeStart.current) {
             return
         }
-        const dx = (event.clientX - resizeStart.current?.x)
-        const dy = (event.clientY - resizeStart.current?.y)
+        const dx = event.clientX - resizeStart.current?.x
+        const dy = event.clientY - resizeStart.current?.y
 
         if (resizeHandle?.includes("right")) {
-            currentSize.current.width += dx;
+            currentSize.current.width += dx
         }
         if (resizeHandle?.includes("bottom")) {
-            currentSize.current.height += dy;
+            currentSize.current.height += dy
         }
         if (resizeHandle?.includes("left")) {
-            currentSize.current.width -= dx;
+            currentSize.current.width -= dx
+            currentPos.current.x += dx / WORK_AREA_SCALE
         }
         if (resizeHandle?.includes("top")) {
-            currentSize.current.height -= dy;
+            currentSize.current.height -= dy
+            currentPos.current.y += dy / WORK_AREA_SCALE
         }
 
         currentSize.current = {
@@ -67,12 +68,13 @@ function useResize(
             width: currentSize.current.width / WORK_AREA_SCALE,
             height: currentSize.current.height / WORK_AREA_SCALE
         })
+        setCurrentPos(currentPos.current)
+
         resizeStart.current = {
             x: event.clientX,
             y: event.clientY
         }
-
-        }, [isResizing, resizeStart, resizeHandle, setCurrentSize])
+    }, [isResizing, resizeHandle, setCurrentSize, setCurrentPos, currentPos])
 
     const onResizeEnd = useCallback(() => {
         setIsResizing(false)
@@ -82,7 +84,8 @@ function useResize(
             width: currentSize.current.width / WORK_AREA_SCALE,
             height: currentSize.current.height / WORK_AREA_SCALE
         })
-    }, [setObjectSize])
+        setObjectPosition(currentPos.current)
+    }, [setObjectPosition, setObjectSize])
 
     useEffect(() => {
         if (isResizing) {
@@ -98,9 +101,12 @@ function useResize(
             document.removeEventListener("mousemove", onResize)
             document.removeEventListener("mouseup", onResizeEnd)
         }
-    }, [isResizing, objectRef, onResize, onResizeEnd])
+    }, [isResizing, onResize, onResizeEnd])
 
-    return { isResizing, onResizeStart }
+    return {
+        isResizing,
+        onResizeStart
+    }
 }
 
 export {

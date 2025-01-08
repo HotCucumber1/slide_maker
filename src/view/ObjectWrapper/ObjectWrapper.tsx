@@ -48,18 +48,15 @@ const ObjectWrapper = ({
     const [currentPos, setPos] = useState(pos)
     const [currentSize, setSize] = useState(size)
 
-    const isDragging = useObjectDragAndDrop(wrapperRef, setPos, isSelected)
-    const { isResizing, onResizeStart } = useResize(
-        size,
-        wrapperRef,
-        setSize,
-        setPos
-    )
+    useEffect(() => {
+        setPos(pos)
+        setSize(size)
+    }, [])
 
-    const {
-        setObjectSelection,
-        deleteSlideObjects,
-    } = useAppActions()
+    const isDragging = useObjectDragAndDrop(wrapperRef, setPos, isSelected)
+    const { isResizing, onResizeStart } = useResize(currentSize, currentPos, setSize, setPos)
+
+    const { setObjectSelection, deleteSlideObjects } = useAppActions()
 
     const onObjectClick: React.MouseEventHandler = useCallback((event) => {
         event.stopPropagation()
@@ -135,8 +132,8 @@ const ObjectWrapper = ({
             id={objectId}
             style={{
                 ...getSlideObjectStyles(
-                    isDragging ? currentPos : pos,
-                    isResizing ? currentSize : size,
+                    currentPos,// (isDragging || isResizing) ? currentPos : pos,
+                    currentSize,// isResizing ? currentSize : size,
                     scale
                 ),
                 ...wrapperStyles,

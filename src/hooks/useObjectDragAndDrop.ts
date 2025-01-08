@@ -1,4 +1,8 @@
-import {useEffect, useRef, useState} from "react"
+import {
+    useEffect,
+    useRef,
+    useState
+} from "react"
 import {Point} from "../store/objects.ts"
 import {WORK_AREA_SCALE} from "../store/default_data/scale.ts"
 import {useAppActions} from "./useAppActions.ts"
@@ -7,8 +11,7 @@ const useObjectDragAndDrop = (
     objectRef,
     setPos,
     isSelected,
-) => {
-
+): boolean => {
     const { setObjectPosition } = useAppActions()
     const [isDragging, setIsDragging] = useState(false)
     const currentPos = useRef<Point|null>(null)

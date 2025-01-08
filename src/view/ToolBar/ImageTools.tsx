@@ -115,11 +115,11 @@ function ImagesField() {
             return
         }
         setLoader(true)
+        setGallery(true)
         searchPhotos(keyWord)
             .then(
                 photos => {
                     setPhotos(photos)
-                    setGallery(true)
                 })
             .catch(
                 console.error
@@ -179,3 +179,32 @@ function ImageTools() {
 export {
     ImageTools,
 }
+
+// import { createStore, applyMiddleware } from 'redux';
+// import thunk from 'redux-thunk';
+//
+// // Пример редьюсера
+// const initialState = { data: [] };
+// const dataReducer = (state = initialState, action) => {
+//     switch (action.type) {
+//         case 'FETCH_DATA_SUCCESS':
+//             return { ...state, data: action.payload };
+//         default:
+//             return state;
+//     }
+// };
+//
+// // Пример асинхронного действия
+// const fetchData = () => {
+//     return async (dispatch) => {
+//         const response = await fetch('https://api.example.com/data');
+//         const data = await response.json();
+//         dispatch({ type: 'FETCH_DATA_SUCCESS', payload: data });
+//     };
+// };
+//
+// // Создание store с middleware
+// const store = createStore(dataReducer, applyMiddleware(thunk));
+//
+// // Диспетчеризация асинхронного действия
+// store.dispatch(fetchData());

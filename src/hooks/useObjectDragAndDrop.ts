@@ -1,4 +1,4 @@
-import {useEffect, useRef} from "react"
+import {useEffect, useRef, useState} from "react"
 import {Point} from "../store/objects.ts"
 import {WORK_AREA_SCALE} from "../store/default_data/scale.ts"
 import {useAppActions} from "./useAppActions.ts"
@@ -7,11 +7,10 @@ const useObjectDragAndDrop = (
     objectRef,
     setPos,
     isSelected,
-    onDragStart,
-    onDragEnd
-): void => {
+) => {
 
     const { setObjectPosition } = useAppActions()
+    const [isDragging, setIsDragging] = useState(false)
     const currentPos = useRef<Point|null>(null)
     const offset = useRef<Point|null>(null)
 
@@ -32,7 +31,7 @@ const useObjectDragAndDrop = (
             x: event.pageX - objectRef.current.getBoundingClientRect().left,
             y: event.pageY - objectRef.current.getBoundingClientRect().top,
         }
-        onDragStart()
+        setIsDragging(true)
         document.addEventListener("mousemove", changePos)
         document.addEventListener("mouseup", drop)
     }
@@ -52,10 +51,12 @@ const useObjectDragAndDrop = (
         if (currentPos.current !== null) {
             setObjectPosition(currentPos.current as Point)
         }
-        onDragEnd()
+        setIsDragging(false)
         document.removeEventListener("mousemove", changePos)
         document.removeEventListener("mouseup", drop)
     }
+
+    return isDragging
 }
 
 export {

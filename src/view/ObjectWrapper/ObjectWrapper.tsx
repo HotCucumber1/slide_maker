@@ -2,6 +2,7 @@ import {Point, Size} from "../../store/objects.ts"
 import {getSlideObjectStyles} from "../../service/getSlideObjectStyles.ts"
 import {
     CSSProperties,
+    useCallback,
     useEffect,
     useRef,
     useState,
@@ -35,55 +36,80 @@ const ObjectWrapper = ({
 }: ObjectWrapperProps) => {
     const wrapperRef = useRef(null)
 
-    const topLeftHandle = useRef(null)
-    const topHandle = useRef(null)
-    const topRightHandle = useRef(null)
-    const rightHandle = useRef(null)
-    const bottomRightHandle = useRef(null)
-    const bottomHandle = useRef(null)
-    const bottomLeftHandle = useRef(null)
-    const leftHandle = useRef(null)
+    const topLeftHandleRef = useRef(null)
+    const topHandleRef = useRef(null)
+    const topRightHandleRef = useRef(null)
+    const rightHandleRef = useRef(null)
+    const bottomRightHandleRef = useRef(null)
+    const bottomHandleRef = useRef(null)
+    const bottomLeftHandleRef = useRef(null)
+    const leftHandleRef = useRef(null)
 
     const [currentPos, setPos] = useState(pos)
     const [currentSize, setSize] = useState(size)
-    const [isDragging, setIsDragging] = useState(false)
 
-    useObjectDragAndDrop(
+    const isDragging = useObjectDragAndDrop(wrapperRef, setPos, isSelected)
+    const { isResizing, onResizeStart } = useResize(
+        size,
         wrapperRef,
-        setPos,
-        isSelected,
-        () => setIsDragging(true),
-        () => setIsDragging(false)
+        setSize,
+        setPos
     )
-    const { onResizeStart } = useResize(size, wrapperRef, setSize);
 
     const {
         setObjectSelection,
         deleteSlideObjects,
     } = useAppActions()
 
-    const onObjectClick: React.MouseEventHandler = (event) => {
+    const onObjectClick: React.MouseEventHandler = useCallback((event) => {
         event.stopPropagation()
         setObjectSelection([(event.target as HTMLDivElement).id])
-    }
+    }, [setObjectSelection])
 
-    const onButtonClick: React.KeyboardEventHandler = (event) => {
+    const onButtonClick: React.KeyboardEventHandler = useCallback((event) => {
         if (event.key === "Delete") {
             deleteSlideObjects()
         }
-    }
+    }, [deleteSlideObjects])
+
+    const onMouseDown = useCallback((event, ref) => {
+        event.stopPropagation()
+        onResizeStart(event, ref.current.getAttribute('data-handle'))
+    }, [onResizeStart])
 
     useEffect(() => {
+        const handles = [
+            topLeftHandleRef,
+            topHandleRef,
+            topRightHandleRef,
+            rightHandleRef,
+            bottomRightHandleRef,
+            bottomHandleRef,
+            bottomLeftHandleRef,
+            leftHandleRef,
+        ]
         const wrapperElement = wrapperRef.current
 
         wrapperElement.addEventListener("keydown", onButtonClick)
         wrapperElement.addEventListener("mousedown", onObjectClick)
 
+        handles.forEach(ref => {
+            if (ref.current) {
+                ref.current.addEventListener("mousedown", (event) => onMouseDown(event, ref))
+            }
+        })
+
         return () => {
             wrapperElement.removeEventListener("keydown", onButtonClick)
             wrapperElement.removeEventListener("mousedown", onObjectClick)
+
+            handles.forEach(ref =>{
+                if (ref.current) {
+                    ref.current.removeEventListener("mousedown", (event) => onMouseDown(event, ref))
+                }
+            })
         }
-    })
+    }, [onButtonClick, onMouseDown, onObjectClick])
 
     const wrapperStyles: CSSProperties = {}
     const handleStyles: CSSProperties = {
@@ -110,7 +136,7 @@ const ObjectWrapper = ({
             style={{
                 ...getSlideObjectStyles(
                     isDragging ? currentPos : pos,
-                    currentSize,
+                    isResizing ? currentSize : size,
                     scale
                 ),
                 ...wrapperStyles,
@@ -118,53 +144,49 @@ const ObjectWrapper = ({
         >
             <div
                 data-handle="top-left"
-                ref={topLeftHandle}
+                ref={topLeftHandleRef}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.topLeftHandle)}
             ></div>
             <div
                 data-handle="top"
-                ref={topHandle}
+                ref={topHandleRef}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.topHandle)}
             ></div>
             <div
                 data-handle="top-right"
-                ref={topRightHandle}
+                ref={topRightHandleRef}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.topRightHandle)}
             ></div>
             <div
                 data-handle="right"
-                ref={rightHandle}
+                ref={rightHandleRef}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.rightHandle)}
-                onMouseDown={(event) => {
-                    event.stopPropagation()
-                    onResizeStart(event, "right")
-                }}
             ></div>
             <div
                 data-handle="bottom-right"
-                ref={bottomRightHandle}
+                ref={bottomRightHandleRef}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.bottomRightHandle)}
             ></div>
             <div
                 data-handle="bottom"
-                ref={bottomHandle}
+                ref={bottomHandleRef}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.bottomHandle)}
             ></div>
             <div
                 data-handle="bottom-left"
-                ref={bottomLeftHandle}
+                ref={bottomLeftHandleRef}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.bottomLeftHandle)}
             ></div>
             <div
                 data-handle="left"
-                ref={leftHandle}
+                ref={leftHandleRef}
                 style={handleStyles}
                 className={joinStyles(styles.resizeHandle, styles.leftHandle)}
             ></div>

@@ -15,10 +15,8 @@ const LabelObjectView = (
     props: FigureObjectProps
 ) => {
     let colorsLength: number = 1
-
     let gradientCoords: GradientCoords
-    if (props.fill.type === "gradient")
-    {
+    if (props.fill.type === "gradient") {
         colorsLength = props.fill.colors.length
         gradientCoords = getGradientCoords(props.fill.angle)
     }

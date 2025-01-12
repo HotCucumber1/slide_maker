@@ -5,27 +5,26 @@ import
     useRef,
     useState,
 } from "react"
-import {
-    ACCESS_TOKEN,
-    BASE_URL,
-    Photo,
-} from "../../api/apiData.ts"
+import {Photo} from "../../api/apiData.ts"
 import styles from "./ToolBar.module.css"
 import {useAppActions} from "../../hooks/useAppActions.ts"
 import {closeButtonContet} from "./toolBarButtonsData.ts"
-import {display} from "html2canvas/dist/types/css/property-descriptors/display"
+import {fetchPhotos} from "../../middleware/fetchPhotos.ts"
+import {useAppSelector} from "../../hooks/useAppSelector.ts"
 
 
 type GalleryProps = {
-    photos: Photo[],
     loader: boolean,
     keyWord: string,
     setGallery: (value: boolean) => void
 }
 
-const Gallery = ({photos, loader, keyWord, setGallery}: GalleryProps) => {
+const Gallery = ({loader, keyWord, setGallery}: GalleryProps) => {
     const { addImage } = useAppActions()
     const galleryRef = useRef(null)
+
+    const editor = useAppSelector((editor => editor))
+    const photos = editor.images
 
     const onClick = (photo: Photo) => {
         addImage({
@@ -79,54 +78,12 @@ const Gallery = ({photos, loader, keyWord, setGallery}: GalleryProps) => {
 function ImagesField() {
     const imgNameRef = useRef(null)
     const [gallery, setGallery] = useState(false)
-    const [photos, setPhotos] = useState<Photo[]>([])
     const [loader, setLoader] = useState(false)
+    const { fetchImageSuccess } = useAppActions()
 
-    async function fetchUnsplash(query: string, params?: Record<string, string>) {
-        const url = new URL(`${BASE_URL}/${query}`);
-        if (params) {
-            Object.entries(params).forEach(
-                ([key, value]) => url.searchParams.append(key, value)
-            );
-        }
-        const response = await fetch(url.toString(), {
-            headers: {
-                Authorization: `Client-ID ${ACCESS_TOKEN}`,
-            },
-        });
-        if (!response.ok) {
-            throw new Error(`An error has occurred! Status: ${response.status}`);
-        }
-        return await response.json();
-    }
-
-    async function searchPhotos(keyWord: string, perPage = 12) {
-        const data = await fetchUnsplash("search/photos", {
-            query: keyWord,
-            per_page: perPage.toString(),
-        });
-        return data.results;
-    }
-
-    async function fetchPhotos() {
-        const keyWord = imgNameRef.current.value
-
-        if (imgNameRef.current.value === "") {
-            return
-        }
-        setLoader(true)
+    async function onMouseClick() {
+        await fetchPhotos(imgNameRef.current.value, fetchImageSuccess)
         setGallery(true)
-        searchPhotos(keyWord)
-            .then(
-                photos => {
-                    setPhotos(photos)
-                })
-            .catch(
-                console.error
-            )
-            .finally(
-                () => setLoader(false)
-            )
     }
 
     return (
@@ -137,7 +94,7 @@ function ImagesField() {
                     className={styles.inputField}
                 />
                 <MenuButton
-                    onClick={fetchPhotos}
+                    onClick={onMouseClick}
                     content={ButtonData.findImageButtonContent}
                     styles={{
                         color: "#505050",
@@ -147,7 +104,6 @@ function ImagesField() {
             </div>
             {gallery &&
                 <Gallery
-                    photos={photos}
                     loader={loader}
                     keyWord={imgNameRef.current.value}
                     setGallery={setGallery}
@@ -179,32 +135,3 @@ function ImageTools() {
 export {
     ImageTools,
 }
-
-// import { createStore, applyMiddleware } from 'redux';
-// import thunk from 'redux-thunk';
-//
-// // Пример редьюсера
-// const initialState = { data: [] };
-// const dataReducer = (state = initialState, action) => {
-//     switch (action.type) {
-//         case 'FETCH_DATA_SUCCESS':
-//             return { ...state, data: action.payload };
-//         default:
-//             return state;
-//     }
-// };
-//
-// // Пример асинхронного действия
-// const fetchData = () => {
-//     return async (dispatch) => {
-//         const response = await fetch('https://api.example.com/data');
-//         const data = await response.json();
-//         dispatch({ type: 'FETCH_DATA_SUCCESS', payload: data });
-//     };
-// };
-//
-// // Создание store с middleware
-// const store = createStore(dataReducer, applyMiddleware(thunk));
-//
-// // Диспетчеризация асинхронного действия
-// store.dispatch(fetchData());

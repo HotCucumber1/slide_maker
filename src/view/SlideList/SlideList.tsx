@@ -11,26 +11,29 @@ function SlideList()
     const slides = editor.presentation.slides
     const selection = editor.selectedSlides
 
+
     const slidesList = slides.map((slide, index) => (
         <li key={slide.id}>
-            <SlideListElement
-                startPosition={index}
-                className={styles.slidePreviewWrapper}
-                id={slide.id}
-                isSelected={selection.includes(slide.id)}
-            >
-                <SlideView
-                    scale={SLIDE_LIST_SCALE}
-                    background={slide.background}
-                    content={slide.content}
-                    extraStyles={{
-                        borderRadius: 'var(--slide-preview-border-radius)',
-                        pointerEvents: "none",
-                        clipPath: "inset(0 round var(--slide-preview-border-radius))",
-                    }}
+            <div>
+                <SlideListElement
+                    id={slide.id}
+                    startIndex={index}
+                    className={styles.slidePreviewWrapper}
+                    isSelected={selection.includes(slide.id)}
                 >
-                </SlideView>
-            </SlideListElement>
+                    <SlideView
+                        scale={SLIDE_LIST_SCALE}
+                        background={slide.background}
+                        content={slide.content}
+                        extraStyles={{
+                            borderRadius: 'var(--slide-preview-border-radius)',
+                            pointerEvents: "none",
+                            clipPath: "inset(0 round var(--slide-preview-border-radius))",
+                        }}
+                    >
+                    </SlideView>
+                </SlideListElement>
+            </div>
         </li>
     ));
 

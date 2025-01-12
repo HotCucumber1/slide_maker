@@ -13,6 +13,7 @@ import {AddFigureProps} from "../actions/addFigureProps.ts"
 import {AddImageProps} from "../actions/addImage.ts"
 import {AddTextProps} from "../actions/addText.ts"
 import {Editor} from "../editor.ts"
+import {Photo} from "../../api/apiData.ts"
 
 
 const addEllipse = (props?: AddFigureProps): EditorAction => {
@@ -172,6 +173,20 @@ const importImage = (): EditorAction => {
     }
 }
 
+const fetchImage = (keyWord: string): EditorAction => {
+    return {
+        type: ActionType.FETCH_IMAGES_REQUEST,
+        payload: keyWord,
+    }
+}
+
+const fetchImageSuccess = (images: Photo[]): EditorAction => {
+    return {
+        type: ActionType.FETCH_IMAGES_SUCCESS,
+        payload: images,
+    }
+}
+
 
 export default {
     addEllipse,
@@ -197,4 +212,6 @@ export default {
     setSlidePosition,
     setEditor,
     importImage,
+    fetchImage,
+    fetchImageSuccess,
 }

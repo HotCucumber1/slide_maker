@@ -3,3 +3,10 @@
     flex-grow: 1;
     padding-top: 50px;
 }
+
+.slideShow {
+    /*width: 100vh;*/
+    /*height: 100vh;*/
+    position: absolute;
+    padding-top: 0;
+}

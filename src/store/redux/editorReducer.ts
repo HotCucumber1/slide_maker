@@ -1,9 +1,6 @@
 import {Editor} from "../editor.ts"
 import {defaultEditor} from "../default_data/defaultEditor.ts"
-import {
-    ActionType,
-    EditorAction
-} from "./actions.ts"
+import {ActionType, EditorAction} from "./actions.ts"
 import {addEllipse} from "../actions/addEllipse.ts"
 import {addImage} from "../actions/addImage.ts"
 import {addLabel} from "../actions/addLabel.ts"
@@ -24,6 +21,8 @@ import {setFontFamily} from "../actions/setFontFamily.ts"
 import {setFontSize} from "../actions/setFontSize.ts"
 import {setFontStyle} from "../actions/setFontStyle.ts"
 import {setPresentationTitle} from "../actions/setPresentationTitle.ts"
+import {fetchImages} from "../actions/fetchImages.ts"
+import {storeImages} from "../actions/storeImage.ts"
 
 const editorReducer = (editor: Editor = defaultEditor, action: EditorAction): Editor => {
     switch (action?.type)
@@ -70,6 +69,10 @@ const editorReducer = (editor: Editor = defaultEditor, action: EditorAction): Ed
             return setPresentationTitle(editor, action.payload)
         case ActionType.SET_EDITOR:
             return action.payload
+        // case ActionType.FETCH_IMAGES_REQUEST:
+        //     return fetchImages(editor, action.payload)
+        case ActionType.FETCH_IMAGES_SUCCESS:
+            return storeImages(editor, action.payload)
         default:
             return editor
     }

@@ -1,32 +1,54 @@
-import {useEffect} from "react";
+import {useCallback, useRef} from "react"
+import {EditorAction} from "../store/redux/actions.ts"
 
-function useSlideDragAndDrop(element, setPos)
-{
-    const onMouseDown = (event) => {
+const useSlideDragAndDrop = (setSlideIndex: (newIndex: number) => EditorAction) => {
+    const draggedSlide = useRef<string|null>(null)
+    const slideRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
-        const onMouseMove = (e) => {
-            const delta = {
-                x: e.pageX - startPos.x,
-                y: e.pageY - startPos.y
-            };
-            const newPos = {
-                x: modelPos.x + delta.x,
-                y: modelPos.y + delta.y
-            };
-            setPos(newPos)
+    const mouseMoveHandler = useCallback((e: MouseEvent) => {
+        if (!draggedSlide.current) {
+            return
         }
 
-        const startPos = element.startPosition;
-        element.addEventListener("mousemove", onMouseMove);
-        element.addEventListener("mouseup", onMouseUp);
-    }
+        const mouseY = e.clientY
 
-    useEffect(() => {
-        element.addEventListener("mousedown", onMouseDown)
-        return element.removeEventListener("mousedown", onMouseDown)
-    })
+        const allSlideIds = Object.keys(slideRefs.current)
+        let newIndex = allSlideIds.findIndex((id) => {
+            const ref = slideRefs.current[id]
+            if (!ref) {
+                return false
+            }
+
+            const rect = ref.getBoundingClientRect()
+            return mouseY > rect.top && mouseY < rect.bottom
+        })
+
+        if (newIndex === -1) {
+            newIndex = allSlideIds.length - 1
+        }
+
+        setSlideIndex(newIndex)
+    }, [setSlideIndex])
+
+    const mouseUpHandler = useCallback(() => {
+        draggedSlide.current = null
+        document.removeEventListener("mousemove", mouseMoveHandler)
+        document.removeEventListener("mouseup", mouseUpHandler)
+    }, [mouseMoveHandler])
+
+    const mouseDownHandler = useCallback((id: string) => {
+        draggedSlide.current = id
+
+        document.addEventListener("mousemove", mouseMoveHandler)
+        document.addEventListener("mouseup", mouseUpHandler)
+    }, [mouseMoveHandler, mouseUpHandler])
+
+    return {
+        slideRefs,
+        mouseDownHandler,
+    }
 }
 
 export {
-    useSlideDragAndDrop
+    useSlideDragAndDrop,
 }

@@ -102,6 +102,11 @@ const closeButtonContet: Icon = {
     src: closeButtonIcon,
 }
 
+const slideShowButtonContent: Text = {
+    type: "text",
+    value: "Слайд шоу"
+}
+
 
 
 export {
@@ -122,4 +127,5 @@ export {
     fontSizeButtonContent,
     findImageButtonContent,
     closeButtonContet,
+    slideShowButtonContent,
 }

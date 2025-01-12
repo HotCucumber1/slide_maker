@@ -17,6 +17,9 @@ import {SlideTools} from "./SlideTools.tsx"
 import {ObjectTools} from "./ObjectTools.tsx"
 import {TextTools} from "./TextTools.tsx"
 import {ImageTools} from "./ImageTools.tsx"
+import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
+import * as ButtonData from "./toolBarButtonsData.ts"
+import {useNavigate} from "react-router"
 
 function ToolBar()
 {
@@ -30,6 +33,8 @@ function ToolBar()
     const editor = useAppSelector((editor => editor))
     const title = editor.presentation.title
     const { setPresentationTitle } = useAppActions()
+
+    const navigate = useNavigate()
 
     const onButtonClick = (inputElement) => {
         inputElement.current.click()
@@ -57,6 +62,12 @@ function ToolBar()
         }
     }, [activeObject]);
 
+    const onShowClick = () => {
+        navigate("slide_show")
+        const slideArea = document.documentElement
+        slideArea.requestFullscreen()
+    }
+
     return (
         <div className={styles.toolBar}>
             <div className={styles.fileNameArea}>
@@ -74,6 +85,15 @@ function ToolBar()
                 />
             </div>
             <div className={styles.toolArea}>
+                <MenuButton
+                    content={ButtonData.slideShowButtonContent}
+                    onClick={onShowClick}
+                    styles={{
+                        color: "#505050",
+                    }}
+                />
+                <div className={styles.toolBarSeparator}>
+                </div>
                 <HistoryTools></HistoryTools>
                 <div className={styles.toolBarSeparator}>
                 </div>

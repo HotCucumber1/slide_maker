@@ -14,10 +14,7 @@ import {CSSProperties, useEffect} from "react"
 import {ObjectWrapper} from "../ObjectWrapper/ObjectWrapper.tsx"
 import {useAppSelector} from "../../hooks/useAppSelector.ts"
 import {useAppActions} from "../../hooks/useAppActions.ts"
-
-
-const SLIDE_WIDTH: number = 1920;
-const SLIDE_HEIGHT: number = 1080;
+import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../../store/default_data/defaultSlide.ts"
 
 
 type SlideProps = {

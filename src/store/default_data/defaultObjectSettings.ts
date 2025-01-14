@@ -21,7 +21,7 @@ const DEFAULT_OBJECT_X: number = 800;
 const DEFAULT_OBJECT_Y: number = 300;
 
 const DEFAULT_FILL_STYLE: Color = {
-    value: "white",
+    value: "#FFFFFF",
     type: "color",
 };
 const DEFAULT_STROKE_WIDTH: number = 4;

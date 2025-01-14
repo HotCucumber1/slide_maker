@@ -11,10 +11,8 @@ function saveDocumentState(editor: Editor): void {
 
 function getDocumentState(): Editor|null {
     const jsonEditor = localStorage.getItem(stateName);
-    if (jsonEditor)
-    {
-        if (isValidPresentationJson(jsonEditor))
-        {
+    if (jsonEditor) {
+        if (isValidPresentationJson(jsonEditor)) {
             return JSON.parse(jsonEditor);
         }
         alert("Invalid json data");

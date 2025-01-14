@@ -1,4 +1,5 @@
 import {Icon, Text} from "../../components/MenuButton/MenuButton.tsx";
+import addButtonIcon from "../../assets/icons/add_button_icon.png";
 import undoButtonIcon from "../../assets/icons/undo.png";
 import redoButtonIcon from "../../assets/icons/redo.png";
 import closeButtonIcon from "../../assets/icons/close_button_icon.png";
@@ -97,7 +98,7 @@ const findImageButtonContent: Text = {
     value: "Найти"
 }
 
-const closeButtonContet: Icon = {
+const closeButtonContent: Icon = {
     type: "icon",
     src: closeButtonIcon,
 }
@@ -105,6 +106,26 @@ const closeButtonContet: Icon = {
 const slideShowButtonContent: Text = {
     type: "text",
     value: "Слайд шоу"
+}
+
+const selectColorButtonContent: Text = {
+    type: "text",
+    value: "Цвет"
+}
+
+const selectGradientButtonContent: Text = {
+    type: "text",
+    value: "Градиент"
+}
+
+const setGradientButtonContent: Text = {
+    type: "text",
+    value: "Применить"
+}
+
+const addButtonContent: Icon = {
+    type: "icon",
+    src: addButtonIcon,
 }
 
 
@@ -126,6 +147,10 @@ export {
     redoActionButtonContent,
     fontSizeButtonContent,
     findImageButtonContent,
-    closeButtonContet,
+    closeButtonContent,
     slideShowButtonContent,
+    selectColorButtonContent,
+    selectGradientButtonContent,
+    setGradientButtonContent,
+    addButtonContent
 }

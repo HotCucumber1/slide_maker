@@ -1,5 +1,5 @@
-import * as ButtonData from "./toolBarButtonsData.ts"
-import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
+import * as ButtonData from "../toolBarButtonsData.ts"
+import {MenuButton} from "../../../components/MenuButton/MenuButton.tsx"
 import
     React, {
     useRef,
@@ -7,11 +7,11 @@ import
 } from "react"
 import {
     Photo,
-} from "../../api/apiData.ts"
-import styles from "./ToolBar.module.css"
-import {useAppActions} from "../../hooks/useAppActions.ts"
-import {closeButtonContet} from "./toolBarButtonsData.ts"
-import {useSearchPhotos} from "../../hooks/useSearchPhotos.ts"
+} from "../../../api/apiData.ts"
+import styles from "../ToolBar.module.css"
+import {useAppActions} from "../../../hooks/useAppActions.ts"
+import {closeButtonContent} from "../toolBarButtonsData.ts"
+import {useSearchPhotos} from "../../../hooks/useSearchPhotos.ts"
 
 
 type GalleryProps = {
@@ -21,7 +21,12 @@ type GalleryProps = {
     setGallery: (value: boolean) => void
 }
 
-const Gallery = ({photos, loader, keyWord, setGallery}: GalleryProps) => {
+const Gallery = ({
+    photos,
+    loader,
+    keyWord,
+    setGallery
+}: GalleryProps) => {
     const { addImage } = useAppActions()
     const galleryRef = useRef(null)
 
@@ -44,7 +49,7 @@ const Gallery = ({photos, loader, keyWord, setGallery}: GalleryProps) => {
                     <span className={styles.galleryKeyWord}>{keyWord}</span>"
                 </span>
                 <MenuButton
-                    content={closeButtonContet}
+                    content={closeButtonContent}
                     onClick={() => setGallery(false)}
                     className={styles.galleryCloseButton}
                 >
@@ -89,10 +94,7 @@ function ImagesField() {
         setLoader(true)
         setGallery(true)
         useSearchPhotos(keyWord)
-            .then(
-                photos => {
-                    setPhotos(photos)
-                })
+            .then(photos => setPhotos(photos))
             .catch(
                 console.error
             )
@@ -115,7 +117,7 @@ function ImagesField() {
                         color: "#505050",
                         paddingInline: "10px"
                     }}
-                >Найти</MenuButton>
+                />
             </div>
             {gallery &&
                 <Gallery

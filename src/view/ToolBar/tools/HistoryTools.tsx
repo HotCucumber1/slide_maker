@@ -1,8 +1,8 @@
-import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
-import * as ButtonData from "./toolBarButtonsData.ts"
+import {MenuButton} from "../../../components/MenuButton/MenuButton.tsx"
+import * as ButtonData from "../toolBarButtonsData.ts"
 import React from "react"
-import {HistoryContext} from "../../hooks/historyContext.ts"
-import {useAppActions} from "../../hooks/useAppActions.ts"
+import {HistoryContext} from "../../../hooks/historyContext.ts"
+import {useAppActions} from "../../../hooks/useAppActions.ts"
 
 function HistoryTools() {
 

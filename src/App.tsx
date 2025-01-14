@@ -11,18 +11,19 @@ import {
     Route,
     Routes
 } from "react-router"
+import {useAppSelector} from "./hooks/useAppSelector.ts"
 
 type AppHooks = {
     history: HistoryType,
 }
 
 export default function App({history}: AppHooks) {
-
+    const title = useAppSelector(editor => editor.presentation.title)
     const {setEditor} = useAppActions()
 
     useEffect(() => {
+        document.title = title
         const onUndoKeyPressed = (event) => {
-
             if ((event.ctrlKey || event.metaKey) && event.code === "KeyZ") {
                 event.preventDefault()
                 const newEditor = history.undo()
@@ -38,12 +39,11 @@ export default function App({history}: AppHooks) {
                 }
             }
         }
-
         window.addEventListener("keydown", onUndoKeyPressed);
         return () => {
             window.removeEventListener("keydown", onUndoKeyPressed);
         }
-    }, [history, setEditor])
+    }, [title, history, setEditor])
 
 
     return (

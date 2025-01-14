@@ -9,13 +9,13 @@ import icon from "../../assets/icons/icon.png"
 import {useAppSelector} from "../../hooks/useAppSelector.ts"
 import {useAppActions} from "../../hooks/useAppActions.ts"
 import {ErrorToast} from "../../components/ErrorToast/ErrorToast.tsx"
-import {HistoryTools} from "./HistoryTools.tsx"
-import {FileTools} from "./FileTools.tsx"
-import {PdfTools} from "./PdfTools.tsx"
-import {SlideTools} from "./SlideTools.tsx"
-import {ObjectTools} from "./ObjectTools.tsx"
-import {TextTools} from "./TextTools.tsx"
-import {ImageTools} from "./ImageTools.tsx"
+import {HistoryTools} from "./tools/HistoryTools.tsx"
+import {FileTools} from "./tools/FileTools.tsx"
+import {PdfTools} from "./tools/PdfTools.tsx"
+import {SlideTools} from "./tools/SlideTools.tsx"
+import {ObjectTools} from "./tools/ObjectTools.tsx"
+import {TextTools} from "./tools/TextTools.tsx"
+import {ImageTools} from "./tools/ImageTools.tsx"
 import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
 import * as ButtonData from "./toolBarButtonsData.ts"
 import {useNavigate} from "react-router"
@@ -25,7 +25,6 @@ import {useGetSelectedObjects} from "../../hooks/useGetSelectedObjects.ts"
 function ToolBar()
 {
     const [showToast, setShowToast] = useState(false)
-
     const [textTools, setTextTools] = useState(false)
     const [figureTools, setFigureTools] = useState(false)
 
@@ -43,18 +42,6 @@ function ToolBar()
     const onButtonClick = (inputElement) => {
         inputElement.current.click()
     }
-
-    // const activeSlide = useMemo(() => {
-    //     return editor.presentation.slides.find(
-    //         (slide) => slide.id === editor.selectedSlides[0]
-    //     );
-    // }, [editor.presentation.slides, editor.selectedSlides]);
-    //
-    // const activeObject = useMemo(() => {
-    //     return activeSlide?.content.find((object) =>
-    //         editor.selectedObjects.includes(object.id)
-    //     );
-    // }, [activeSlide, editor.selectedObjects]);
     const activeObjects = useGetSelectedObjects()
 
     useEffect(() => {
@@ -97,31 +84,27 @@ function ToolBar()
                     onClick={onShowClick}
                     styles={{
                         color: "#505050",
+                        paddingInline: "10px"
                     }}
                 />
-                <div className={styles.toolBarSeparator}>
-                </div>
-                <HistoryTools></HistoryTools>
-                <div className={styles.toolBarSeparator}>
-                </div>
+                <div className={styles.toolBarSeparator}></div>
+                <HistoryTools/>
+                <div className={styles.toolBarSeparator}></div>
 
                 <FileTools
                     onClick={onButtonClick}
                     setError={setShowToast}
-                ></FileTools>
-                <div className={styles.toolBarSeparator}>
-                </div>
+                />
+                <div className={styles.toolBarSeparator}></div>
 
-                <PdfTools></PdfTools>
-                <div className={styles.toolBarSeparator}>
-                </div>
+                <PdfTools/>
+                <div className={styles.toolBarSeparator}></div>
 
                 <SlideTools
                     onClick={onButtonClick}
                     setError={setShowToast}
-                ></SlideTools>
-                <div className={styles.toolBarSeparator}>
-                </div>
+                />
+                <div className={styles.toolBarSeparator}></div>
 
                 <ObjectTools
                     isText={textTools}
@@ -130,14 +113,13 @@ function ToolBar()
                     showObject={setFigureTools}
                     onClick={onButtonClick}
                     setError={setShowToast}
-                ></ObjectTools>
+                />
                 <div className={styles.toolBarSeparator}>
                 </div>
-                <ImageTools></ImageTools>
-                <div className={styles.toolBarSeparator}>
-                </div>
+                <ImageTools/>
+                <div className={styles.toolBarSeparator}></div>
 
-                {textTools && <TextTools textObject={activeObjects[0] as TextObject}></TextTools>}
+                {textTools && <TextTools textObject={activeObjects[0] as TextObject}/>}
             </div>
 
             {showToast &&

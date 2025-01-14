@@ -1,14 +1,15 @@
-import styles from "./ToolBar.module.css"
-import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
-import * as ButtonData from "./toolBarButtonsData.ts"
-import {defaultTextSettings} from "../../store/default_data/defaultObjectSettings.ts"
+import styles from "../ToolBar.module.css"
+import {MenuButton} from "../../../components/MenuButton/MenuButton.tsx"
+import * as ButtonData from "../toolBarButtonsData.ts"
+import {defaultTextSettings} from "../../../store/default_data/defaultObjectSettings.ts"
 import
     React, {
     MutableRefObject,
     useRef
 } from "react"
-import {useAppActions} from "../../hooks/useAppActions.ts"
-import {uploadImageFile} from "../../file_utils/uploadFile.ts"
+import {useAppActions} from "../../../hooks/useAppActions.ts"
+import {uploadImageFile} from "../../../file_utils/uploadFile.ts"
+import {useAppSelector} from "../../../hooks/useAppSelector.ts"
 
 type ObjectToolsProps = {
     onClick: (inputRef: MutableRefObject<null>) => void,
@@ -27,20 +28,32 @@ function ObjectTools({
     isObject,
     showObject
 }: ObjectToolsProps) {
+    const selectedObjects = useAppSelector((editor => editor.selectedObjects))
     const {
         addText,
         addLabel,
         addTriangle,
         addEllipse,
-        addImage
+        addImage,
+        setFigureColor
     } = useAppActions()
 
     const imageFileInputRef = useRef(null)
+    const colorInputRef = useRef(null)
 
     const onImageInputChange = async (event) => {
         const file: File = event.target.files[0];
         if (!uploadImageFile(file, "object", addImage)) {
             setError(true)
+        }
+    }
+
+    const onColorChange = (event) => {
+        if (selectedObjects.length > 0) {
+            setFigureColor({
+                value: (event.target as HTMLInputElement).value,
+                type: "color",
+            });
         }
     }
 
@@ -55,7 +68,7 @@ function ObjectTools({
                 accept="image/"
             />
 
-            <span className={styles.slideActionsText}>Добавить объект</span>
+            <span className={styles.slideActionsText}>Объекты</span>
             <MenuButton
                 content={ButtonData.addTextButtonContent}
                 onClick={() => {
@@ -103,6 +116,20 @@ function ObjectTools({
                     marginTop: "1px",
                     height: "50%",
                 }}
+            />
+            <MenuButton
+                content={ButtonData.setColorButtonContent}
+                onClick={() => onClick(colorInputRef)}
+                styles={{
+                    height: "50%",
+                }}
+            />
+            <input
+                className={styles.colorInput}
+                type="color"
+                id="colorInput"
+                onChange={onColorChange}
+                ref={colorInputRef}
             />
         </>
     )

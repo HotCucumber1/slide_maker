@@ -43,6 +43,12 @@
     border-bottom-left-radius: var(--tool-bar-border-radius);
 }
 
+.slideActions {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
 .slideActionsText {
     color: #505050;
     margin-block: auto;
@@ -65,6 +71,46 @@
     visibility: hidden;
     width: 0;
     margin-top: 20px;
+}
+
+.gradientColorInput {
+    height: 20px;
+    width: 20px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+}
+
+.gradientColorInput:hover {
+    transform: scale(0.9);
+}
+
+.gradientColorInput::-webkit-color-swatch-wrapper {
+    padding: 1px;
+}
+
+.gradientColorInput::-webkit-color-swatch {
+    border-radius: 50%;
+    height: 14px;
+    aspect-ratio: 1 / 1;
+}
+
+.gradientParameterBlock {
+    display: flex;
+    column-gap: 20px;
+    align-items: center;
+}
+
+.gradientColors {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(6, 1fr);
+    flex-wrap: wrap;
+}
+
+.angelText {
+    color: var(--gray-color);
+    font-family: var(--font-family);
+    font-size: 16px;
 }
 
 .inputField {
@@ -169,6 +215,19 @@
 .textTools {
     display: flex;
     column-gap: 10px;
+}
+
+.selectBackgroundPopup {
+    top: 50px;
+    border-radius: 5px;
+    box-shadow: 0 5px 5px var(--gray-color);
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--popup-inline-padding) / 2) var(--popup-inline-padding);
+    row-gap: 10px;
+    background-color: var(--background-color);
 }
 
 .spinner {

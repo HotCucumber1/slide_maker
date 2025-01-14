@@ -9,7 +9,6 @@ type Editor = {
     presentation: Presentation,
     selectedSlides: SelectedSlides,
     selectedObjects: SelectedObjects,
-    images: Photo[]
 };
 
 export {

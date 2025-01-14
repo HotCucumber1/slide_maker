@@ -1,14 +1,15 @@
-import styles from "./ToolBar.module.css"
-import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
-import * as ButtonData from "./toolBarButtonsData.ts"
+import styles from "../ToolBar.module.css"
+import {MenuButton} from "../../../components/MenuButton/MenuButton.tsx"
+import * as ButtonData from "../toolBarButtonsData.ts"
 import
     React, {
     MutableRefObject,
-    useRef
+    useRef,
+    useState,
 } from "react"
-import {useAppActions} from "../../hooks/useAppActions.ts"
-import {uploadImageFile} from "../../file_utils/uploadFile.ts"
-import {useAppSelector} from "../../hooks/useAppSelector.ts"
+import {useAppActions} from "../../../hooks/useAppActions.ts"
+import {uploadImageFile} from "../../../file_utils/uploadFile.ts"
+import {SelectBackgroundPopup} from "./components/SelectBackgroundType.tsx"
 
 type SlideToolsProps = {
     setError: (value: boolean) => void
@@ -16,18 +17,14 @@ type SlideToolsProps = {
 }
 
 function SlideTools({onClick, setError}: SlideToolsProps) {
-
-    const editor = useAppSelector((editor => editor))
-    const selectedObjects = editor.selectedObjects
-
-    const colorInputRef = useRef(null)
     const backgroundFileInputRef = useRef(null)
+
+    const [colorPopup, setColorPopup] = useState(false)
 
     const {
         addSlide,
         deleteSlides,
         setSlideBackground,
-        setFigureColor
     } = useAppActions()
 
     const onBackgroundInputChange = async (event) => {
@@ -37,24 +34,8 @@ function SlideTools({onClick, setError}: SlideToolsProps) {
         }
     }
 
-    const onColorChange = (event) => {
-        if (selectedObjects.length > 0) {
-            setFigureColor({
-                value: (event.target as HTMLInputElement).value,
-                type: "color",
-            });
-        }
-        else {
-            setSlideBackground({
-                value: (event.target as HTMLInputElement).value,
-                type: "color",
-            });
-        }
-    }
-
-
     return (
-        <>
+        <div className={styles.slideActions}>
             <input
                 className={styles.fileInput}
                 ref={backgroundFileInputRef}
@@ -63,7 +44,6 @@ function SlideTools({onClick, setError}: SlideToolsProps) {
                 onChange={onBackgroundInputChange}
                 accept="image/"
             />
-
             <span className={styles.slideActionsText}>Слайд</span>
             <MenuButton
                 content={ButtonData.addSlideButtonContent}
@@ -75,17 +55,10 @@ function SlideTools({onClick, setError}: SlideToolsProps) {
             />
             <MenuButton
                 content={ButtonData.setColorButtonContent}
-                onClick={() => onClick(colorInputRef)}
+                onClick={() => setColorPopup(!colorPopup)}
                 styles={{
                     height: "50%",
                 }}
-            />
-            <input
-                className={styles.colorInput}
-                type="color"
-                id="colorInput"
-                onChange={onColorChange}
-                ref={colorInputRef}
             />
             <MenuButton
                 content={ButtonData.setBackgroundImageButtonContent}
@@ -94,10 +67,11 @@ function SlideTools({onClick, setError}: SlideToolsProps) {
                     height: "60%",
                 }}
             />
-        </>
+            {colorPopup && <SelectBackgroundPopup/>}
+        </div>
     )
 }
 
 export {
-    SlideTools
+    SlideTools,
 }

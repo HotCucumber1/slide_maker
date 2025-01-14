@@ -1,11 +1,13 @@
 .menuButton {
     height: 80%;
-    aspect-ratio: 1 / 1;
     margin-block: auto;
     border: none;
     outline: none;
     background-color: transparent;
-    border-radius: 15%;
+    border-radius: 5px;
+    font-family: var(--font-family);
+    font-size: 16px;
+    color: var(--gray-color);
 }
 
 .menuButton:hover {

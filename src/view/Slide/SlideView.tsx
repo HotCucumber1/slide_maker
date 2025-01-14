@@ -58,10 +58,14 @@ const SlideView = ({
             slideStyle.backgroundImage = `url(${background.src})`
             break
         case "gradient":
-            slideStyle.background = `linear-gradient(${background.angle}deg, 
-            ${background.colors
-                .map(color => color.value)
-                .join(", ")})`
+            const colors = background.colors.map(color => color.value)
+            if (colors.length > 1) {
+                slideStyle.background = `linear-gradient(${background.angle}deg, ${colors.join(", ")})`
+                break
+            }
+            slideStyle.backgroundColor = background.colors[0].value
+            break
+        default:
             break
     }
 

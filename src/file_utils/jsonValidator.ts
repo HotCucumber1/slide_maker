@@ -11,10 +11,39 @@ const backgroundSchema = {
     properties: {
         value: { type: STRING_TYPE },
         type: { type: STRING_TYPE },
+        src: { type: STRING_TYPE },
+        colors: {
+            type: ARRAY_TYPE,
+            items: {
+                type: OBJECT_TYPE,
+                properties: {
+                    value: { type: STRING_TYPE },
+                    type: { type: STRING_TYPE },
+                }
+            }
+        },
+        angle: { type: NUMBER_TYPE }
     },
     required: [
         "type",
-        "value",
+    ],
+    oneOf: [
+        {
+            required: [
+                "value"
+            ]
+        },
+        {
+            required: [
+                "src"
+            ]
+        },
+        {
+            required: [
+                "colors",
+                "angle"
+            ]
+        },
     ],
 }
 
@@ -72,7 +101,7 @@ const presentationSchema = {
     ],
 }
 
-const editorSchema: object = {
+const editorSchema = {
     type: OBJECT_TYPE,
     properties: {
         presentation: presentationSchema,
@@ -87,12 +116,12 @@ const editorSchema: object = {
             items: {
                 type: STRING_TYPE,
             }
-        },
+        }
     },
     required: [
         "presentation",
         "selectedSlides",
-        "selectedObjects"
+        "selectedObjects",
     ],
 }
 

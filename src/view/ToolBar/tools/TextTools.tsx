@@ -1,14 +1,14 @@
-import styles from "./ToolBar.module.css"
-import {useAppActions} from "../../hooks/useAppActions.ts"
-import {defaultTextSettings, FONTS} from "../../store/default_data/defaultObjectSettings.ts"
+import styles from "../ToolBar.module.css"
+import {useAppActions} from "../../../hooks/useAppActions.ts"
+import {defaultTextSettings, FONTS} from "../../../store/default_data/defaultObjectSettings.ts"
 import
     React, {
     useRef,
     useState
 } from "react"
-import * as ButtonData from "./toolBarButtonsData.ts"
-import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
-import {TextObject} from "../../store/objects.ts"
+import * as ButtonData from "../toolBarButtonsData.ts"
+import {MenuButton} from "../../../components/MenuButton/MenuButton.tsx"
+import {TextObject} from "../../../store/objects.ts"
 
 
 type FontSizeFieldProps = {
@@ -77,42 +77,22 @@ function TextColorField({fontColor}: TextColorProps) {
 }
 
 function FontFamilyField({fontFamily}: TextFamilyProps) {
-    const [fontFamilyStyle, setFontFamilyStyle] = useState(fontFamily)
     const { setFontFamily } = useAppActions()
-
-    const changeFontFamily = (event) => {
-        setFontFamilyStyle(event.target.value)
-        setFontFamily(event.target.value)
-    }
-    //
-    // const activeSlide = useMemo(() => {
-    //     return editor.presentation.slides.find(
-    //         (slide) => slide.id === editor.selectedSlides[0]
-    //     );
-    // }, [editor.presentation.slides, editor.selectedSlides]);
-    //
-    // const activeObject = useMemo(() => {
-    //     return activeSlide?.content.find((object) =>
-    //         editor.selectedObjects.includes(object.id)
-    //     );
-    // }, [activeSlide, editor.selectedObjects]);
-    //
-    // if (activeObject.type === "text") {
-    //     setFontFamily(activeObject.fontFamily)
-    // }
 
     return (
         <>
             <select
-                onChange={changeFontFamily}
+                onChange={(event) => setFontFamily(event.target.value)}
                 className={styles.inputField}
-                value={fontFamilyStyle}
+                value={fontFamily}
             >
                 {FONTS.map(font =>
                     <option
                         value={font}
                         key={font}
-                    >{font}</option>
+                    >
+                        {font}
+                    </option>
                 )}
             </select>
         </>
@@ -122,28 +102,13 @@ function FontFamilyField({fontFamily}: TextFamilyProps) {
 function TextTools({textObject}: TextToolsProps) {
     const fontSize = textObject?.fontSize || defaultTextSettings.fontSize
     const fontFamily = textObject?.fontFamily || defaultTextSettings.fontFamily
-    const fontColor = textObject?.color.value || defaultTextSettings.color.value
-
-    // const onColorChange = (event) => {
-    //     if (selectedObjects.length > 0) {
-    //         setFigureColor({
-    //             value: (event.target as HTMLInputElement).value,
-    //             type: "color",
-    //         });
-    //     }
-    //     else {
-    //         setSlideBackground({
-    //             value: (event.target as HTMLInputElement).value,
-    //             type: "color",
-    //         });
-    //     }
-    // }
+    const fontColor = textObject?.color || defaultTextSettings.color
 
     return (
         <div className={styles.textTools}>
-            <FontSizeField fontSize={fontSize}></FontSizeField>
-            <FontFamilyField fontFamily={fontFamily}></FontFamilyField>
-            <TextColorField fontColor={fontColor}></TextColorField>
+            <FontSizeField fontSize={fontSize}/>
+            <FontFamilyField fontFamily={fontFamily}/>
+            <TextColorField fontColor={fontColor.value}/>
         </div>
     )
 }

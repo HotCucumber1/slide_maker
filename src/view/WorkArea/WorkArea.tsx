@@ -14,16 +14,20 @@ type WorkAreaProps = {
 const WorkArea = ({isSlideShow}: WorkAreaProps) => {
 
     const slides = useAppSelector((editor => editor.presentation.slides))
-    const selected = useAppSelector((editor => editor.selectedSlides))
+    const selectedSlides = useAppSelector((editor => editor.selectedSlides))
+    const selectedObjects = useAppSelector((editor => editor.selectedObjects))
 
     const activeSlide = slides.filter(
-        slide => slide.id === selected[0]
+        slide => slide.id === selectedSlides[0]
     )[0]
 
-    const {setSlideSelection} = useAppActions()
+    const { setSlideSelection } = useAppActions()
     const navigate = useNavigate()
 
     const changeActiveSlide = useCallback((event) => {
+        if (selectedObjects.length > 0) {
+            return
+        }
         if (event.key === "ArrowRight") {
             const newSlideIndex = slides.indexOf(activeSlide) + 1
             if (newSlideIndex < slides.length) {
@@ -75,7 +79,9 @@ const WorkArea = ({isSlideShow}: WorkAreaProps) => {
                 content={activeSlide.content}
                 extraStyles={
                     document.fullscreenElement
-                    ? {}
+                    ? {
+                        overflow: "hidden",
+                    }
                     : {
                         border: "1px solid var(--light-gray-color)",
                         borderRadius: "var(--slide-border-radius)"

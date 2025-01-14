@@ -1,11 +1,11 @@
-import styles from "./ToolBar.module.css"
-import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
-import * as ButtonData from "./toolBarButtonsData.ts"
-import {downloadAsJson} from "../../file_utils/downloadAsJson.ts"
+import styles from "../ToolBar.module.css"
+import {MenuButton} from "../../../components/MenuButton/MenuButton.tsx"
+import * as ButtonData from "../toolBarButtonsData.ts"
+import {downloadAsJson} from "../../../file_utils/downloadAsJson.ts"
 import React, {MutableRefObject, useRef} from "react"
-import {useAppSelector} from "../../hooks/useAppSelector.ts"
-import {uploadJsonPresentation} from "../../file_utils/uploadFile.ts"
-import {useAppActions} from "../../hooks/useAppActions.ts"
+import {useAppSelector} from "../../../hooks/useAppSelector.ts"
+import {uploadJsonPresentation} from "../../../file_utils/uploadFile.ts"
+import {useAppActions} from "../../../hooks/useAppActions.ts"
 
 type FileBlockProps = {
     onClick: (ref: MutableRefObject<null>) => void,

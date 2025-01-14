@@ -26,4 +26,5 @@ body {
     --selection-color: #2684FC;
     --panel-z-index: 999;
     --background-color: #FAFAFA;
+    --popup-inline-padding: 10px;
 }

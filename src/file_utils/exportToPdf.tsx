@@ -19,7 +19,7 @@ const renderComponentToContainer = (
                 <SlideView
                     {...props}
                     onRenderComplete={() => resolve(root)}
-            />
+                />
             </Provider>
         );
     });

@@ -16,7 +16,7 @@ type MenuButtonProps = {
     content: Icon|Text,
     onClick: (event) => void,
     styles?: CSSProperties,
-    className?: string
+    className: string
 }
 
 const MenuButton = ({
@@ -32,7 +32,9 @@ const MenuButton = ({
             className={joinStyles(style.menuButton, className)}
             style={content.type === "text"
                 ? styles
-                : {}
+                : {
+                    aspectRatio: "1 / 1",
+                }
             }
         >
             {content.type === "icon" &&

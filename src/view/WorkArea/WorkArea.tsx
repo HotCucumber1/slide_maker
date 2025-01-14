@@ -36,18 +36,25 @@ const WorkArea = ({isSlideShow}: WorkAreaProps) => {
                 setSlideSelection([slides[newSlideIndex].id])
             }
         }
-        if (event.key === "Escape") {
+    }, [activeSlide, setSlideSelection, slides])
+
+    const onFullscreenChange = useCallback(() => {
+        if (!document.fullscreenElement) {
             navigate("/")
         }
-    }, [activeSlide, setSlideSelection, slides])
+    }, [navigate])
 
     useEffect(() => {
         document.addEventListener("keydown", changeActiveSlide)
+        document.addEventListener('fullscreenchange', onFullscreenChange)
 
         return () => {
             document.removeEventListener("keydown", changeActiveSlide)
+            document.addEventListener('fullscreenchange', onFullscreenChange)
         }
-    }, [changeActiveSlide])
+    }, [changeActiveSlide, onFullscreenChange])
+
+    console.log(document.fullscreenElement)
 
     return (
         <div
@@ -64,9 +71,18 @@ const WorkArea = ({isSlideShow}: WorkAreaProps) => {
             <SlideView
                 scale={isSlideShow
                     ? window.innerWidth / SLIDE_WIDTH
-                    : WORK_AREA_SCALE}
+                    : WORK_AREA_SCALE
+                }
                 background={activeSlide.background}
                 content={activeSlide.content}
+                extraStyles={
+                    document.fullscreenElement
+                    ? {}
+                    : {
+                        border: "1px solid var(--light-gray-color)",
+                        borderRadius: "var(--slide-border-radius)"
+                    }
+                }
             ></SlideView>
         </div>
     )

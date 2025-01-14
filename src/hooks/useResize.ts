@@ -21,7 +21,10 @@ function useResize(
     const [resizeHandle, setResizeHandle] = useState<ResizeHandle|null>(null)
 
     const resizeStart = useRef<Point|null>(null)
-    const currentSize = useRef(initialSize)
+    const currentSize = useRef<Size>({
+        width: initialSize.width * WORK_AREA_SCALE,
+        height: initialSize.height * WORK_AREA_SCALE
+    })
     const currentPos = useRef(initialPosition)
 
     const {

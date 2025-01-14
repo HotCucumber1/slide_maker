@@ -48,15 +48,16 @@ function SlideListElement({
             zIndex: 'var(--panel-z-index)',
             transform: `translate(0, ${DEFAULT_SLIDE_COORDS.y}px)`
         }
-        : {
-            transform:`translate(0, ${DEFAULT_SLIDE_COORDS.y}px)`
-        }
+        : {}
 
     return (
         <div
             id={id}
             onClick={() => setSlideSelection([id])}
-            style={style}
+            style={{
+                ...style,
+                transform:`translate(0, ${DEFAULT_SLIDE_COORDS.y}px)`
+            }}
             className={styles.slidePreviewWrapper}
             // ref={slideRef}
         >

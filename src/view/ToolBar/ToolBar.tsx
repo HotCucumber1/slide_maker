@@ -32,8 +32,11 @@ function ToolBar()
 
     const editor = useAppSelector((editor => editor))
     const title = editor.presentation.title
-    const { setPresentationTitle } = useAppActions()
-
+    const slides = editor.presentation.slides
+    const {
+        setPresentationTitle,
+        setSlideSelection
+    } = useAppActions()
     const navigate = useNavigate()
 
     const onButtonClick = (inputElement) => {
@@ -62,10 +65,10 @@ function ToolBar()
         }
     }, [activeObject]);
 
-    const onShowClick = () => {
+    const onShowClick = async () => {
+        await document.documentElement.requestFullscreen()
+        setSlideSelection([slides[0].id])
         navigate("slide_show")
-        const slideArea = document.documentElement
-        slideArea.requestFullscreen()
     }
 
     return (

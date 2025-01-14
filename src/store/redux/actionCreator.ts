@@ -1,14 +1,5 @@
 import {ActionType, EditorAction} from "./actions.ts"
-import {
-    Color,
-    FontStyle,
-    Gradient,
-    Image,
-    Point,
-    SelectedObjects,
-    SelectedSlides,
-    Size
-} from "../objects.ts"
+import {Color, FontStyle, Gradient, Image, Point, SelectedObjects, SelectedSlides, Size} from "../objects.ts"
 import {AddFigureProps} from "../actions/addFigureProps.ts"
 import {AddImageProps} from "../actions/addImage.ts"
 import {AddTextProps} from "../actions/addText.ts"
@@ -87,6 +78,13 @@ const setFontSize = (newSize: number): EditorAction => {
     return {
         type: ActionType.SET_FONT_SIZE,
         payload: newSize,
+    }
+}
+
+const setFontColor = (newColor: Color): EditorAction => {
+    return {
+        type: ActionType.SET_FONT_COLOR,
+        payload: newColor,
     }
 }
 
@@ -201,6 +199,7 @@ export default {
     setFontFamily,
     setFontSize,
     setFontStyle,
+    setFontColor,
     setObjectPosition,
     setObjectSelection,
     setSlideSelection,

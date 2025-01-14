@@ -2,7 +2,6 @@ import styles from "./ToolBar.module.css"
 import
     React, {
     useEffect,
-    useMemo,
     useRef,
     useState,
 } from "react"
@@ -20,6 +19,8 @@ import {ImageTools} from "./ImageTools.tsx"
 import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
 import * as ButtonData from "./toolBarButtonsData.ts"
 import {useNavigate} from "react-router"
+import {TextObject} from "../../store/objects.ts"
+import {useGetSelectedObjects} from "../../hooks/useGetSelectedObjects.ts"
 
 function ToolBar()
 {
@@ -43,27 +44,30 @@ function ToolBar()
         inputElement.current.click()
     }
 
-    const activeSlide = useMemo(() => {
-        return editor.presentation.slides.find(
-            (slide) => slide.id === editor.selectedSlides[0]
-        );
-    }, [editor.presentation.slides, editor.selectedSlides]);
-
-    const activeObject = useMemo(() => {
-        return activeSlide?.content.find((object) =>
-            editor.selectedObjects.includes(object.id)
-        );
-    }, [activeSlide, editor.selectedObjects]);
+    // const activeSlide = useMemo(() => {
+    //     return editor.presentation.slides.find(
+    //         (slide) => slide.id === editor.selectedSlides[0]
+    //     );
+    // }, [editor.presentation.slides, editor.selectedSlides]);
+    //
+    // const activeObject = useMemo(() => {
+    //     return activeSlide?.content.find((object) =>
+    //         editor.selectedObjects.includes(object.id)
+    //     );
+    // }, [activeSlide, editor.selectedObjects]);
+    const activeObjects = useGetSelectedObjects()
 
     useEffect(() => {
-        if (activeObject?.type === "text") {
-            setFigureTools(false);
-            setTextTools(true);
-        } else {
+        if (activeObjects.length <= 0) {
             setFigureTools(false);
             setTextTools(false);
+            return
         }
-    }, [activeObject]);
+        if (activeObjects[0].type === "text") {
+            setFigureTools(false);
+            setTextTools(true);
+        }
+    }, [activeObjects]);
 
     const onShowClick = async () => {
         await document.documentElement.requestFullscreen()
@@ -133,7 +137,7 @@ function ToolBar()
                 <div className={styles.toolBarSeparator}>
                 </div>
 
-                {textTools && <TextTools></TextTools>}
+                {textTools && <TextTools textObject={activeObjects[0] as TextObject}></TextTools>}
             </div>
 
             {showToast &&

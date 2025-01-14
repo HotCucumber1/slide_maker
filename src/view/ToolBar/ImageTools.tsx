@@ -80,8 +80,6 @@ function ImagesField() {
     const [photos, setPhotos] = useState<Photo[]>([])
     const [loader, setLoader] = useState(false)
 
-
-
     async function fetchPhotos() {
         const keyWord = imgNameRef.current.value
 

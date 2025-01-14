@@ -21,8 +21,8 @@ import {setFontFamily} from "../actions/setFontFamily.ts"
 import {setFontSize} from "../actions/setFontSize.ts"
 import {setFontStyle} from "../actions/setFontStyle.ts"
 import {setPresentationTitle} from "../actions/setPresentationTitle.ts"
-import {fetchImages} from "../actions/fetchImages.ts"
 import {storeImages} from "../actions/storeImage.ts"
+import {setFontColor} from "../actions/setFontColor.ts"
 
 const editorReducer = (editor: Editor = defaultEditor, action: EditorAction): Editor => {
     switch (action?.type)
@@ -63,6 +63,8 @@ const editorReducer = (editor: Editor = defaultEditor, action: EditorAction): Ed
             return setFontFamily(editor, action.payload)
         case ActionType.SET_FONT_SIZE:
             return setFontSize(editor, action.payload)
+        case ActionType.SET_FONT_COLOR:
+            return setFontColor(editor, action.payload)
         case ActionType.SET_FONT_STYLE:
             return setFontStyle(editor, action.payload)
         case ActionType.SET_PRESENTATION_TITLE:

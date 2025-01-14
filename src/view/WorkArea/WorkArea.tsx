@@ -54,8 +54,6 @@ const WorkArea = ({isSlideShow}: WorkAreaProps) => {
         }
     }, [changeActiveSlide, onFullscreenChange])
 
-    console.log(document.fullscreenElement)
-
     return (
         <div
             className={isSlideShow

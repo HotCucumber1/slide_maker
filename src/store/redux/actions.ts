@@ -27,6 +27,7 @@ enum ActionType {
     SET_FONT_FAMILY = "SET_FONT_FAMILY",
     SET_FONT_SIZE = "SET_FONT_SIZE",
     SET_FONT_STYLE = "SET_FONT_STYLE",
+    SET_FONT_COLOR = "SET_FONT_COLOR",
     SET_OBJECT_POSITION = "SET_OBJECT_POSITION",
     SET_OBJECT_SIZE = "SET_OBJECT_SIZE",
     SET_OBJECT_SELECTION = "SET_OBJECT_SELECTION",
@@ -98,6 +99,11 @@ type SetFontSizeAction = {
 type SetFontStyleAction = {
     type: ActionType.SET_FONT_STYLE,
     payload: FontStyle,
+}
+
+type SetFontColorAction = {
+    type: ActionType.SET_FONT_COLOR,
+    payload: Color
 }
 
 type SetObjectPositionAction = {
@@ -187,6 +193,7 @@ type EditorAction =
     |SetFontStyleAction
     |SetFontSizeAction
     |SetFontFamilyAction
+    |SetFontColorAction
     |SetFigureColorAction
     |SetEditor
     |DeleteSlideAction

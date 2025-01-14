@@ -2,7 +2,7 @@ import {CSSProperties} from "react"
 import {Color, FontStyle} from "../../store/objects.ts"
 import styles from "./TextObjectView.module.css"
 import {useAppActions} from "../../hooks/useAppActions.ts"
-import {WORK_AREA_SCALE} from "../../store/default_data/scale.ts"
+import {SLIDE_LIST_SCALE, WORK_AREA_SCALE} from "../../store/default_data/scale.ts"
 
 type TextObjectProps = {
     scale: number,
@@ -15,22 +15,22 @@ type TextObjectProps = {
 };
 
 
-const TextObjectView = (
-    props: TextObjectProps
-) => {
-    const {
-        setText,
-    } = useAppActions()
-    const onTextChange: React.FormEventHandler = (event) => {
-        setText((event.target as HTMLDivElement).textContent)
+const TextObjectView = (props: TextObjectProps) => {
+    const { setText } = useAppActions()
+    const onTextChange = (event) => {
+        setText((event.target as HTMLDivElement).innerHTML)
     }
 
     const objectStyle: CSSProperties = {
-        fontSize: `${props.fontSize * props.scale}px`,
+        fontSize: props.scale === SLIDE_LIST_SCALE
+            ? `${props.fontSize * props.scale}px`
+            : props.fontSize,
         fontFamily: props.fontFamily,
         color: props.color.value,
-        lineHeight: `${(props.fontSize + 8) * props.scale}px`,
-        padding: `${props.scale * 10}px`
+        lineHeight: props.scale === SLIDE_LIST_SCALE
+            ? `${(props.fontSize + 8) * props.scale}px`
+            : `${(props.fontSize + 8)}px`,
+        padding: `${props.scale * 10}px`,
     };
 
     if (props.scale === WORK_AREA_SCALE) {

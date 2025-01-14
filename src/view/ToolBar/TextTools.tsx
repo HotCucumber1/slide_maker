@@ -1,22 +1,39 @@
 import styles from "./ToolBar.module.css"
 import {useAppActions} from "../../hooks/useAppActions.ts"
 import {defaultTextSettings, FONTS} from "../../store/default_data/defaultObjectSettings.ts"
-import React, {useMemo, useRef, useState} from "react"
+import
+    React, {
+    useRef,
+    useState
+} from "react"
 import * as ButtonData from "./toolBarButtonsData.ts"
 import {MenuButton} from "../../components/MenuButton/MenuButton.tsx"
-import {useAppSelector} from "../../hooks/useAppSelector.ts"
+import {TextObject} from "../../store/objects.ts"
 
 
 type FontSizeFieldProps = {
     fontSize: number,
-    onChange: () => void
 }
 
-function FontSizeField({fontSize, onChange}: FontSizeFieldProps) {
+type TextToolsProps = {
+    textObject?: TextObject,
+}
+
+type TextFamilyProps = {
+    fontFamily: string,
+}
+
+type TextColorProps = {
+    fontColor: string,
+}
+
+function FontSizeField({fontSize}: FontSizeFieldProps) {
+    const { setFontSize } = useAppActions()
+
     return (
         <>
             <input
-                onChange={onChange}
+                onChange={(event) => setFontSize(Number(event.target.value))}
                 defaultValue={fontSize}
                 type={"number"}
                 className={styles.inputField}
@@ -27,8 +44,8 @@ function FontSizeField({fontSize, onChange}: FontSizeFieldProps) {
     )
 }
 
-function TextColorField() {
-
+function TextColorField({fontColor}: TextColorProps) {
+    const { setFontColor } = useAppActions()
     const colorInputRef = useRef(null)
     const onButtonClick = (inputElement) => {
         inputElement.current.click()
@@ -41,6 +58,11 @@ function TextColorField() {
                 type="color"
                 id="colorInput"
                 ref={colorInputRef}
+                value={fontColor}
+                onChange={(event) => setFontColor({
+                    value: event.target.value,
+                    type: "color"
+                })}
             />
 
             <MenuButton
@@ -54,8 +76,8 @@ function TextColorField() {
     )
 }
 
-function FontFamilyField() {
-    const [fontFamilyStyle, setFontFamilyStyle] = useState(FONTS[0])
+function FontFamilyField({fontFamily}: TextFamilyProps) {
+    const [fontFamilyStyle, setFontFamilyStyle] = useState(fontFamily)
     const { setFontFamily } = useAppActions()
 
     const changeFontFamily = (event) => {
@@ -97,14 +119,10 @@ function FontFamilyField() {
     )
 }
 
-function TextTools() {
-    const {
-        setFontSize,
-    } = useAppActions()
-    // const editor = useAppSelector((editor => editor))
-    // const selectedObjects = editor.selectedObjects
-
-    const fontSize = defaultTextSettings.fontSize
+function TextTools({textObject}: TextToolsProps) {
+    const fontSize = textObject?.fontSize || defaultTextSettings.fontSize
+    const fontFamily = textObject?.fontFamily || defaultTextSettings.fontFamily
+    const fontColor = textObject?.color.value || defaultTextSettings.color.value
 
     // const onColorChange = (event) => {
     //     if (selectedObjects.length > 0) {
@@ -123,13 +141,9 @@ function TextTools() {
 
     return (
         <div className={styles.textTools}>
-            <FontSizeField
-                onChange={() => setFontSize(fontSize)}
-                fontSize={fontSize}
-            ></FontSizeField>
-
-            <FontFamilyField></FontFamilyField>
-            <TextColorField></TextColorField>
+            <FontSizeField fontSize={fontSize}></FontSizeField>
+            <FontFamilyField fontFamily={fontFamily}></FontFamilyField>
+            <TextColorField fontColor={fontColor}></TextColorField>
         </div>
     )
 }

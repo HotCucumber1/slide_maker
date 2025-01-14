@@ -16,7 +16,7 @@ type MenuButtonProps = {
     content: Icon|Text,
     onClick: (event) => void,
     styles?: CSSProperties,
-    className: string
+    className?: string
 }
 
 const MenuButton = ({

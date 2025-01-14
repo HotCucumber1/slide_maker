@@ -35,7 +35,7 @@ function SlideTools({onClick, setError}: SlideToolsProps) {
     }
 
     return (
-        <div className={styles.slideActions}>
+        <div className={styles.actions}>
             <input
                 className={styles.fileInput}
                 ref={backgroundFileInputRef}
@@ -67,7 +67,13 @@ function SlideTools({onClick, setError}: SlideToolsProps) {
                     height: "60%",
                 }}
             />
-            {colorPopup && <SelectBackgroundPopup/>}
+            {colorPopup &&
+                <SelectBackgroundPopup
+                    item={"slide"}
+                    setBackground={setSlideBackground}
+
+                />
+            }
         </div>
     )
 }

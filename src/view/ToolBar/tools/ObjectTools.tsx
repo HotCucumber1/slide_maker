@@ -4,12 +4,13 @@ import * as ButtonData from "../toolBarButtonsData.ts"
 import {defaultTextSettings} from "../../../store/default_data/defaultObjectSettings.ts"
 import
     React, {
-    MutableRefObject,
-    useRef
+    MutableRefObject, useEffect,
+    useRef, useState,
 } from "react"
 import {useAppActions} from "../../../hooks/useAppActions.ts"
 import {uploadImageFile} from "../../../file_utils/uploadFile.ts"
 import {useAppSelector} from "../../../hooks/useAppSelector.ts"
+import {SelectBackgroundPopup} from "./components/SelectBackgroundType.tsx"
 
 type ObjectToolsProps = {
     onClick: (inputRef: MutableRefObject<null>) => void,
@@ -28,7 +29,6 @@ function ObjectTools({
     isObject,
     showObject
 }: ObjectToolsProps) {
-    const selectedObjects = useAppSelector((editor => editor.selectedObjects))
     const {
         addText,
         addLabel,
@@ -37,9 +37,10 @@ function ObjectTools({
         addImage,
         setFigureColor
     } = useAppActions()
+    const selectedObjectIds = useAppSelector(editor => editor.selectedObjects)
 
     const imageFileInputRef = useRef(null)
-    const colorInputRef = useRef(null)
+    const [colorPopup, setColorPopup] = useState(false)
 
     const onImageInputChange = async (event) => {
         const file: File = event.target.files[0];
@@ -48,17 +49,14 @@ function ObjectTools({
         }
     }
 
-    const onColorChange = (event) => {
-        if (selectedObjects.length > 0) {
-            setFigureColor({
-                value: (event.target as HTMLInputElement).value,
-                type: "color",
-            });
+    useEffect(() => {
+        if (colorPopup) {
+            setColorPopup(selectedObjectIds.length > 0)
         }
-    }
+    }, [selectedObjectIds, colorPopup])
 
     return (
-        <>
+        <div className={styles.actions}>
             <input
                 className={styles.fileInput}
                 ref={imageFileInputRef}
@@ -117,21 +115,22 @@ function ObjectTools({
                     height: "50%",
                 }}
             />
-            <MenuButton
-                content={ButtonData.setColorButtonContent}
-                onClick={() => onClick(colorInputRef)}
-                styles={{
-                    height: "50%",
-                }}
-            />
-            <input
-                className={styles.colorInput}
-                type="color"
-                id="colorInput"
-                onChange={onColorChange}
-                ref={colorInputRef}
-            />
-        </>
+            {selectedObjectIds.length > 0 &&
+                <MenuButton
+                    content={ButtonData.setColorButtonContent}
+                    onClick={() => setColorPopup(!colorPopup)}
+                    styles={{
+                        height: "50%",
+                    }}
+                />
+            }
+            {colorPopup && selectedObjectIds.length > 0 &&
+                <SelectBackgroundPopup
+                    objectId={selectedObjectIds[0]}
+                    setBackground={setFigureColor}
+                />
+            }
+        </div>
     )
 }
 

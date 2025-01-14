@@ -83,7 +83,7 @@ type DeleteSlideObjectAction = {
 
 type SetFigureColorAction = {
     type: ActionType.SET_FIGURE_COLOR,
-    payload: Color,
+    payload: Color|Gradient,
 }
 
 type SetFontFamilyAction = {

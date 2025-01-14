@@ -8,33 +8,68 @@ import
 } from "react"
 import {useAppActions} from "../../../../hooks/useAppActions.ts"
 import {useGetActiveSlide} from "../../../../hooks/useGetActiveSlide.ts"
-import { v4 as uuidv4 } from "uuid"
 import {defaultFillStyle} from "../../../../store/default_data/defaultObjectSettings.ts"
-import {Color} from "../../../../store/objects.ts"
+import {Color, Gradient} from "../../../../store/objects.ts"
+import {EditorAction} from "../../../../store/redux/actions.ts"
+import {isFigure} from "../../../../service/isFigure.ts"
 
 const MAX_ANGEL = 360
 const MIN_ANGEL = 0
 
-type SelectGradientPopup = {
+type SelectGradientPopupProps = {
+    objectId?: string,
     setIsGradient: (value: boolean) => void,
     setIsColor: (value: boolean) => void,
+    setBackground: (value: Gradient|Color) => EditorAction
 }
 
-function SelectGradientPopup({setIsGradient, setIsColor}: SelectGradientPopup) {
+type SelectBackgroundPopupProps = {
+    objectId?: string,
+    setBackground: (value: Gradient|Color) => EditorAction
+}
+
+function SelectGradientPopup({
+    setIsGradient,
+    setIsColor,
+    setBackground,
+    objectId
+}: SelectGradientPopupProps) {
     const colorInputRef = useRef(null)
     const angleInputRef = useRef(null)
+
     const activeSlide = useGetActiveSlide()
-
-
-    const [colors, setColors] = useState(
-        activeSlide.background.type === "gradient"
-            ? activeSlide.background.colors
-            : []
+    const selectedObject = activeSlide.content.find(
+        object => object.id === objectId
     )
-    const { setSlideBackground } = useAppActions()
+
+    const getDefaultColors = () => {
+        return objectId
+            ? isFigure(selectedObject)
+                 ? selectedObject.fillStyle.type === "gradient"
+                     ? selectedObject.fillStyle.colors
+                     : []
+                 : []
+            : activeSlide.background.type === "gradient"
+                ? activeSlide.background.colors
+                : []
+    }
+
+    const [colors, setColors] = useState<Color[]>(getDefaultColors)
+
+    const getDefaultAngel = () => {
+        return objectId
+            ? isFigure(selectedObject)
+                ? selectedObject.fillStyle.type === "gradient"
+                    ? selectedObject.fillStyle.angle
+                    :0
+                : 0
+            : activeSlide.background.type === "gradient"
+                ? activeSlide.background.angle
+                : 0
+    }
 
     const onButtonClick = () => {
-        setSlideBackground({
+        setBackground({
             type: "gradient",
             angle: Number(angleInputRef.current.value),
             colors: colors
@@ -69,10 +104,7 @@ function SelectGradientPopup({setIsGradient, setIsColor}: SelectGradientPopup) {
                     ref={angleInputRef}
                     max={MAX_ANGEL}
                     min={MIN_ANGEL}
-                    defaultValue={activeSlide.background.type === "gradient"
-                        ? activeSlide.background.angle
-                        : 0
-                    }
+                    defaultValue={getDefaultAngel()}
                 />
             </div>
 
@@ -111,18 +143,26 @@ function SelectGradientPopup({setIsGradient, setIsColor}: SelectGradientPopup) {
     )
 }
 
-function SelectBackgroundPopup() {
+function SelectBackgroundPopup({setBackground, objectId}: SelectBackgroundPopupProps) {
     const colorInputRef = useRef(null)
     const [isGradient, setIsGradient] = useState(false)
     const [isColor, setIsColor] = useState(false)
 
-    const {setSlideBackground} = useAppActions()
+    const { setSlideBackground, setFigureColor } = useAppActions()
 
     const onColorChange = (event) => {
-        setSlideBackground({
-            value: (event.target as HTMLInputElement).value,
-            type: "color",
-        })
+        if (objectId) {
+            setFigureColor({
+                value: (event.target as HTMLInputElement).value,
+                type: "color"
+            })
+        }
+        else {
+            setSlideBackground({
+                value: (event.target as HTMLInputElement).value,
+                type: "color",
+            })
+        }
     }
 
     const onColorClick = (event) => {
@@ -158,6 +198,8 @@ function SelectBackgroundPopup() {
                 <SelectGradientPopup
                     setIsGradient={setIsGradient}
                     setIsColor={setIsColor}
+                    setBackground={setBackground}
+                    objectId={objectId}
                 />}
             <input
                 className={styles.colorInput}

@@ -60,7 +60,7 @@ const deleteSlideObjects = (): EditorAction => {
     }
 }
 
-const setFigureColor = (color: Color): EditorAction => {
+const setFigureColor = (color: Color|Gradient): EditorAction => {
     return {
         type: ActionType.SET_FIGURE_COLOR,
         payload: color,

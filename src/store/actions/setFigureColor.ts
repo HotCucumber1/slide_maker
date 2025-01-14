@@ -1,7 +1,12 @@
 import { Editor } from "../editor.ts";
-import { Color, Slide, SlideObject } from "../objects.ts";
+import {
+    Color,
+    Gradient,
+    Slide,
+    SlideObject
+} from "../objects.ts"
 
-function setFigureColor(editor: Editor, color: Color): Editor {
+function setFigureColor(editor: Editor, color: Color|Gradient): Editor {
     const currentSlideIndex = editor.presentation.slides.findIndex(
         slide => slide.id === editor.selectedSlides[0]
     );

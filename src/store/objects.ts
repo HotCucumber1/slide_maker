@@ -119,5 +119,6 @@ export {
     Image,
     Color,
     Point,
-    Size
+    Size,
+    FigureObject
 }

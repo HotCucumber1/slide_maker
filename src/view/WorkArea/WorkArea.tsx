@@ -40,7 +40,7 @@ const WorkArea = ({isSlideShow}: WorkAreaProps) => {
                 setSlideSelection([slides[newSlideIndex].id])
             }
         }
-    }, [activeSlide, setSlideSelection, slides])
+    }, [activeSlide, selectedObjects.length, setSlideSelection, slides])
 
     const onFullscreenChange = useCallback(() => {
         if (!document.fullscreenElement) {

@@ -5,19 +5,28 @@ function setSlidePosition(editor: Editor, newPosition: number): Editor {
         return editor;
     }
 
-    const currentSlide = editor.presentation.slides.find(
-        slide => slide.id === editor.selectedSlides[0]
-    );
+    const selectedSlides = editor.presentation.slides.filter(
+        slide => editor.selectedSlides.includes(slide.id)
+    )
+    const unselectedSlides = editor.presentation.slides.filter(
+        slide => !editor.selectedSlides.includes(slide.id)
+    )
 
-    if (!currentSlide) {
+    if (selectedSlides.length === 0) {
         return editor;
     }
 
-    const newSlides = [...editor.presentation.slides];
-    const oldSlidePosition = newSlides.indexOf(currentSlide);
-    newSlides.splice(oldSlidePosition, 1);
+    // const newSlides = [...editor.presentation.slides];
+    // const oldSlidePosition = newSlides.indexOf(selectedSlides[0]);
+    // newSlides.splice(oldSlidePosition, selectedSlides.length);
+    //
+    // newSlides.splice(newPosition, 0, ...selectedSlides);
 
-    newSlides.splice(newPosition, 0, currentSlide);
+    const newSlides = [
+        ...unselectedSlides.slice(0, newPosition),
+        ...selectedSlides,
+        ...unselectedSlides.slice(newPosition, editor.presentation.slides.length - 1)
+    ]
 
     return {
         ...editor,

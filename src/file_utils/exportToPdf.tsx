@@ -43,7 +43,7 @@ const exportToPdf = async (presentation: Presentation) => {
         slideContainer.style.height = `${slideSize.y}px`
         document.body.appendChild(slideContainer)
 
-        const root = await renderComponentToContainer({
+        await renderComponentToContainer({
             scale: WORK_AREA_SCALE,
             background: slide.background,
             content: slide.content,

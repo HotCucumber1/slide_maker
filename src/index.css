@@ -24,7 +24,7 @@ body {
     --slide-preview-border-radius: calc(var(--slide-border-radius) / 2);
     --resize-handle-size: 10px;
     --selection-color: #2684FC;
-    --panel-z-index: 999;
+    --panel-z-index: 99;
     --background-color: #FAFAFA;
     --popup-inline-padding: 10px;
 }

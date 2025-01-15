@@ -165,7 +165,7 @@ function SelectBackgroundPopup({setBackground, objectId}: SelectBackgroundPopupP
         }
     }
 
-    const onColorClick = (event) => {
+    const onColorClick = () => {
         setIsColor(true)
         setIsGradient(false)
         colorInputRef.current.click()

@@ -1,11 +1,7 @@
 import styles from "../ToolBar.module.css"
 import {useAppActions} from "../../../hooks/useAppActions.ts"
 import {defaultTextSettings, FONTS} from "../../../store/default_data/defaultObjectSettings.ts"
-import
-    React, {
-    useRef,
-    useState
-} from "react"
+import React, { useRef } from "react"
 import * as ButtonData from "../toolBarButtonsData.ts"
 import {MenuButton} from "../../../components/MenuButton/MenuButton.tsx"
 import {TextObject} from "../../../store/objects.ts"

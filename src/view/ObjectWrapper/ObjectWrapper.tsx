@@ -53,12 +53,12 @@ const ObjectWrapper = ({
 
     const { setObjectSelection, deleteSlideObjects } = useAppActions()
 
-    const onObjectClick: React.MouseEventHandler = useCallback((event) => {
+    const onObjectClick = useCallback((event) => {
         event.stopPropagation()
         setObjectSelection([(event.target as HTMLDivElement).id])
     }, [setObjectSelection])
 
-    const onButtonClick: React.KeyboardEventHandler = useCallback((event) => {
+    const onButtonClick = useCallback((event) => {
         if (event.key === "Delete") {
             deleteSlideObjects()
         }

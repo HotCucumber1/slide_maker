@@ -1,7 +1,7 @@
-import { Editor } from "../editor.ts";
-import { ImageObject, Point } from "../objects.ts";
-import { defaultPos } from "../default_data/defaultObjectSettings.ts";
-import { v4 as uuidv4 } from "uuid";
+import { Editor } from "../editor.ts"
+import { ImageObject, Point } from "../objects.ts"
+import { defaultPos } from "../default_data/defaultObjectSettings.ts"
+import { v4 as uuidv4 } from "uuid"
 
 type AddImageProps = {
     position?: Point;

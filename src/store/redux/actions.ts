@@ -12,7 +12,6 @@ import {AddImageProps} from "../actions/addImage.ts"
 import {AddFigureProps} from "../actions/addFigureProps.ts"
 import {AddTextProps} from "../actions/addText.ts"
 import {Editor} from "../editor.ts"
-import {Photo} from "../../api/apiData.ts"
 
 enum ActionType {
     ADD_ELLIPSE = "ADD_ELLIPSE",

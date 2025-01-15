@@ -117,7 +117,6 @@ const ObjectWrapper = ({
         wrapperStyles.height = "fit-content"
     }
 
-
     return (
         <div
             ref={wrapperRef}

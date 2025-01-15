@@ -39,9 +39,6 @@ enum ActionType {
     SET_TEXT = "SET_TEXT",
     SET_EDITOR = "SET_EDITOR",
     IMPORT_IMAGE = "IMPORT_IMAGE",
-    FETCH_IMAGES_REQUEST = "FETCH_IMAGES_REQUEST",
-    FETCH_IMAGES_SUCCESS = "FETCH_IMAGES_SUCCESS",
-    FETCH_IMAGES_ERROR = "FETCH_IMAGES_ERROR"
 }
 
 type AddEllipseAction = {
@@ -160,19 +157,6 @@ type ImportImage = {
     type: ActionType.IMPORT_IMAGE
 }
 
-type FetchImagesRequest = {
-    type: ActionType.FETCH_IMAGES_REQUEST,
-    payload: string,
-}
-
-type FetchImagesSuccess = {
-    type: ActionType.FETCH_IMAGES_SUCCESS,
-    payload: Photo[],
-}
-
-type FetchImagesError = {
-    type: ActionType.FETCH_IMAGES_ERROR,
-}
 
 type EditorAction =
     AddEllipseAction
@@ -199,9 +183,6 @@ type EditorAction =
     |DeleteSlideAction
     |DeleteSlideObjectAction
     |ImportImage
-    |FetchImagesRequest
-    |FetchImagesSuccess
-    |FetchImagesError
 
 export {
     ActionType,

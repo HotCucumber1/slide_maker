@@ -6,6 +6,7 @@ import {useCallback, useEffect} from "react"
 import {useAppActions} from "../../hooks/useAppActions.ts"
 import {useNavigate} from "react-router"
 import {SLIDE_WIDTH} from "../../store/default_data/defaultSlide.ts"
+import {useGetActiveSlide} from "../../hooks/useGetActiveSlide.ts"
 
 type WorkAreaProps = {
     isSlideShow: boolean,
@@ -13,13 +14,10 @@ type WorkAreaProps = {
 
 const WorkArea = ({isSlideShow}: WorkAreaProps) => {
 
-    const slides = useAppSelector((editor => editor.presentation.slides))
-    const selectedSlides = useAppSelector((editor => editor.selectedSlides))
-    const selectedObjects = useAppSelector((editor => editor.selectedObjects))
+    const slides = useAppSelector(editor => editor.presentation.slides)
+    const selectedObjects = useAppSelector(editor => editor.selectedObjects)
 
-    const activeSlide = slides.filter(
-        slide => slide.id === selectedSlides[0]
-    )[0]
+    const activeSlide = useGetActiveSlide()
 
     const { setSlideSelection } = useAppActions()
     const navigate = useNavigate()

@@ -4,8 +4,10 @@ import * as ButtonData from "../toolBarButtonsData.ts"
 import {defaultTextSettings} from "../../../store/default_data/defaultObjectSettings.ts"
 import
     React, {
-    MutableRefObject, useEffect,
-    useRef, useState,
+    MutableRefObject,
+    useEffect,
+    useRef,
+    useState,
 } from "react"
 import {useAppActions} from "../../../hooks/useAppActions.ts"
 import {uploadImageFile} from "../../../file_utils/uploadFile.ts"

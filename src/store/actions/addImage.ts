@@ -28,17 +28,17 @@ function addImage(
         },
         src,
         type: "image",
-    };
+    }
 
     const newSlides = editor.presentation.slides.map(slide => {
         if (slide.id === editor.selectedSlides[0]) {
             return {
                 ...slide,
                 content: [...slide.content, imageObject],
-            };
+            }
         }
-        return slide;
-    });
+        return slide
+    })
 
     return {
         ...editor,
@@ -47,7 +47,7 @@ function addImage(
             slides: newSlides,
         },
         selectedObjects: [imageObject.id],
-    };
+    }
 }
 
 export {

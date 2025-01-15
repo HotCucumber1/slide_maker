@@ -1,6 +1,6 @@
-import { v4 as uuidv4 } from "uuid";
-import { Color, FontStyle, Point, Size, TextObject } from "../objects.ts";
-import { Editor } from "../editor.ts";
+import { v4 as uuidv4 } from "uuid"
+import { Color, FontStyle, Point, Size, TextObject } from "../objects.ts"
+import { Editor } from "../editor.ts"
 
 type AddTextProps = {
     fontSize: number;
@@ -15,17 +15,17 @@ function addText(editor: Editor, props: AddTextProps): Editor {
     const defaultPosition: Point = {
         x: 500,
         y: 500,
-    };
+    }
     const defaultColor: Color = {
         value: "black",
         type: "color",
-    };
-    const defaultTextPadding: number = 5;
+    }
+    const defaultTextPadding: number = 5
 
     const defaultSize: Size = {
         height: props.fontSize + 2 * defaultTextPadding,
         width: 700,
-    };
+    }
 
     const textObject: TextObject = {
         id: uuidv4(),
@@ -37,25 +37,26 @@ function addText(editor: Editor, props: AddTextProps): Editor {
         fontStyles: props.fontStyles,
         color: props.color ?? defaultColor,
         type: "text",
-    };
+    }
 
     const currentSlideIndex = editor.presentation.slides.findIndex(
         slide => slide.id === editor.selectedSlides[0]
-    );
-
+    )
     if (currentSlideIndex === -1) {
-        return editor;
+        return editor
     }
 
-    const newSlides = editor.presentation.slides.map((slide, index) => {
-        if (index === currentSlideIndex) {
-            return {
-                ...slide,
-                content: [...slide.content, textObject],
-            };
-        }
-        return slide;
-    });
+    const newSlides = [
+        ...editor.presentation.slides.slice(0, currentSlideIndex),
+        {
+            ...editor.presentation.slides[currentSlideIndex],
+            content: [
+                ...editor.presentation.slides[currentSlideIndex].content,
+                textObject,
+            ],
+        },
+        ...editor.presentation.slides.slice(currentSlideIndex + 1),
+    ]
 
     return {
         ...editor,
@@ -64,10 +65,10 @@ function addText(editor: Editor, props: AddTextProps): Editor {
             ...editor.presentation,
             slides: newSlides,
         },
-    };
+    }
 }
 
 export {
     addText,
     AddTextProps,
-};
+}

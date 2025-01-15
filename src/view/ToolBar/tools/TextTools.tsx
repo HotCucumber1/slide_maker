@@ -4,11 +4,10 @@ import {defaultTextSettings, FONTS} from "../../../store/default_data/defaultObj
 import
     React, {
     useRef,
-    useState
 } from "react"
 import * as ButtonData from "../toolBarButtonsData.ts"
 import {MenuButton} from "../../../components/MenuButton/MenuButton.tsx"
-import {FontStyle, TextObject} from "../../../store/objects.ts"
+import {TextObject} from "../../../store/objects.ts"
 
 
 type FontSizeFieldProps = {

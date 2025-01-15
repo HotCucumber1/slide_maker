@@ -4,28 +4,25 @@ function deleteSlides(editor: Editor): Editor {
     const selectedSlides = editor.selectedSlides;
 
     if (selectedSlides.length === 0) {
-        return editor;
+        return editor
     }
-
     const lastSelectedSlideId = selectedSlides[selectedSlides.length - 1];
 
     const lastSelectedSlideIndex = editor.presentation.slides.findIndex(
         slide => slide.id === lastSelectedSlideId
-    );
-
-    let newActiveSlidePos = lastSelectedSlideIndex + 1;
+    )
+    let newActiveSlidePos = lastSelectedSlideIndex + 1
 
     if (newActiveSlidePos >= editor.presentation.slides.length) {
-        newActiveSlidePos = lastSelectedSlideIndex - 1;
+        newActiveSlidePos = lastSelectedSlideIndex - 1
     }
 
     const selection = newActiveSlidePos >= 0 && newActiveSlidePos < editor.presentation.slides.length
         ? [editor.presentation.slides[newActiveSlidePos].id]
-        : [];
-
+        : []
     const newSlides = editor.presentation.slides.filter(
         slide => !selectedSlides.includes(slide.id)
-    );
+    )
 
     return {
         ...editor,
@@ -34,7 +31,7 @@ function deleteSlides(editor: Editor): Editor {
             ...editor.presentation,
             slides: newSlides,
         },
-    };
+    }
 }
 
 export {

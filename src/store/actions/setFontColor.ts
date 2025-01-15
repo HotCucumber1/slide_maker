@@ -1,41 +1,41 @@
-import {Editor} from "../editor.ts";
-import {Color} from "../objects.ts"
+import { Editor } from "../editor.ts";
+import { Color } from "../objects.ts";
 
 function setFontColor(editor: Editor, newFontColor: Color): Editor {
     const currentSlideIndex = editor.presentation.slides.findIndex(
         slide => slide.id === editor.selectedSlides[0]
-    );
-
+    )
     if (currentSlideIndex === -1) {
-        return editor;
+        return editor
     }
 
-    const currentSlide = editor.presentation.slides[currentSlideIndex];
+    const currentSlide = editor.presentation.slides[currentSlideIndex]
 
-    const selectedTextObjects = currentSlide.content.filter(
-        object => editor.selectedObjects.includes(object.id) && object.type === "text"
-    );
+    const updatedContent = currentSlide.content.map(object => {
+        if (editor.selectedObjects.includes(object.id) && object.type === "text") {
+            return {
+                ...object,
+                color: newFontColor
+            }
+        }
+        return object
+    })
 
-    if (selectedTextObjects.length === 0) {
-        return editor;
-    }
-    selectedTextObjects.forEach(textObject => {
-        textObject.color = newFontColor;
-    });
-
-    const newSlides = [...editor.presentation.slides];
-    newSlides[currentSlideIndex] = currentSlide;
+    const newSlides = [
+        ...editor.presentation.slides.slice(0, currentSlideIndex),
+        { ...currentSlide, content: updatedContent },
+        ...editor.presentation.slides.slice(currentSlideIndex + 1)
+    ];
 
     return {
         ...editor,
         presentation: {
             ...editor.presentation,
             slides: newSlides,
-        }
-    };
+        },
+    }
 }
-
 
 export {
     setFontColor,
-}
+};

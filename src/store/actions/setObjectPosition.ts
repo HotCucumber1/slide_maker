@@ -1,35 +1,49 @@
-import {Editor} from "../editor.ts"
-import {Point} from "../objects.ts"
+import { Editor } from "../editor.ts"
+import { Point } from "../objects.ts"
 
-function setObjectPosition(editor: Editor, newPosition: Point): Editor
-{
-    const currentSlide = editor.presentation.slides.filter(
+function setObjectPosition(editor: Editor, newPosition: Point): Editor {
+    const currentSlideIndex = editor.presentation.slides.findIndex(
         slide => slide.id === editor.selectedSlides[0]
-    )[0]
+    )
+    if (currentSlideIndex === -1) {
+        return editor
+    }
 
-    const selectedObject = currentSlide.content.filter(
+    const currentSlide = editor.presentation.slides[currentSlideIndex];
+
+    const selectedObject = currentSlide.content.find(
         object => editor.selectedObjects.includes(object.id)
-    )[0]
-    const objectIndex = currentSlide.content.indexOf(selectedObject)
+    )
+    if (!selectedObject) {
+        return editor
+    }
+    const updatedObject = {
+        ...selectedObject,
+        pos: newPosition
+    };
 
-    selectedObject.pos = newPosition
+    const updatedContent = currentSlide.content.map(object =>
+        object.id === selectedObject.id ? updatedObject : object
+    )
 
-    const currentSlideIndex = editor.presentation.slides.indexOf(currentSlide)
+    const updatedSlide = { ...currentSlide, content: updatedContent };
 
-    currentSlide.content[objectIndex] = selectedObject
-    const newSlides = editor.presentation.slides.slice()
-    newSlides[currentSlideIndex] = currentSlide
+    const newSlides = [
+        ...editor.presentation.slides.slice(0, currentSlideIndex),
+        updatedSlide,
+        ...editor.presentation.slides.slice(currentSlideIndex + 1),
+    ]
 
     return {
         ...editor,
-        selectedObjects: [selectedObject.id],
+        selectedObjects: [updatedObject.id],
         presentation: {
             ...editor.presentation,
             slides: newSlides,
-        }
+        },
     }
 }
 
 export {
     setObjectPosition,
-}
+};

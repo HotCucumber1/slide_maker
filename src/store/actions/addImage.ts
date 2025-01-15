@@ -11,14 +11,12 @@ type AddImageProps = {
 };
 
 function addImage(
-    editor: Editor,
-    {
-        position,
-        src,
-        width,
-        height
-    }: AddImageProps
-): Editor {
+    editor: Editor, {
+    position,
+    src,
+    width,
+    height
+}: AddImageProps): Editor {
     const imageObject: ImageObject = {
         id: uuidv4(),
         pos: position ?? defaultPos,
@@ -29,7 +27,6 @@ function addImage(
         src,
         type: "image",
     }
-
     const newSlides = editor.presentation.slides.map(slide => {
         if (slide.id === editor.selectedSlides[0]) {
             return {

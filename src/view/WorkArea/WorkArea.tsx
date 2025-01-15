@@ -26,14 +26,16 @@ const WorkArea = ({isSlideShow}: WorkAreaProps) => {
         if (selectedObjects.length > 0) {
             return
         }
-        if (event.key === "ArrowRight") {
-            const newSlideIndex = slides.indexOf(activeSlide) + 1
+        let newSlideIndex = slides.indexOf(activeSlide)
+        if (event.key === "ArrowDown" || event.key === " " && document.fullscreenElement) {
+             newSlideIndex += 1
             if (newSlideIndex < slides.length) {
                 setSlideSelection([slides[newSlideIndex].id])
             }
         }
-        if (event.key === "ArrowLeft") {
-            const newSlideIndex = slides.indexOf(activeSlide) - 1
+        if (event.key === "ArrowUp")
+        {
+            newSlideIndex -= 1
             if (newSlideIndex >= 0) {
                 setSlideSelection([slides[newSlideIndex].id])
             }

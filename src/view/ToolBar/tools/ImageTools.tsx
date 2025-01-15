@@ -5,9 +5,7 @@ import
     useRef,
     useState,
 } from "react"
-import {
-    Photo,
-} from "../../../api/apiData.ts"
+import { Photo } from "../../../api/apiData.ts"
 import styles from "../ToolBar.module.css"
 import {closeButtonContent} from "../toolBarButtonsData.ts"
 import {useDispatch} from "react-redux"

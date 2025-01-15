@@ -31,10 +31,13 @@ const DEFAULT_SLIDE_COORDS: Point = {
     y: 0
 }
 
+const DEFAULT_SLIDE_GAP: number = 20
+
 export {
     defaultSlide,
     createDefaultSlide,
     SLIDE_WIDTH,
     SLIDE_HEIGHT,
-    DEFAULT_SLIDE_COORDS
+    DEFAULT_SLIDE_COORDS,
+    DEFAULT_SLIDE_GAP
 }

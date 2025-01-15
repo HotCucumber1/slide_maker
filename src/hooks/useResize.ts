@@ -32,6 +32,14 @@ function useResize(
         setObjectPosition
     } = useAppActions()
 
+    useEffect(() => {
+        currentSize.current = {
+            width: initialSize.width * WORK_AREA_SCALE,
+            height: initialSize.height * WORK_AREA_SCALE,
+        };
+        currentPos.current = initialPosition;
+    }, [initialSize, initialPosition]);
+
     const onResizeStart = useCallback((event, handlePoint: ResizeHandle) => {
         resizeStart.current = {
             x: event.clientX,

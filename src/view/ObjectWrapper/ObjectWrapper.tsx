@@ -48,11 +48,6 @@ const ObjectWrapper = ({
     const [currentPos, setPos] = useState(pos)
     const [currentSize, setSize] = useState(size)
 
-    useEffect(() => {
-        setPos(pos)
-        setSize(size)
-    }, [pos, size])
-
     const isDragging = useObjectDragAndDrop(wrapperRef, setPos, isSelected)
     const { isResizing, onResizeStart } = useResize(size, pos, setSize, setPos)
 
@@ -122,6 +117,7 @@ const ObjectWrapper = ({
         wrapperStyles.height = "fit-content"
     }
 
+
     return (
         <div
             ref={wrapperRef}
@@ -132,7 +128,7 @@ const ObjectWrapper = ({
             id={objectId}
             style={{
                 ...getSlideObjectStyles(
-                    isDragging || isResizing ? currentPos : pos,
+                    isDragging ? currentPos : pos,
                     isResizing ? currentSize : size,
                     scale
                 ),

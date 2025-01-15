@@ -2,6 +2,9 @@ import {Icon, Text} from "../../components/MenuButton/MenuButton.tsx";
 import addButtonIcon from "../../assets/icons/add_button_icon.png";
 import undoButtonIcon from "../../assets/icons/undo.png";
 import redoButtonIcon from "../../assets/icons/redo.png";
+import italicButtonIcon from "../../assets/icons/italic-icon.png";
+import boldButtonIcon from "../../assets/icons/bold-icon.png";
+import underlineButtonIcon from "../../assets/icons/underline-icon.png";
 import closeButtonIcon from "../../assets/icons/close_button_icon.png";
 import setFontSizeButtonIcon from "../../assets/icons/font_size_icon.png";
 import uploadButtonIcon from "../../assets/icons/upload_button_icon.png";
@@ -73,11 +76,6 @@ const setBackgroundImageButtonContent: Icon = {
     src: setBackgroundImageButtonIcon,
 }
 
-const addFigureButtonContent: Icon = {
-    type: "icon",
-    src: addFigureButtonIcon,
-}
-
 const undoActionButtonContent: Icon = {
     type: "icon",
     src: undoButtonIcon,
@@ -86,11 +84,6 @@ const undoActionButtonContent: Icon = {
 const redoActionButtonContent: Icon = {
     type: "icon",
     src: redoButtonIcon,
-}
-
-const fontSizeButtonContent: Icon = {
-    type: "icon",
-    src: setFontSizeButtonIcon
 }
 
 const findImageButtonContent: Text = {
@@ -128,12 +121,24 @@ const addButtonContent: Icon = {
     src: addButtonIcon,
 }
 
+const italicButtonContent: Icon = {
+    type: "icon",
+    src: italicButtonIcon,
+}
 
+const boldButtonContent: Icon = {
+    type: "icon",
+    src: boldButtonIcon,
+}
+
+const underlineButtonContent: Icon = {
+    type: "icon",
+    src: underlineButtonIcon,
+}
 
 export {
     uploadButtonContent,
     downloadButtonContent,
-    addFigureButtonContent,
     addCircleButtonContent,
     addImageButtonContent,
     addLabelButtonContent,
@@ -145,12 +150,14 @@ export {
     deleteSlideButtonContent,
     undoActionButtonContent,
     redoActionButtonContent,
-    fontSizeButtonContent,
     findImageButtonContent,
     closeButtonContent,
     slideShowButtonContent,
     selectColorButtonContent,
     selectGradientButtonContent,
     setGradientButtonContent,
-    addButtonContent
+    addButtonContent,
+    italicButtonContent,
+    boldButtonContent,
+    underlineButtonContent,
 }

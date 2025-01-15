@@ -21,6 +21,8 @@ type BaseObject = {
 
 type ImageObject = BaseObject & Image;
 
+type FontStyle = Array<"italic"|"bold"|"underline">;
+
 type TextObject = BaseObject & {
     text: string;
     fontSize: number;
@@ -29,8 +31,6 @@ type TextObject = BaseObject & {
     color: Color;
     type: "text";
 }
-
-type FontStyle = Array<"italic"|"bold"|"underline">;
 
 type FigureObject = BaseObject & {
     fillStyle: Color|Gradient;

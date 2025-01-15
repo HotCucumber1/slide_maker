@@ -1,10 +1,14 @@
 import styles from "../ToolBar.module.css"
 import {useAppActions} from "../../../hooks/useAppActions.ts"
 import {defaultTextSettings, FONTS} from "../../../store/default_data/defaultObjectSettings.ts"
-import React, { useRef } from "react"
+import
+    React, {
+    useRef,
+    useState
+} from "react"
 import * as ButtonData from "../toolBarButtonsData.ts"
 import {MenuButton} from "../../../components/MenuButton/MenuButton.tsx"
-import {TextObject} from "../../../store/objects.ts"
+import {FontStyle, TextObject} from "../../../store/objects.ts"
 
 
 type FontSizeFieldProps = {
@@ -33,6 +37,9 @@ function FontSizeField({fontSize}: FontSizeFieldProps) {
                 defaultValue={fontSize}
                 type={"number"}
                 className={styles.inputField}
+                style={{
+                    marginRight: "10px"
+                }}
                 min={defaultTextSettings.minFontSize}
                 max={defaultTextSettings.maxFontSize}
             />
@@ -99,9 +106,37 @@ function TextTools({textObject}: TextToolsProps) {
     const fontSize = textObject?.fontSize || defaultTextSettings.fontSize
     const fontFamily = textObject?.fontFamily || defaultTextSettings.fontFamily
     const fontColor = textObject?.color || defaultTextSettings.color
+    const fontStyles = textObject?.fontStyles
+
+    const { setFontStyle } = useAppActions()
+
+    const onButtonClick = (event, style: "bold"|"underline"|"italic") => {
+        if (!fontStyles) {
+            return
+        }
+        if (fontStyles.includes(style)) {
+            fontStyles.splice(fontStyles.indexOf(style), 1)
+        }
+        else {
+            fontStyles.push(style)
+        }
+        setFontStyle(fontStyles)
+    }
 
     return (
         <div className={styles.textTools}>
+            <MenuButton
+                content={ButtonData.boldButtonContent}
+                onClick={(event) => onButtonClick(event, "bold")}
+            />
+            <MenuButton
+                content={ButtonData.italicButtonContent}
+                onClick={(event) => onButtonClick(event, "italic")}
+            />
+            <MenuButton
+                content={ButtonData.underlineButtonContent}
+                onClick={(event) => onButtonClick(event, "underline")}
+            />
             <FontSizeField fontSize={fontSize}/>
             <FontFamilyField fontFamily={fontFamily}/>
             <TextColorField fontColor={fontColor.value}/>

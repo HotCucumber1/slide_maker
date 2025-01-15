@@ -1,6 +1,6 @@
 import styles from "./SlideList.module.css"
 import {
-    CSSProperties, useCallback, useEffect,
+    CSSProperties,
     useRef,
     useState,
 } from "react"

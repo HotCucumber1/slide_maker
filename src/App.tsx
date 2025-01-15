@@ -24,19 +24,20 @@ export default function App({history}: AppHooks) {
     useEffect(() => {
         document.title = title
         const onUndoKeyPressed = (event) => {
-            if ((event.ctrlKey || event.metaKey) && event.code === "KeyZ") {
-                event.preventDefault()
-                const newEditor = history.undo()
-                if (newEditor) {
-                    setEditor(newEditor)
-                }
-            }
-
             if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.code === "KeyZ") {
                 const newEditor = history.redo()
                 if (newEditor) {
                     setEditor(newEditor)
                 }
+                return
+            }
+
+            if ((event.ctrlKey || event.metaKey) && event.code === "KeyZ") {
+                const newEditor = history.undo()
+                if (newEditor) {
+                    setEditor(newEditor)
+                }
+
             }
         }
         window.addEventListener("keydown", onUndoKeyPressed);

@@ -52,7 +52,6 @@ const exportToPdf = async (presentation: Presentation) => {
         if (index > 0) {
             pdf.addPage()
         }
-
         const canvas = await html2canvas(slideContainer, {
             useCORS: true,
             scale: WORK_AREA_SCALE * 2,

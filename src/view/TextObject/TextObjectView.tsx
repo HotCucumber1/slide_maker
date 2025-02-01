@@ -22,14 +22,10 @@ const TextObjectView = (props: TextObjectProps) => {
     }
 
     const objectStyle: CSSProperties = {
-        fontSize: props.scale === SLIDE_LIST_SCALE
-            ? `${props.fontSize * props.scale}px`
-            : props.fontSize,
+        fontSize: `${props.fontSize * props.scale}px`,
         fontFamily: props.fontFamily,
         color: props.color.value,
-        lineHeight: props.scale === SLIDE_LIST_SCALE
-            ? `${(props.fontSize + 8) * props.scale}px`
-            : `${(props.fontSize + 8)}px`,
+        lineHeight: `${(props.fontSize + 8) * props.scale}px`,
         padding: `${props.scale * 10}px`,
     };
 
